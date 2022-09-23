@@ -10,10 +10,18 @@ Material:
   m_Name: player
   m_Shader: {fileID: 4800000, guid: 650dd9526735d5b46b79224bc6e94025, type: 3}
   m_ValidKeywords:
+<<<<<<< Updated upstream
   - _ALPHATEST_ON
   m_InvalidKeywords:
   - _EMISSION
   m_LightmapFlags: 0
+=======
+  - _ALPHABLEND_ON
+  - _GLOSSYREFLECTIONS_OFF
+  - _SPECULARHIGHLIGHTS_OFF
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+>>>>>>> Stashed changes
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 1
   m_CustomRenderQueue: 2450
@@ -117,10 +125,15 @@ Material:
     - _EnvironmentReflections: 1
     - _FlipbookMode: 0
     - _GlossMapScale: 1
+<<<<<<< Updated upstream
     - _Glossiness: 0.5
     - _GlossinessSource: 0
     - _GlossyReflections: 1
     - _LightingEnabled: 1
+=======
+    - _Glossiness: 0.33
+    - _GlossyReflections: 0
+>>>>>>> Stashed changes
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
@@ -132,6 +145,7 @@ Material:
     - _Smoothness: 0.5
     - _SmoothnessSource: 0
     - _SmoothnessTextureChannel: 0
+<<<<<<< Updated upstream
     - _SoftParticlesEnabled: 0
     - _SoftParticlesFarFadeDistance: 1
     - _SoftParticlesNearFadeDistance: 0
@@ -139,6 +153,10 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Surface: 0
+=======
+    - _SpecularHighlights: 0
+    - _SrcBlend: 5
+>>>>>>> Stashed changes
     - _UVSec: 0
     - _WorkflowMode: 0
     - _ZWrite: 1

@@ -190,7 +190,7 @@ QualitySettings:
     name: Ultra
     pixelLightCount: 4
     shadows: 2
-    shadowResolution: 2
+    shadowResolution: 3
     shadowProjection: 1
     shadowCascades: 4
     shadowDistance: 150
@@ -220,7 +220,11 @@ QualitySettings:
     asyncUploadBufferSize: 16
     asyncUploadPersistentBuffer: 1
     resolutionScalingFixedDPIFactor: 1
+<<<<<<< Updated upstream
     customRenderPipeline: {fileID: 11400000, guid: 340cd20cbacb7284ca194ba03886b379, type: 2}
+=======
+    customRenderPipeline: {fileID: 0}
+>>>>>>> Stashed changes
     excludedTargetPlatforms: []
   m_PerPlatformDefaultQuality:
     Android: 2
