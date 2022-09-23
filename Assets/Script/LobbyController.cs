@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class LobbyController : MonoBehaviour, INetworkRunnerCallbacks
 {
-
+    [SerializeField] private NetworkRunner _networkRunnerPrefab = null;
     public NetworkRunner runner;
     #region Lobby
     private Dictionary<PlayerRef, NetworkObject> _spawnedCharacters = new Dictionary<PlayerRef, NetworkObject>();
@@ -30,7 +30,11 @@ public class LobbyController : MonoBehaviour, INetworkRunnerCallbacks
     async void StartGame(GameMode mode)
     {
         // Create the Fusion runner and let it know that we will be providing user input
-        runner = gameObject.AddComponent<NetworkRunner>();
+        runner = FindObjectOfType<NetworkRunner>();
+        if (runner == null)
+        {
+            runner = Instantiate(_networkRunnerPrefab);
+        }
         runner.ProvideInput = true;
 
         // Start or join (depends on gamemode) a session with a specific name

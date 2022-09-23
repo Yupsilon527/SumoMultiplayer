@@ -80,6 +80,7 @@ public class GameController : NetworkBehaviour
                 ChangeState(GameState.postgame);
                 break;
         }
+        gameTimer = default;
     }
     void HandleState()
     {
