@@ -1,18 +1,12 @@
+using Fusion;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class UfoSpawner : NetworkSpawner
 {
-    // Start is called before the first frame update
-    void Start()
+    public void SpawnHazards(NetworkRunner runner)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Spawn(runner, PlayerRef.None);
     }
 }

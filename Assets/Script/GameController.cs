@@ -6,20 +6,99 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameController : MonoBehaviour, INetworkRunnerCallbacks
+public class GameController : NetworkBehaviour, INetworkRunnerCallbacks
 {
+    public float PreGameTime = 3;
+    public float RoundTime = 180;
+
     public enum GameState
     {
         lobby,
+        pregame,
         ingame,
+        postgame,
     }
 
-    public GameState currentState = GameState.lobby;
-
     public NetworkRunner runner;
-    public NetworkSpawner[] PlayerSpawners;
-    public NetworkSpawner UfoSpawner;
+    private List<NetworkBehaviourId> _playerDataNetworkedIds = new List<NetworkBehaviourId>();
 
+    [Networked] private TickTimer gameTimer { get; set; }
+    [Networked] private GameState currentState { get; set; }
+
+    public PlayerSpawn PlayerSpawners;
+    public UfoSpawner UfoSpawner;
+
+    bool IsServer()
+    {
+        return Object.HasStateAuthority;
+    }
+    #region NetworkFunctions
+    public override void Spawned()
+    {
+        InitializeRoom();
+    }
+
+    public override void FixedUpdateNetwork()
+    {
+        HandleState();
+        if (gameTimer.ExpiredOrNotRunning(runner))
+            HandleTimer();
+    }
+    #endregion
+
+
+    #region Initialization
+    void InitializeRoom()
+    {
+        if (IsServer())
+        {
+            PlayerSpawners.SpawnPlayers();
+            UfoSpawner.SpawnHazards(runner);
+        }
+    }
+    void RestartGame()
+    {
+
+    }
+    #endregion
+    void HandleTimer()
+    {
+        switch (currentState)
+        {
+            case GameState.pregame:
+                ChangeState(GameState.ingame);
+                break;
+            case GameState.ingame:
+                ChangeState(GameState.postgame);
+                break;
+        }
+    }
+    void HandleState()
+    {
+
+    }
+
+    void StartTheGame()
+    {
+        currentState = GameState.ingame;
+    }
+    void ChangeState(GameState newstate)
+    {
+        switch (newstate)
+        {
+            case GameState.pregame:
+                if (IsServer())
+                gameTimer = TickTimer.CreateFromSeconds(Runner, PreGameTime);
+                break;
+            case GameState.ingame:
+                if (IsServer())
+                    gameTimer = TickTimer.CreateFromSeconds(Runner, RoundTime);
+                break;
+        }
+    }
+
+
+    #region Lobby
     private Dictionary<PlayerRef, NetworkObject> _spawnedCharacters = new Dictionary<PlayerRef, NetworkObject>();
     private void OnGUI()
     {
@@ -40,8 +119,7 @@ public class GameController : MonoBehaviour, INetworkRunnerCallbacks
             {
                 if (GUI.Button(new Rect(0, 40, 200, 40), "Play"))
                 {
-                    currentState = GameState.ingame;
-                    UfoSpawner.Spawn(runner, runner.LocalPlayer);
+                    ChangeState(GameState.pregame);
                 }
             }
         }
@@ -62,6 +140,7 @@ public class GameController : MonoBehaviour, INetworkRunnerCallbacks
             SceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>()
         });
     }
+    #endregion
 
     public void OnConnectedToServer(NetworkRunner runner)
     {
@@ -107,7 +186,7 @@ public class GameController : MonoBehaviour, INetworkRunnerCallbacks
     {
         if (runner.IsServer)
         {
-            NetworkObject networkPlayerObject = PlayerSpawners[player.RawEncoded % PlayerSpawners.Length].Spawn(runner, player);
+            NetworkObject networkPlayerObject = PlayerSpawners.Spawn(runner, player);
             _spawnedCharacters.Add(player, networkPlayerObject);
         }
     }

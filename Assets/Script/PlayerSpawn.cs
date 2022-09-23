@@ -4,15 +4,8 @@ using UnityEngine;
 
 public class PlayerSpawn : NetworkSpawner
 {
-    // Start is called before the first frame update
-    void Start()
+    public void SpawnPlayers()
     {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
