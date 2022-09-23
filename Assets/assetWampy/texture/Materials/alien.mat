@@ -10,18 +10,10 @@ Material:
   m_Name: alien
   m_Shader: {fileID: 4800000, guid: 650dd9526735d5b46b79224bc6e94025, type: 3}
   m_ValidKeywords:
-<<<<<<< Updated upstream:Assets/assetWampy/Materials/alien.mat
-  - _ALPHAPREMULTIPLY_ON
-  - _SURFACE_TYPE_TRANSPARENT
-  m_InvalidKeywords:
-  - _EMISSION
-  m_LightmapFlags: 0
-=======
   - _ALPHABLEND_ON
   - _GLOSSYREFLECTIONS_OFF
   m_InvalidKeywords: []
   m_LightmapFlags: 4
->>>>>>> Stashed changes:Assets/assetWampy/texture/Materials/alien.mat
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 1
   m_CustomRenderQueue: 3000
@@ -120,12 +112,7 @@ Material:
     - _FlipbookMode: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
-<<<<<<< Updated upstream:Assets/assetWampy/Materials/alien.mat
-    - _GlossyReflections: 1
-    - _LightingEnabled: 1
-=======
     - _GlossyReflections: 0
->>>>>>> Stashed changes:Assets/assetWampy/texture/Materials/alien.mat
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
