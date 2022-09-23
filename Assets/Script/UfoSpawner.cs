@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class UfoSpawner : NetworkSpawner
 {
-    public void SpawnHazards(NetworkRunner runner)
+    public void SpawnHazards()
     {
-        Spawn(runner, PlayerRef.None);
+        Spawn(PlayerRef.None);
     }
 }
