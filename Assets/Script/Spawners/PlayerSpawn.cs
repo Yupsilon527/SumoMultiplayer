@@ -11,7 +11,7 @@ public class PlayerSpawn : NetworkSpawner, IPlayerJoined, IPlayerLeft, ISpawned
     }
     public void SpawnPlayers()
     {
-        if (Object.HasStateAuthority == false) return;
+        if (!Object.HasStateAuthority) return;
         InitSpawns();
 
         foreach (PlayerRef player in Runner.ActivePlayers)
@@ -23,7 +23,7 @@ public class PlayerSpawn : NetworkSpawner, IPlayerJoined, IPlayerLeft, ISpawned
 
     public void PlayerJoined(PlayerRef player)
     {
-        if (GameController.main.currentState == GameController.GameState.ingame) return;
+       if (GameController.main.currentState >= GameController.GameState.pregame) return;
         SpawnPlayer(player);
     }
 

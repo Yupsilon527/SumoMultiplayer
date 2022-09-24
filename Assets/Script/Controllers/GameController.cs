@@ -63,11 +63,17 @@ public class GameController : NetworkBehaviour
             UfoSpawner.SpawnHazards();
         }
     }
+    void StartTheGame()
+    {
+        if (IsServer())
+            ChangeState(GameState.pregame);
+    }
     void RestartGame()
     {
 
     }
     #endregion
+    #region States
     void HandleTimer()
     {
         Debug.Log("[GameController] Handle timer expire at state: "+currentState);
@@ -87,10 +93,6 @@ public class GameController : NetworkBehaviour
 
     }
 
-    void StartTheGame()
-    {
-        ChangeState(GameState.pregame);
-    }
     public void ChangeState(GameState newstate)
     {
         Debug.Log("[GameController] Change state to " + newstate);
@@ -107,5 +109,5 @@ public class GameController : NetworkBehaviour
         }
         currentState = newstate;
     }
-
+    #endregion
 }

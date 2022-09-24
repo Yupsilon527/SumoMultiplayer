@@ -10,6 +10,7 @@ public class LobbyController : MonoBehaviour, INetworkRunnerCallbacks
 {
     [SerializeField] private NetworkRunner _networkRunnerPrefab = null;
     public NetworkRunner runner;
+    public string GameScene = "Game";
     #region Lobby
     private Dictionary<PlayerRef, NetworkObject> _spawnedCharacters = new Dictionary<PlayerRef, NetworkObject>();
     private void OnGUI()
@@ -25,11 +26,20 @@ public class LobbyController : MonoBehaviour, INetworkRunnerCallbacks
                 StartGame(GameMode.Client);
             }
         }
+        else
+        {
+            if (runner.IsServer)
+            {
+                if (GUI.Button(new Rect(0, 0, 200, 40), "Play"))
+                {
+                    runner.SetActiveScene(GameScene);
+                }
+            }
+        }
     }
 
     async void StartGame(GameMode mode)
     {
-        // Create the Fusion runner and let it know that we will be providing user input
         runner = FindObjectOfType<NetworkRunner>();
         if (runner == null)
         {
@@ -37,13 +47,12 @@ public class LobbyController : MonoBehaviour, INetworkRunnerCallbacks
         }
         runner.ProvideInput = true;
 
-        // Start or join (depends on gamemode) a session with a specific name
         await runner.StartGame(new StartGameArgs()
         {
             GameMode = mode,
             SessionName = "TestRoom",
             Scene = SceneManager.GetActiveScene().buildIndex,
-            SceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>()
+            SceneManager = runner.GetComponent<NetworkSceneManagerDefault>()
         });
     }
     #endregion

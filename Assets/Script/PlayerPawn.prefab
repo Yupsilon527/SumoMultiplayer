@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 3801039324017845438}
   - component: {fileID: 4818091953077637352}
   - component: {fileID: 551771899282069799}
+  - component: {fileID: -1296540427797451724}
   m_Layer: 0
   m_Name: PlayerPawn
   m_TagString: Untagged
@@ -126,6 +127,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 3801039324017845438}
   - {fileID: 4818091953077637352}
+  - {fileID: -1296540427797451724}
   SimulationBehaviours: []
 --- !u!114 &3801039324017845438
 MonoBehaviour:
@@ -155,7 +157,6 @@ MonoBehaviour:
   _interpolationDataSource: 0
   MoveSpeed: 12
   MaxSpeed: 25
-  AngSpeed: 33
 --- !u!54 &551771899282069799
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -172,3 +173,29 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-1296540427797451724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6624063373450815426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 158639473, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
+  InterpolationSpace: 0
+  InterpolationTarget: {fileID: 0}
+  InterpolateErrorCorrection: 1
+  InterpolatedErrorCorrectionSettings:
+    MinRate: 3.3
+    MaxRate: 10
+    PosBlendStart: 0.25
+    PosBlendEnd: 1
+    PosMinCorrection: 0.025
+    PosTeleportDistance: 2
+    RotBlendStart: 0.1
+    RotBlendEnd: 0.5
+    RotTeleportRadians: 1.5
