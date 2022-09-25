@@ -7,26 +7,42 @@ public class PlayerController : NetworkBehaviour
 {
     public NetworkString<_16> NickName { get; private set; }
 
+    public float Score { get; private set; }
+    public bool IsAbducted { get; private set; }
     public float Damage { get; private set; }
-    public int Score { get; private set; }
 
     public Vector3 StartPosition { get; private set; }
-
     public override void Spawned()
     {
-     //TODO NICKNAME
-        /*if (Object.HasInputAuthority)
-        {
-            var nickName = FindObjectOfType<PlayerData>().GetNickName();
-            RpcSetNickName(nickName);
-        }*/
-
+        Initalize();
+    }
+    public override void FixedUpdateNetwork()
+    {
+        HandleScoreUpdate();
+    }
+    void Initalize()
+    {
         if (Object.HasStateAuthority)
         {
             StartPosition = transform.position;
             Respawn();
         }
     }
+    void HandleScoreUpdate()
+    {
+        if (Object.HasStateAuthority)
+        {
+            if (UfoController.main == null)
+                return;
+            Vector2 ufoDelta = new Vector2(transform.position.x - UfoController.main.transform.position.x, transform.position.z - UfoController.main.transform.position.z);
+
+            IsAbducted = ufoDelta.sqrMagnitude < UfoController.main.AbductionRadius * UfoController.main.AbductionRadius;
+            if (IsAbducted)
+            {
+                Score += Runner.DeltaTime;
+            }
+        }
+      }
 
     public void Respawn()
     {

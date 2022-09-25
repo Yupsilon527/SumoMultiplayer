@@ -23,7 +23,7 @@ public class PlayerSpawn : NetworkSpawner, IPlayerJoined, IPlayerLeft, ISpawned
 
     public void PlayerJoined(PlayerRef player)
     {
-       if (GameController.main.currentState >= GameController.GameState.pregame) return;
+       //if (GameController.main.currentState >= GameController.GameState.pregame) return;
         SpawnPlayer(player);
     }
 
@@ -46,7 +46,8 @@ public class PlayerSpawn : NetworkSpawner, IPlayerJoined, IPlayerLeft, ISpawned
 
     private void SpawnPlayer(PlayerRef player)
     {
-        Transform spawnPoint = spawnPoints[player % spawnPoints.Length];
+        Debug.Log(player.PlayerId);
+        Transform spawnPoint = spawnPoints[player.PlayerId % spawnPoints.Length];
 
         var playerObject = Spawn(spawnPoint.position, player);
         Runner.SetPlayerObject(player, playerObject);

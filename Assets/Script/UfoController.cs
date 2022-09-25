@@ -5,17 +5,24 @@ using UnityEngine;
 
 public class UfoController : NetworkBehaviour
 {
+    public float AbductionRadius = 1;
+
     public float MinWaitInterval = 6;
     public float MaxWaitInterval = 6;
     public float MinMoveCircle = .5f;
     public float MoveCircle = 3;
     public float MoveSpeed = 3;
 
+    public static UfoController main;
     [Networked] private TickTimer behaviorTimer { get; set; }
 
     public Vector2 desiredPosition = Vector2.zero;
     public Vector2 realPosition = Vector2.zero;
 
+    private void Awake()
+    {
+        main = this;
+    }
     public override void Spawned()
     {
         OnGameReset();
