@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 3443805322478929282}
   - component: {fileID: 3443805322478929281}
   - component: {fileID: 3443805322478929280}
-  - component: {fileID: 3443805322478929311}
   - component: {fileID: -1589295434132936041}
+  - component: {fileID: 7194085975895618705}
+  - component: {fileID: 2049453728868746146}
   m_Layer: 0
   m_Name: UFOPawn
   m_TagString: Untagged
@@ -85,19 +86,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &3443805322478929311
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3443805322478929310}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &-1589295434132936041
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,5 +107,53 @@ MonoBehaviour:
   NetworkGuid:
     RawGuidValue: bb7ab458941160e4dafe0cf978bc6175
   NestedObjects: []
-  NetworkedBehaviours: []
+  NetworkedBehaviours:
+  - {fileID: 7194085975895618705}
+  - {fileID: 2049453728868746146}
   SimulationBehaviours: []
+--- !u!114 &7194085975895618705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3443805322478929310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b074f95d05cc5941b629a95d48cdca1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
+  MinWaitInterval: 1
+  MaxWaitInterval: 2
+  MinMoveCircle: 0.5
+  MoveCircle: 2.8
+  MoveSpeed: 1
+  desiredPosition: {x: 0, y: 0}
+  realPosition: {x: 0, y: 0}
+--- !u!114 &2049453728868746146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3443805322478929310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 158639473, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
+  InterpolationSpace: 0
+  InterpolationTarget: {fileID: 3443805322478929282}
+  InterpolateErrorCorrection: 1
+  InterpolatedErrorCorrectionSettings:
+    MinRate: 3.3
+    MaxRate: 10
+    PosBlendStart: 0.25
+    PosBlendEnd: 1
+    PosMinCorrection: 0.025
+    PosTeleportDistance: 2
+    RotBlendStart: 0.1
+    RotBlendEnd: 0.5
+    RotTeleportRadians: 1.5

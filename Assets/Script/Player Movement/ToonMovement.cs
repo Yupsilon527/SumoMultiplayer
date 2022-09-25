@@ -6,7 +6,7 @@ using UnityEngine;
 public class ToonMovement : NetworkBehaviour
 {
     public float MoveSpeed = 0;
-    public float MaxSpeed = 0;
+    public float MoveAcceleration = 0;
 
     private Rigidbody rigidbody = null;
     private PlayerController controller = null;
@@ -29,16 +29,17 @@ public class ToonMovement : NetworkBehaviour
 
     void Move(ToonInput input)
     {
+        Vector3 rigidbodyvelocity = rigidbody.velocity;
         Vector2 moveDir = new Vector2(input.HorizontalInput, input.VerticalInput);
-        moveDir = moveDir.normalized;
 
-        Vector3 force = (moveDir.x * Vector3.right + moveDir.y * Vector3.forward) * MoveSpeed * Runner.DeltaTime;
-        rigidbody.AddForce(force);
+        //acceleration
+        float deltaAcceleration = MoveAcceleration * Runner.DeltaTime;
+        rigidbodyvelocity += new Vector3(moveDir.x * deltaAcceleration, 0, moveDir.y * deltaAcceleration);
 
-        if (rigidbody.velocity.magnitude > MaxSpeed)
-        {
-            rigidbody.velocity = rigidbody.velocity.normalized * MaxSpeed;
-        }
+        //movespeed cap
+        rigidbodyvelocity = Vector3.ClampMagnitude(rigidbodyvelocity, MoveSpeed);
+
+        rigidbody.velocity = rigidbodyvelocity;
     }
     void CheckScreenBounds()
     {

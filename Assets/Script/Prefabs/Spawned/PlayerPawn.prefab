@@ -155,8 +155,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
-  MoveSpeed: 12
-  MaxSpeed: 25
+  MoveSpeed: 4
+  MoveAcceleration: 9
 --- !u!54 &551771899282069799
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -166,12 +166,12 @@ Rigidbody:
   m_GameObject: {fileID: 6624063373450815426}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
+  m_Drag: 4
   m_AngularDrag: 0.05
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!114 &-1296540427797451724
 MonoBehaviour:
@@ -187,7 +187,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
   InterpolationSpace: 0
-  InterpolationTarget: {fileID: 0}
+  InterpolationTarget: {fileID: 6624063373450815438}
   InterpolateErrorCorrection: 1
   InterpolatedErrorCorrectionSettings:
     MinRate: 3.3
