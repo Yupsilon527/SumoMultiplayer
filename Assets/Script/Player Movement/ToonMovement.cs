@@ -19,17 +19,17 @@ public class ToonMovement : NetworkBehaviour
 
     public override void FixedUpdateNetwork()
     {
-        if (Runner.TryGetInputForPlayer(Object.InputAuthority, out ToonInput input))
+        if (controller.CanAct() && Runner.TryGetInputForPlayer(Object.InputAuthority, out ToonInput input))
         {
             Move(input);
         }
-
         CheckScreenBounds();
     }
 
     void Move(ToonInput input)
     {
         Vector3 rigidbodyvelocity = rigidbody.velocity;
+
         Vector2 moveDir = new Vector2(input.HorizontalInput, input.VerticalInput);
 
         //acceleration

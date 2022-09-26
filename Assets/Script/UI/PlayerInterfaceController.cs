@@ -33,6 +33,6 @@ public class PlayerInterfaceController : MonoBehaviour
     {
         if (trackedPlayer == null) return;
         playerName.text = trackedPlayer.NickName.Value;
-        playerScore.text = "Score: "+trackedPlayer.Score;
+        playerScore.text = (Mathf.CeilToInt(trackedPlayer.Score*10f)*.1f) + "%";
     }
 }

@@ -7,17 +7,24 @@ public class PlayerController : NetworkBehaviour
 {
     public NetworkString<_16> NickName { get; private set; }
 
-    [Networked(OnChanged = nameof(OnScoreChanged))]
-    public float Score { get; private set; }
-
-    [Networked(OnChanged = nameof(OnDamageChanged))]
-    public float Damage { get; private set; }
-    public bool IsAbducted { get; private set; }
+    ToonMovement mover;
+    ToonAttacker attacker;
+    private void Awake()
+    {
+        if (mover==null)
+        mover =   GetComponent<ToonMovement>();
+        if (attacker == null)
+            attacker = GetComponent<ToonAttacker>();
+    }
 
     public Vector3 StartPosition { get; private set; }
     public override void Spawned()
     {
         Initalize();
+    }
+
+    public override void Despawned(NetworkRunner runner, bool hasState)
+    {
     }
     public override void FixedUpdateNetwork()
     {
@@ -52,10 +59,12 @@ public class PlayerController : NetworkBehaviour
     {
         Score = 0;
         Damage = 0;
+        transform.position = StartPosition;
     }
 
-    public override void Despawned(NetworkRunner runner, bool hasState)
+   public bool CanAct()
     {
+        return GameController.main.currentState == GameController.GameState.ingame && !attacker.IsStaggered();
     }
 
     public void AddToScore(float points)
@@ -88,14 +97,25 @@ public class PlayerController : NetworkBehaviour
             playerInfo.Behaviour.NickName.ToString());
     }*/
 
+
+    [Networked(OnChanged = nameof(OnScoreChanged))]
+    public float Score { get; private set; }
     public static void OnScoreChanged(Changed<PlayerController> playerInfo)
     {
         UIController.main.UpdatePlayerUI(playerInfo.Behaviour.Object.InputAuthority);
     }
 
+    [Networked(OnChanged = nameof(OnDamageChanged))]
+    public float Damage { get; private set; }
     public static void OnDamageChanged(Changed<PlayerController> playerInfo)
     {
         UIController.main.UpdatePlayerUI(playerInfo.Behaviour.Object.InputAuthority);
+    }
+    [Networked(OnChanged = nameof(OnEnterAbductionBeam))]
+    public bool IsAbducted { get; private set; }
+    public static void OnEnterAbductionBeam(Changed<PlayerController> playerInfo)
+    {
+
     }
     #endregion
 }

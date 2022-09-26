@@ -26,7 +26,7 @@ public class GameController : NetworkBehaviour
 
     private List<NetworkBehaviourId> _playerDataNetworkedIds = new List<NetworkBehaviourId>();
 
-    [Networked] private TickTimer gameTimer { get; set; }
+    [Networked] public TickTimer gameTimer { get; set; }
     [Networked] public GameState currentState { get; set; }
 
     public PlayerSpawn PlayerSpawners;
