@@ -8,7 +8,9 @@ public struct ToonInput : INetworkInput
     public enum Button
     {
         Stab = 0,
-        Dash = 1,
+        Strong = 1,
+        Dash = 2,
+        Parry = 3,
     }
 
         public float HorizontalInput;

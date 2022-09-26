@@ -2,22 +2,22 @@ using Fusion;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static ToonActionController;
 
 public class PlayerController : NetworkBehaviour
 {
     public NetworkString<_16> NickName { get; private set; }
 
     ToonMovement mover;
-    ToonAttacker attacker;
+    ToonActionController actionman;
     private void Awake()
     {
         if (mover==null)
         mover =   GetComponent<ToonMovement>();
-        if (attacker == null)
-            attacker = GetComponent<ToonAttacker>();
+        if (actionman == null)
+            actionman = GetComponent<ToonActionController>();
     }
 
-    public Vector3 StartPosition { get; private set; }
     public override void Spawned()
     {
         Initalize();
@@ -25,10 +25,6 @@ public class PlayerController : NetworkBehaviour
 
     public override void Despawned(NetworkRunner runner, bool hasState)
     {
-    }
-    public override void FixedUpdateNetwork()
-    {
-        HandleScoreUpdate();
     }
     void Initalize()
     {
@@ -39,6 +35,19 @@ public class PlayerController : NetworkBehaviour
             Respawn();
         }
     }
+    #region Respawn
+    public Vector3 StartPosition { get; private set; }
+    public void Respawn()
+    {
+        Score = 0;
+        Damage = 0;
+        transform.position = StartPosition;
+    }
+    public override void FixedUpdateNetwork()
+    {
+        HandleScoreUpdate();
+    }
+    #endregion
     void HandleScoreUpdate()
     {
         if (Object.HasStateAuthority)
@@ -53,18 +62,6 @@ public class PlayerController : NetworkBehaviour
                 AddToScore(Runner.DeltaTime);
             }
         }
-      }
-
-    public void Respawn()
-    {
-        Score = 0;
-        Damage = 0;
-        transform.position = StartPosition;
-    }
-
-   public bool CanAct()
-    {
-        return GameController.main.currentState == GameController.GameState.ingame && !attacker.IsStaggered();
     }
 
     public void AddToScore(float points)
@@ -72,10 +69,16 @@ public class PlayerController : NetworkBehaviour
         Score += points;
     }
 
-    public void TakeDamage(float damage)
+    public bool CanAct()
     {
-        Damage += damage;
+        return GameController.main.currentState == GameController.GameState.ingame && actionman.currentAction == PlayerAction.free;
     }
+
+    public bool CanMove()
+    {
+        return GameController.main.currentState == GameController.GameState.ingame && (actionman.currentAction == PlayerAction.free || actionman.currentAction == PlayerAction.charge);
+    }
+
 
     [Rpc(sources: RpcSources.InputAuthority, targets: RpcTargets.StateAuthority)]
     private void RpcSetNickName(string nickName)

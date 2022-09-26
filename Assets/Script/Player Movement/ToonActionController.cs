@@ -3,9 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ToonAttacker : NetworkBehaviour
+public class ToonActionController : NetworkBehaviour
 {
     private PlayerController controller = null;
+    public enum PlayerAction
+    {
+        free,
+        stagger,
+        attack,
+        charge,
+        parry,
+        dash
+    }
 
     public override void Spawned()
     {
@@ -24,48 +33,41 @@ public class ToonAttacker : NetworkBehaviour
     {
         if (input.Buttons.WasPressed(_buttonsPrevious, ToonInput.Button.Stab))
         {
-            DoFastAttack();
+            BeginAction(PlayerAction.attack,1);
         }
         if (input.Buttons.WasPressed(_buttonsPrevious, ToonInput.Button.Strong))
         {
-            DoStrongAttack();
+            BeginAction(PlayerAction.charge,1);
         }
         if (input.Buttons.WasPressed(_buttonsPrevious, ToonInput.Button.Parry))
         {
-            DoParry();
+            BeginAction(PlayerAction.parry,1);
         }
         if (input.Buttons.WasPressed(_buttonsPrevious, ToonInput.Button.Dash))
         {
-            DoDash();
+            BeginAction(PlayerAction.dash,1);
         }
     }
-    public void DoFastAttack()
+
+    public PlayerAction currentAction = PlayerAction.free;
+    float actionStart;
+    TickTimer actionTime;
+    public void BeginAction(PlayerAction nState, float dur)
     {
-
+        actionStart = GameController.main.gameTimer.RemainingTime(Runner) ?? 0;
+        actionTime = TickTimer.CreateFromSeconds(Runner, dur);
+        currentAction = nState;
     }
-    public void DoStrongAttack()
+    void HandleAction()
     {
+        if (!IsStaggered())
+        {
 
-    }
-    public void DoParry()
-    {
-
-    }
-    public void DoDash()
-    {
-
+        }
     }
 
-    float staggerStart;
-    TickTimer staggerTimer;
-
-    void Stagger(float dur)
-    {
-        staggerStart = GameController.main.gameTimer.RemainingTime(Runner) ?? 0;
-        staggerTimer = TickTimer.CreateFromSeconds(Runner, dur);
-    }
     public bool IsStaggered()
     {
-        return !staggerTimer.ExpiredOrNotRunning(Runner);
+        return !actionTime.ExpiredOrNotRunning(Runner);
     }
 }

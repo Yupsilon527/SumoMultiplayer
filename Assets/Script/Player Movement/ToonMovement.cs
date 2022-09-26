@@ -19,7 +19,7 @@ public class ToonMovement : NetworkBehaviour
 
     public override void FixedUpdateNetwork()
     {
-        if (controller.CanAct() && Runner.TryGetInputForPlayer(Object.InputAuthority, out ToonInput input))
+        if (controller.CanMove() && Runner.TryGetInputForPlayer(Object.InputAuthority, out ToonInput input))
         {
             Move(input);
         }
