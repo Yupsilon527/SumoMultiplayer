@@ -245,6 +245,12 @@ MonoBehaviour:
   SlashAttackContactEnd: 1
   SlashAttackDamage: 1
   SlashAttackKnockback: 1
+  SmashSound: {fileID: 8300000, guid: 4a6b1325e0a12e14bbca1101c4f7e5cb, type: 3}
+  SmashAttackDuration: 1
+  SmashAttackContactStart: 1
+  SmashAttackContactEnd: 1
+  SmashAttackDamage: 1
+  SmashAttackKnockback: 1
   ParryContactSound: {fileID: 8300000, guid: 68ee96408a29bd946859fabfb4ad28ea, type: 3}
   ParryDuration: 0.15
   ParryStagger: 0.3

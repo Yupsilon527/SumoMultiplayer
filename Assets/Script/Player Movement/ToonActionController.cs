@@ -51,7 +51,7 @@ public class ToonActionController : NetworkBehaviour
 
     public override void FixedUpdateNetwork()
     {
-        if (controller.CanAct() && Runner.TryGetInputForPlayer(Object.InputAuthority, out ToonInput input))
+        if (Runner.TryGetInputForPlayer(Object.InputAuthority, out ToonInput input))
         {
             HandlePlayerInput(input);
         }
@@ -60,25 +60,28 @@ public class ToonActionController : NetworkBehaviour
     [Networked] private NetworkButtons _buttonsPrevious { get; set; }
     void HandlePlayerInput(ToonInput input)
     {
-        if (input.Buttons.WasPressed(_buttonsPrevious, ToonInput.Button.Weak))
+        if (controller.CanAct())
         {
-            BeginAction(PlayerAction.attack, SlashAttackDuration);
+            if (input.Buttons.WasPressed(_buttonsPrevious, ToonInput.Button.Weak))
+            {
+                BeginAction(PlayerAction.attack, SlashAttackDuration);
+            }
+            if (input.Buttons.WasPressed(_buttonsPrevious, ToonInput.Button.Strong))
+            {
+                BeginAction(PlayerAction.charging);
+            }
+            if (input.Buttons.WasPressed(_buttonsPrevious, ToonInput.Button.Parry))
+            {
+                BeginAction(PlayerAction.parry, ParryStagger);
+            }
+            if (input.Buttons.WasPressed(_buttonsPrevious, ToonInput.Button.Dash))
+            {
+                BeginAction(PlayerAction.dash, DashStagger);
+            }
         }
-        if (currentAction == PlayerAction.charging && input.Buttons.WasReleased(_buttonsPrevious, ToonInput.Button.Strong))
+        if (currentAction == PlayerAction.charging && !input.Buttons.IsSet(ToonInput.Button.Strong))
         {
-            BeginAction(PlayerAction.strongattack);
-        }
-        else if (input.Buttons.WasPressed(_buttonsPrevious, ToonInput.Button.Strong))
-        {
-            BeginAction(PlayerAction.charging);
-        }
-        if (input.Buttons.WasPressed(_buttonsPrevious, ToonInput.Button.Parry))
-        {
-            BeginAction(PlayerAction.parry, ParryStagger);
-        }
-        if (input.Buttons.WasPressed(_buttonsPrevious, ToonInput.Button.Dash))
-        {
-            BeginAction(PlayerAction.dash, DashStagger);
+            BeginAction(PlayerAction.strongattack, SmashAttackDuration);
         }
     }
 
@@ -107,6 +110,7 @@ public class ToonActionController : NetworkBehaviour
             case PlayerAction.strongattack:
                 controller.audio.PlayOneShot(SmashSound);
                 break;
+            case PlayerAction.parry:
             case PlayerAction.dash:
                 controller.audio.PlayOneShot(DodgeSound);
                 break;
@@ -129,10 +133,12 @@ public class ToonActionController : NetworkBehaviour
                 if (actionTime.ExpiredOrNotRunning(Runner))
                     BeginAction(PlayerAction.free);
                 break;
-            case PlayerAction.charging:
-                if (actionTime.ExpiredOrNotRunning(Runner))
-                    BeginAction(PlayerAction.free);
-                break;
+            /*case PlayerAction.charging:
+                if (input.Buttons.WasReleased(_buttonsPrevious, ToonInput.Button.Strong))
+                {
+                    BeginAction(PlayerAction.strongattack);
+                }
+                break;*/
             case PlayerAction.parry:
                 if (actionTime.ExpiredOrNotRunning(Runner))
                     BeginAction(PlayerAction.free);
@@ -150,7 +156,7 @@ public class ToonActionController : NetworkBehaviour
 
     public bool IsActing()
     {
-        return currentAction == PlayerAction.free || actionTime.ExpiredOrNotRunning(Runner);
+        return currentAction == PlayerAction.free || !actionTime.ExpiredOrNotRunning(Runner);
     }
     #region Dashing and Parrying
     public bool IsDodging()
