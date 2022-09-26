@@ -37,9 +37,9 @@ public class PlayerController : NetworkBehaviour
         if (Object.HasStateAuthority)
         {
             StartPosition = transform.position;
-            UIController.main.AddPlayer(Object.InputAuthority, this);
             Respawn();
         }
+        UIController.main.AddPlayer(Object.InputAuthority, this);
     }
     #region Respawn
     public Vector3 StartPosition { get; private set; }
