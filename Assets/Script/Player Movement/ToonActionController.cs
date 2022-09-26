@@ -5,15 +5,43 @@ using UnityEngine;
 
 public class ToonActionController : NetworkBehaviour
 {
+    [Header("Regular Attack")]
+    public AudioClip SlashSound;
+    public float SlashAttackDuration = 1f;
+    public float SlashAttackContactStart = 1f;
+    public float SlashAttackContactEnd = 1f;
+    public float SlashAttackDamage = 1f;
+    public float SlashAttackKnockback = 1f;
+
+    [Header("Strong Attack")]
+    public AudioClip SmashSound;
+    public float SmashAttackDuration = 1f;
+    public float SmashAttackContactStart = 1f;
+    public float SmashAttackContactEnd = 1f;
+    public float SmashAttackDamage = 1f;
+    public float SmashAttackKnockback = 1f;
+
+    [Header("Parry")]
+    public AudioClip ParryContactSound;
+    public float ParryDuration = .33f;
+    public float ParryStagger = .5f;
+
+    [Header("Dodge")]
+    public AudioClip DodgeSound;
+    public float DashDuration = .33f;
+    public float DashStagger = .5f;
+    public float DashSpeed = 1;
+
     private PlayerController controller = null;
     public enum PlayerAction
     {
-        free,
-        stagger,
-        attack,
-        charge,
-        parry,
-        dash
+        free = 0,
+        stagger = 1,
+        attack = 2,
+        charging = 3,
+        strongattack= 4,
+        parry = 5,
+        dash=6
     }
 
     public override void Spawned()
@@ -27,47 +55,117 @@ public class ToonActionController : NetworkBehaviour
         {
             HandlePlayerInput(input);
         }
+        HandleAction();
     }
     [Networked] private NetworkButtons _buttonsPrevious { get; set; }
     void HandlePlayerInput(ToonInput input)
     {
-        if (input.Buttons.WasPressed(_buttonsPrevious, ToonInput.Button.Stab))
+        if (input.Buttons.WasPressed(_buttonsPrevious, ToonInput.Button.Weak))
         {
-            BeginAction(PlayerAction.attack,1);
+            BeginAction(PlayerAction.attack, SlashAttackDuration);
         }
-        if (input.Buttons.WasPressed(_buttonsPrevious, ToonInput.Button.Strong))
+        if (currentAction == PlayerAction.charging && input.Buttons.WasReleased(_buttonsPrevious, ToonInput.Button.Strong))
         {
-            BeginAction(PlayerAction.charge,1);
+            BeginAction(PlayerAction.strongattack);
+        }
+        else if (input.Buttons.WasPressed(_buttonsPrevious, ToonInput.Button.Strong))
+        {
+            BeginAction(PlayerAction.charging);
         }
         if (input.Buttons.WasPressed(_buttonsPrevious, ToonInput.Button.Parry))
         {
-            BeginAction(PlayerAction.parry,1);
+            BeginAction(PlayerAction.parry, ParryStagger);
         }
         if (input.Buttons.WasPressed(_buttonsPrevious, ToonInput.Button.Dash))
         {
-            BeginAction(PlayerAction.dash,1);
+            BeginAction(PlayerAction.dash, DashStagger);
         }
     }
 
+    [HideInInspector]
     public PlayerAction currentAction = PlayerAction.free;
-    float actionStart;
     TickTimer actionTime;
+    Vector3 actionDirection = Vector3.zero;
+    public void BeginAction(PlayerAction nState)
+    {
+        actionTime = TickTimer.None;
+        currentAction = nState;
+        Debug.Log(name + " return to state " + nState);
+    }
     public void BeginAction(PlayerAction nState, float dur)
     {
-        actionStart = GameController.main.gameTimer.RemainingTime(Runner) ?? 0;
         actionTime = TickTimer.CreateFromSeconds(Runner, dur);
         currentAction = nState;
-    }
+        actionDirection = new Vector3(controller.mover.moveDir.x,0, controller.mover.moveDir.y);
+        Debug.Log(name + " begin action " + nState+" for "+dur+" seconds.");
+
+        switch (currentAction)
+        {
+            case PlayerAction.attack:
+                controller.audio.PlayOneShot(SlashSound);
+                break;
+            case PlayerAction.strongattack:
+                controller.audio.PlayOneShot(SmashSound);
+                break;
+            case PlayerAction.dash:
+                controller.audio.PlayOneShot(DodgeSound);
+                break;
+        }
+        }
     void HandleAction()
     {
-        if (IsActing())
+        switch (currentAction)
         {
+            case PlayerAction.attack:
+            case PlayerAction.strongattack:
 
+                float remainTime = actionTime.RemainingTime(Runner) ?? 0;
+                if ((currentAction ==  PlayerAction.attack && SlashAttackDuration - remainTime > SlashAttackContactStart && SlashAttackDuration - remainTime < SlashAttackContactEnd) ||
+                    (currentAction == PlayerAction.strongattack && SmashAttackDuration - remainTime > SmashAttackContactStart && SmashAttackDuration - remainTime < SmashAttackContactEnd))
+                {
+                    //Hitbox here
+                }
+
+                if (actionTime.ExpiredOrNotRunning(Runner))
+                    BeginAction(PlayerAction.free);
+                break;
+            case PlayerAction.charging:
+                if (actionTime.ExpiredOrNotRunning(Runner))
+                    BeginAction(PlayerAction.free);
+                break;
+            case PlayerAction.parry:
+                if (actionTime.ExpiredOrNotRunning(Runner))
+                    BeginAction(PlayerAction.free);
+                break;
+            case PlayerAction.dash:
+                GetComponent<Rigidbody>().velocity = actionDirection * DashSpeed;
+                if (actionTime.ExpiredOrNotRunning(Runner))
+                {
+                    BeginAction(PlayerAction.free);
+                    GetComponent<Rigidbody>().velocity *= 0;
+                }
+                break;
         }
     }
 
     public bool IsActing()
     {
-        return !actionTime.ExpiredOrNotRunning(Runner);
+        return currentAction == PlayerAction.free || actionTime.ExpiredOrNotRunning(Runner);
     }
+    #region Dashing and Parrying
+    public bool IsDodging()
+    {
+        return currentAction == PlayerAction.dash && actionTime.RemainingTime(Runner) > DashStagger - DashDuration;
+    }
+    public bool IsParrying()
+    {
+        return currentAction == PlayerAction.parry && actionTime.RemainingTime(Runner) > ParryStagger - ParryDuration;
+    }
+    #endregion
+    #region Charging Attacks
+    public bool IsChargingAttack()
+    {
+        return currentAction == PlayerAction.charging;
+    }
+    #endregion
 }

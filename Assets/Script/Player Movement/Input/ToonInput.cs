@@ -7,7 +7,7 @@ public struct ToonInput : INetworkInput
 {
     public enum Button
     {
-        Stab = 0,
+        Weak = 0,
         Strong = 1,
         Dash = 2,
         Parry = 3,

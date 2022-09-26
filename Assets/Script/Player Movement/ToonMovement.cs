@@ -7,13 +7,12 @@ public class ToonMovement : NetworkBehaviour
 {
     public float MoveSpeed = 0;
     public float MoveAcceleration = 0;
+    public float ChargeMultiplier = 0;
 
-    private Rigidbody rigidbody = null;
     private PlayerController controller = null;
 
     public override void Spawned()
     {
-        rigidbody = GetComponent<Rigidbody>();
         controller = GetComponent<PlayerController>();
     }
 
@@ -25,21 +24,23 @@ public class ToonMovement : NetworkBehaviour
         }
         CheckScreenBounds();
     }
-
+    public Vector2 moveDir;
     void Move(ToonInput input)
     {
-        Vector3 rigidbodyvelocity = rigidbody.velocity;
+        float speedMult = controller.actionman.IsChargingAttack() ? ChargeMultiplier : 1;
 
-        Vector2 moveDir = new Vector2(input.HorizontalInput, input.VerticalInput);
+        Vector3 rigidbodyvelocity = controller.rigidbody.velocity;
+
+        moveDir = new Vector2(input.HorizontalInput, input.VerticalInput);
 
         //acceleration
-        float deltaAcceleration = MoveAcceleration * Runner.DeltaTime;
+        float deltaAcceleration = MoveAcceleration * Runner.DeltaTime / speedMult;
         rigidbodyvelocity += new Vector3(moveDir.x * deltaAcceleration, 0, moveDir.y * deltaAcceleration);
 
         //movespeed cap
-        rigidbodyvelocity = Vector3.ClampMagnitude(rigidbodyvelocity, MoveSpeed);
+        rigidbodyvelocity = Vector3.ClampMagnitude(rigidbodyvelocity, MoveSpeed * speedMult);
 
-        rigidbody.velocity = rigidbodyvelocity;
+        controller.rigidbody.velocity = rigidbodyvelocity;
     }
     void CheckScreenBounds()
     {

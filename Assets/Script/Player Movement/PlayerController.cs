@@ -8,14 +8,20 @@ public class PlayerController : NetworkBehaviour
 {
     public NetworkString<_16> NickName { get; private set; }
 
-    ToonMovement mover;
-    ToonActionController actionman;
+    public ToonMovement mover;
+    public ToonActionController actionman;
+    public Rigidbody rigidbody ;
+    public AudioSource audio;
     private void Awake()
     {
         if (mover==null)
         mover =   GetComponent<ToonMovement>();
         if (actionman == null)
             actionman = GetComponent<ToonActionController>();
+        if (rigidbody == null)
+            rigidbody = GetComponent<Rigidbody>();
+        if (audio == null)
+            audio = GetComponent<AudioSource>();
     }
 
     public override void Spawned()
@@ -76,7 +82,7 @@ public class PlayerController : NetworkBehaviour
 
     public bool CanMove()
     {
-        return GameController.main.currentState == GameController.GameState.ingame && (actionman.currentAction == PlayerAction.free || actionman.currentAction == PlayerAction.charge);
+        return GameController.main.currentState == GameController.GameState.ingame && (actionman.currentAction == PlayerAction.free || actionman.currentAction == PlayerAction.charging);
     }
 
 

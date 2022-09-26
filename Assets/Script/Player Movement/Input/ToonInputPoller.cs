@@ -7,18 +7,17 @@ using UnityEngine;
 
 public class ToonInputPoller : MonoBehaviour, INetworkRunnerCallbacks
 {
-    private const string AXIS_HORIZONTAL = "Horizontal";
-    private const string AXIS_VERTICAL = "Vertical";
-    private const string BUTTON_FIRE1 = "Fire1";
-    private const string BUTTON_JUMP = "Jump"; 
 
     public void OnInput(NetworkRunner runner, NetworkInput input)
     {
         ToonInput localInput = new ToonInput();
 
-        localInput.HorizontalInput = Input.GetAxis(AXIS_HORIZONTAL);
-        localInput.VerticalInput = Input.GetAxis(AXIS_VERTICAL);
-        localInput.Buttons.Set(ToonInput.Button.Stab, Input.GetButton(BUTTON_FIRE1));
+        localInput.HorizontalInput = Input.GetAxis("Horizontal");
+        localInput.VerticalInput = Input.GetAxis("Vertical");
+        localInput.Buttons.Set(ToonInput.Button.Weak, Input.GetButton("Norm Attack"));
+        localInput.Buttons.Set(ToonInput.Button.Strong, Input.GetButton("Strong Attack"));
+        localInput.Buttons.Set(ToonInput.Button.Dash, Input.GetButton("Dash"));
+        localInput.Buttons.Set(ToonInput.Button.Parry, Input.GetButton("Parry"));
 
         input.Set(localInput);
     }
