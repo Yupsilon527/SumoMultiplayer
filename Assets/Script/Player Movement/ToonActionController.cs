@@ -60,13 +60,13 @@ public class ToonActionController : NetworkBehaviour
     }
     void HandleAction()
     {
-        if (!IsStaggered())
+        if (IsActing())
         {
 
         }
     }
 
-    public bool IsStaggered()
+    public bool IsActing()
     {
         return !actionTime.ExpiredOrNotRunning(Runner);
     }
