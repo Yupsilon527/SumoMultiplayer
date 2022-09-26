@@ -46,7 +46,6 @@ public class PlayerSpawn : NetworkSpawner, IPlayerJoined, IPlayerLeft, ISpawned
 
     private void SpawnPlayer(PlayerRef player)
     {
-        Debug.Log(player.PlayerId);
         Transform spawnPoint = spawnPoints[player.PlayerId % spawnPoints.Length];
 
         var playerObject = Spawn(spawnPoint.position, player);

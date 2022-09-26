@@ -7,9 +7,12 @@ public class PlayerController : NetworkBehaviour
 {
     public NetworkString<_16> NickName { get; private set; }
 
+    [Networked(OnChanged = nameof(OnScoreChanged))]
     public float Score { get; private set; }
-    public bool IsAbducted { get; private set; }
+
+    [Networked(OnChanged = nameof(OnDamageChanged))]
     public float Damage { get; private set; }
+    public bool IsAbducted { get; private set; }
 
     public Vector3 StartPosition { get; private set; }
     public override void Spawned()
@@ -25,6 +28,7 @@ public class PlayerController : NetworkBehaviour
         if (Object.HasStateAuthority)
         {
             StartPosition = transform.position;
+            UIController.main.AddPlayer(Object.InputAuthority, this);
             Respawn();
         }
     }
@@ -39,7 +43,7 @@ public class PlayerController : NetworkBehaviour
             IsAbducted = ufoDelta.sqrMagnitude < UfoController.main.AbductionRadius * UfoController.main.AbductionRadius;
             if (IsAbducted)
             {
-                Score += Runner.DeltaTime;
+                AddToScore(Runner.DeltaTime);
             }
         }
       }
@@ -54,7 +58,7 @@ public class PlayerController : NetworkBehaviour
     {
     }
 
-    public void AddToScore(int points)
+    public void AddToScore(float points)
     {
         Score += points;
     }
@@ -75,8 +79,6 @@ public class PlayerController : NetworkBehaviour
     [HideInInspector]
     [Networked(OnChanged = nameof(OnNickNameChanged))]
 
-    [HideInInspector]
-    [Networked(OnChanged = nameof(OnDamageChanged))]
 
     [HideInInspector]
     [Networked(OnChanged = nameof(OnScoreChanged))]
@@ -84,19 +86,16 @@ public class PlayerController : NetworkBehaviour
     {
         playerInfo.Behaviour._overviewPanel.UpdateNickName(playerInfo.Behaviour.Object.InputAuthority,
             playerInfo.Behaviour.NickName.ToString());
-    }
+    }*/
 
     public static void OnScoreChanged(Changed<PlayerController> playerInfo)
     {
-        playerInfo.Behaviour._overviewPanel.UpdateScore(playerInfo.Behaviour.Object.InputAuthority,
-            playerInfo.Behaviour.Score);
+        UIController.main.UpdatePlayerUI(playerInfo.Behaviour.Object.InputAuthority);
     }
 
-    // Updates the player's current amount of Lives displayed in the local Overview Panel entry.
     public static void OnDamageChanged(Changed<PlayerController> playerInfo)
     {
-        playerInfo.Behaviour._overviewPanel.UpdateLives(playerInfo.Behaviour.Object.InputAuthority,
-            playerInfo.Behaviour.Lives);
-    }*/
+        UIController.main.UpdatePlayerUI(playerInfo.Behaviour.Object.InputAuthority);
+    }
     #endregion
 }
