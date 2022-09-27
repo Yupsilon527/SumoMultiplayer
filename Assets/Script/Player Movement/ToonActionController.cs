@@ -5,6 +5,11 @@ using UnityEngine;
 
 public class ToonActionController : NetworkBehaviour
 {
+    [Header("General Attack")]
+    public float AttackContactDistance = 1f;
+    public float AttackContactRadius = 1f;
+    public LayerMask AttackHitMask;
+
     [Header("Regular Attack")]
     public AudioClip SlashSound;
     public float SlashAttackDuration = 1f;
@@ -12,6 +17,8 @@ public class ToonActionController : NetworkBehaviour
     public float SlashAttackContactEnd = 1f;
     public float SlashAttackDamage = 1f;
     public float SlashAttackKnockback = 1f;
+    public float SlashAttackRageInitial = 1f;
+    public float SlashAttackRageConsecutive = 1f;
 
     [Header("Strong Attack")]
     public AudioClip SmashSound;
@@ -106,9 +113,11 @@ public class ToonActionController : NetworkBehaviour
         {
             case PlayerAction.attack:
                 controller.audio.PlayOneShot(SlashSound);
+                PlayerHits.Clear();
                 break;
             case PlayerAction.strongattack:
                 controller.audio.PlayOneShot(SmashSound);
+                PlayerHits.Clear();
                 break;
             case PlayerAction.parry:
             case PlayerAction.dash:
@@ -127,18 +136,12 @@ public class ToonActionController : NetworkBehaviour
                 if ((currentAction ==  PlayerAction.attack && SlashAttackDuration - remainTime > SlashAttackContactStart && SlashAttackDuration - remainTime < SlashAttackContactEnd) ||
                     (currentAction == PlayerAction.strongattack && SmashAttackDuration - remainTime > SmashAttackContactStart && SmashAttackDuration - remainTime < SmashAttackContactEnd))
                 {
-                    //Hitbox here
+                    AttackFrame();
                 }
 
                 if (actionTime.ExpiredOrNotRunning(Runner))
                     BeginAction(PlayerAction.free);
                 break;
-            /*case PlayerAction.charging:
-                if (input.Buttons.WasReleased(_buttonsPrevious, ToonInput.Button.Strong))
-                {
-                    BeginAction(PlayerAction.strongattack);
-                }
-                break;*/
             case PlayerAction.parry:
                 if (actionTime.ExpiredOrNotRunning(Runner))
                     BeginAction(PlayerAction.free);
@@ -167,6 +170,51 @@ public class ToonActionController : NetworkBehaviour
     {
         return currentAction == PlayerAction.parry && actionTime.RemainingTime(Runner) > ParryStagger - ParryDuration;
     }
+    #endregion
+    #region Attacking
+    private List<PlayerController> PlayerHits = new List<PlayerController>();
+    private List<LagCompensatedHit> FrameHits = new List<LagCompensatedHit>();
+    void AttackFrame()
+    {
+        FrameHits.Clear();
+
+
+        Vector3 center = transform.position;
+        
+        int count = Runner.LagCompensation.OverlapSphere(center, AttackContactRadius,
+            Object.InputAuthority, FrameHits, AttackHitMask.value);
+        Debug.Log(count);
+
+        if (count <= 0) return;
+
+        foreach (LagCompensatedHit hit in FrameHits)
+        {
+            if (hit.GameObject.TryGetComponent(out PlayerController enemy))
+            {
+                    ProcessHit(enemy, currentAction == PlayerAction.strongattack);
+            }
+        }
+    }
+    void ProcessHit(PlayerController sucker, bool strongAttack)
+{
+    if (sucker != controller && !PlayerHits.Contains(sucker))
+    {
+        PlayerHits.Add(sucker);
+            sucker.TakeDamageAndKnockback(strongAttack ? SmashAttackDamage : SlashAttackDamage, strongAttack ? SmashAttackKnockback : SlashAttackKnockback);
+            if (!strongAttack)
+            {
+                if (PlayerHits.Count == 1)
+                    controller.BuildUpRage(SlashAttackRageInitial);
+                controller.BuildUpRage(SlashAttackRageConsecutive);
+            }
+        }
+    }
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(transform.position + Vector3.right * AttackContactDistance, AttackContactRadius);
+    }
+
     #endregion
     #region Charging Attacks
     public bool IsChargingAttack()

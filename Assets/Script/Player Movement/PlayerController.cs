@@ -47,6 +47,7 @@ public class PlayerController : NetworkBehaviour
     {
         Score = 0;
         Damage = 0;
+        Rage = 0;
         transform.position = StartPosition;
     }
     public override void FixedUpdateNetwork()
@@ -114,8 +115,28 @@ public class PlayerController : NetworkBehaviour
         UIController.main.UpdatePlayerUI(playerInfo.Behaviour.Object.InputAuthority);
     }
 
+
+    [Networked(OnChanged = nameof(OnRageChanged))]
+    public float Rage { get; private set; }
+    public static void OnRageChanged(Changed<PlayerController> playerInfo)
+    {
+        UIController.main.UpdatePlayerUI(playerInfo.Behaviour.Object.InputAuthority);
+    }
+    public void BuildUpRage(float rage)
+    {
+        Rage = Mathf.Clamp(Rage+rage,0,100);
+    }
+    public bool HasEnoughRage(float needed)
+    {
+        return Rage > needed;
+    }
+
     [Networked(OnChanged = nameof(OnDamageChanged))]
     public float Damage { get; private set; }
+    public void TakeDamageAndKnockback(float damage, float knockback)
+    {
+        Debug.Log("Player " + name + " hit for " + damage + " damage and " + knockback + " knockback strength!");
+    }
     public static void OnDamageChanged(Changed<PlayerController> playerInfo)
     {
         UIController.main.UpdatePlayerUI(playerInfo.Behaviour.Object.InputAuthority);

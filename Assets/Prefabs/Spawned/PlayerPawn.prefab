@@ -20,6 +20,8 @@ GameObject:
   - component: {fileID: 4818091953077637352}
   - component: {fileID: 1258359365125640815}
   - component: {fileID: 874765995518869657}
+  - component: {fileID: 3355099813043041685}
+  - component: {fileID: 2605630334706640353}
   m_Layer: 0
   m_Name: PlayerPawn
   m_TagString: Untagged
@@ -133,6 +135,7 @@ MonoBehaviour:
   - {fileID: -7315478742508970568}
   - {fileID: 4818091953077637352}
   - {fileID: 1258359365125640815}
+  - {fileID: 3355099813043041685}
   SimulationBehaviours: []
 --- !u!114 &3801039324017845438
 MonoBehaviour:
@@ -207,6 +210,7 @@ MonoBehaviour:
   rigidbody: {fileID: 0}
   audio: {fileID: 0}
   _Score: 0
+  _Rage: 0
   _Damage: 0
   _IsAbducted: 0
 --- !u!114 &4818091953077637352
@@ -239,12 +243,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
+  AttackContactDistance: 0.18
+  AttackContactRadius: 0.16
+  AttackHitMask:
+    serializedVersion: 2
+    m_Bits: 2147483647
   SlashSound: {fileID: 8300000, guid: c53743bc7c6d0114d9351717b24d79b7, type: 3}
-  SlashAttackDuration: 1
-  SlashAttackContactStart: 1
-  SlashAttackContactEnd: 1
+  SlashAttackDuration: 0.75
+  SlashAttackContactStart: 0.1
+  SlashAttackContactEnd: 0.4
   SlashAttackDamage: 1
   SlashAttackKnockback: 1
+  SlashAttackRageInitial: 1
+  SlashAttackRageConsecutive: 1
   SmashSound: {fileID: 8300000, guid: 4a6b1325e0a12e14bbca1101c4f7e5cb, type: 3}
   SmashAttackDuration: 1
   SmashAttackContactStart: 1
@@ -355,3 +366,39 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &3355099813043041685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6624063373450815426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1039544458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
+  BroadRadius: 0.1
+  Offset: {x: 0, y: 0, z: 0}
+  GizmosColor: {r: 1, g: 0.9696858, b: 0, a: 1}
+  Hitboxes:
+  - {fileID: 2605630334706640353}
+--- !u!114 &2605630334706640353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6624063373450815426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1014831617, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 2
+  SphereRadius: 0.1
+  BoxExtents: {x: 0, y: 0, z: 0}
+  Offset: {x: 0, y: 0, z: 0}
+  Root: {fileID: 3355099813043041685}
+  GizmosColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
