@@ -19,6 +19,7 @@ public class ToonActionController : NetworkBehaviour
     public float SlashAttackKnockback = 1f;
     public float SlashAttackRageInitial = 1f;
     public float SlashAttackRageConsecutive = 1f;
+    public float SlashAttackSelfPush = 1f;
 
     [Header("Strong Attack")]
     public AudioClip SmashSound;
@@ -123,6 +124,10 @@ public class ToonActionController : NetworkBehaviour
             case PlayerAction.dash:
                 controller.audio.PlayOneShot(DodgeSound);
                 break;
+            case PlayerAction.stagger:
+                controller.audio.PlayOneShot(SlashSound);
+                PlayerHits.Clear();
+                break;
         }
         }
     void HandleAction()
@@ -210,7 +215,10 @@ public class ToonActionController : NetworkBehaviour
             if (!strongAttack)
             {
                 if (PlayerHits.Count == 1)
+                {
                     controller.BuildUpRage(SlashAttackRageInitial);
+                    controller.KnockBack(Vector3.right, 1, SlashAttackSelfPush);
+                }
                 controller.BuildUpRage(SlashAttackRageConsecutive);
             }
         }

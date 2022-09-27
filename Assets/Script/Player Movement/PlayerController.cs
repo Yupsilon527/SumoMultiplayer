@@ -137,9 +137,7 @@ public class PlayerController : NetworkBehaviour
     {
         Debug.Log("Player " + name + " hit for " + damage + " damage and " + knockback + " knockback strength!");
 
-        float damageDelta = damage / 20;
-        KnockBack((transform.position - kbCenter).normalized, knockback * (.8f + damageDelta * .2f), 1 * (.5f + damage * .5f));
-
+        RecieveKnockBack(kbCenter, knockback);
         Damage += damage;
     }
     public static void OnDamageChanged(Changed<PlayerController> playerInfo)
@@ -154,7 +152,12 @@ public class PlayerController : NetworkBehaviour
     }
     #endregion
     #region Knockback
-    void KnockBack(Vector3 direction, float strength, float duration)
+    public void RecieveKnockBack(Vector3 center, float strength)
+    {
+        float damageDelta = Damage / 20;
+        KnockBack((transform.position - center).normalized, strength * (.8f + damageDelta * .2f), 1 * (.5f + damageDelta * .5f));
+    }
+    public void KnockBack(Vector3 direction, float strength, float duration)
     {
         actionman.BeginAction(PlayerAction.stagger, duration);
         rigidbody.velocity = direction * strength;
