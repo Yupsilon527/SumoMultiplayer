@@ -147,11 +147,18 @@ public class ToonActionController : NetworkBehaviour
                     BeginAction(PlayerAction.free);
                 break;
             case PlayerAction.dash:
-                GetComponent<Rigidbody>().velocity = actionDirection * DashSpeed;
+                controller.rigidbody.velocity = actionDirection * DashSpeed;
                 if (actionTime.ExpiredOrNotRunning(Runner))
                 {
                     BeginAction(PlayerAction.free);
-                    GetComponent<Rigidbody>().velocity *= 0;
+                    controller.rigidbody.velocity *= 0;
+                }
+                break;
+            case PlayerAction.stagger:
+                if (actionTime.ExpiredOrNotRunning(Runner))
+                {
+                    BeginAction(PlayerAction.free);
+                    controller.rigidbody.velocity *= 0;
                 }
                 break;
         }
@@ -178,7 +185,6 @@ public class ToonActionController : NetworkBehaviour
     {
         FrameHits.Clear();
 
-
         Vector3 center = transform.position;
         
         int count = Runner.LagCompensation.OverlapSphere(center, AttackContactRadius,
@@ -200,7 +206,7 @@ public class ToonActionController : NetworkBehaviour
     if (sucker != controller && !PlayerHits.Contains(sucker))
     {
         PlayerHits.Add(sucker);
-            sucker.TakeDamageAndKnockback(strongAttack ? SmashAttackDamage : SlashAttackDamage, strongAttack ? SmashAttackKnockback : SlashAttackKnockback);
+            sucker.TakeDamageAndKnockback(strongAttack ? SmashAttackDamage : SlashAttackDamage, strongAttack ? SmashAttackKnockback : SlashAttackKnockback,transform.position);
             if (!strongAttack)
             {
                 if (PlayerHits.Count == 1)

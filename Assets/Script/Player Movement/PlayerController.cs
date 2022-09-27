@@ -133,9 +133,14 @@ public class PlayerController : NetworkBehaviour
 
     [Networked(OnChanged = nameof(OnDamageChanged))]
     public float Damage { get; private set; }
-    public void TakeDamageAndKnockback(float damage, float knockback)
+    public void TakeDamageAndKnockback(float damage, float knockback, Vector3 kbCenter)
     {
         Debug.Log("Player " + name + " hit for " + damage + " damage and " + knockback + " knockback strength!");
+
+        float damageDelta = damage / 20;
+        KnockBack((transform.position - kbCenter).normalized, knockback * (.8f + damageDelta * .2f), 1 * (.5f + damage * .5f));
+
+        Damage += damage;
     }
     public static void OnDamageChanged(Changed<PlayerController> playerInfo)
     {
@@ -146,6 +151,13 @@ public class PlayerController : NetworkBehaviour
     public static void OnEnterAbductionBeam(Changed<PlayerController> playerInfo)
     {
 
+    }
+    #endregion
+    #region Knockback
+    void KnockBack(Vector3 direction, float strength, float duration)
+    {
+        actionman.BeginAction(PlayerAction.stagger, duration);
+        rigidbody.velocity = direction * strength;
     }
     #endregion
 }
