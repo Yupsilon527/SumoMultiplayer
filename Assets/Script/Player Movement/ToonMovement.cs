@@ -10,7 +10,6 @@ public class ToonMovement : NetworkBehaviour, IRespawnable
     public float ChargeMultiplier = 0;
 
     private PlayerController controller = null;
-    public Vector3 StartPosition { get; private set; }
 
     public override void Spawned()
     {
@@ -20,6 +19,7 @@ public class ToonMovement : NetworkBehaviour, IRespawnable
     {
         moveDir *= 0;
         controller.rigidbody.velocity *= 0;
+        facesRight = transform.position.x < 0;
     }
 
     public override void FixedUpdateNetwork()
@@ -30,6 +30,7 @@ public class ToonMovement : NetworkBehaviour, IRespawnable
         }
         CheckScreenBounds();
     }
+   [Networked] public bool facesRight { get; set; }
     public Vector2 moveDir;
     void Move(ToonInput input)
     {
@@ -38,6 +39,8 @@ public class ToonMovement : NetworkBehaviour, IRespawnable
         Vector3 rigidbodyvelocity = controller.rigidbody.velocity;
 
         moveDir = new Vector2(input.HorizontalInput, input.VerticalInput);
+        if (moveDir.x != 0)
+        facesRight = moveDir.x > 0;
 
         //acceleration
         float deltaAcceleration = MoveAcceleration * Runner.DeltaTime / speedMult;

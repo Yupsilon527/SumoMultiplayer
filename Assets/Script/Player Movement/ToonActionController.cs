@@ -114,7 +114,8 @@ public class ToonActionController : NetworkBehaviour, IRespawnable
     }
 
     [HideInInspector]
-    public PlayerAction currentAction = PlayerAction.free;
+    [Networked(OnChanged = nameof(PlayerActionChange))]
+    public PlayerAction currentAction { get; set; }
     TickTimer actionTime;
     Vector3 actionDirection = Vector3.zero;
     public void BeginAction(PlayerAction nState)
@@ -168,9 +169,9 @@ public class ToonActionController : NetworkBehaviour, IRespawnable
                     BeginAction(PlayerAction.free);
                 break;
             case PlayerAction.charging:
-                controller.BuildUpRage(ABC);
+                controller.damageable.BuildUpRage(ABC);
                 ChargeBuildUp = Mathf.Max(ChargeBuildUp + DEF,1);
-                if (ChargeBuildUp >= 1 || controller.Rage <= 0)
+                if (ChargeBuildUp >= 1 || controller.damageable.Rage <= 0)
                 {
                     BeginAction(PlayerAction.strongattack, SmashAttackDuration);
                 }
@@ -193,6 +194,27 @@ public class ToonActionController : NetworkBehaviour, IRespawnable
                     BeginAction(PlayerAction.free);
                     controller.rigidbody.velocity *= 0;
                 }
+                break;
+        }
+    }
+    public static void PlayerActionChange(Changed<ToonActionController> playerInfo)
+    {
+        if (playerInfo.Behaviour.controller == null)
+            return;
+
+        switch (playerInfo.Behaviour.currentAction)
+        {
+            case PlayerAction.attack:
+                playerInfo.Behaviour.controller.animations.PlaySpecific("hit");
+                break;
+            case PlayerAction.strongattack:
+                playerInfo.Behaviour.controller.animations.PlaySpecific("chargeHit");
+                break;
+            case PlayerAction.parry:
+                playerInfo.Behaviour.controller.animations.PlaySpecific("parry");
+                break;
+            case PlayerAction.dash:
+                playerInfo.Behaviour.controller.animations.PlaySpecific("dodge");
                 break;
         }
     }
@@ -240,15 +262,15 @@ public class ToonActionController : NetworkBehaviour, IRespawnable
     if (sucker != controller && !PlayerHits.Contains(sucker))
     {
         PlayerHits.Add(sucker);
-            sucker.TakeDamageAndKnockback(strongAttack ? SmashAttackDamage : SlashAttackDamage, strongAttack ? SmashAttackKnockback : SlashAttackKnockback,transform.position);
+            sucker.damageable.TakeDamageAndKnockback(strongAttack ? SmashAttackDamage : SlashAttackDamage, strongAttack ? SmashAttackKnockback : SlashAttackKnockback,transform.position);
             if (!strongAttack)
             {
                 if (PlayerHits.Count == 1)
                 {
-                    controller.BuildUpRage(SlashAttackRageInitial);
-                    controller.KnockBack(Vector3.right, 1, SlashAttackSelfPush);
+                    controller.damageable.BuildUpRage(SlashAttackRageInitial);
+                    controller.damageable.KnockBack(Vector3.right, 1, SlashAttackSelfPush);
                 }
-                controller.BuildUpRage(SlashAttackRageConsecutive);
+                controller.damageable.BuildUpRage(SlashAttackRageConsecutive);
             }
         }
     }

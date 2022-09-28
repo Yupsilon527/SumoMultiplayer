@@ -9,6 +9,7 @@ public class PlayerController : NetworkBehaviour, IRespawnable
     public ToonMovement mover;
     public ToonActionController actionman;
     public PlayerDamageable damageable;
+    public PlayerAnimationController animations;
     public Rigidbody rigidbody ;
     public AudioSource audio;
     private void Awake()
@@ -21,6 +22,8 @@ public class PlayerController : NetworkBehaviour, IRespawnable
             rigidbody = GetComponent<Rigidbody>();
         if (damageable == null)
             damageable = GetComponent<PlayerDamageable>();
+        if (animations == null)
+            animations = GetComponent<PlayerAnimationController>();
         if (audio == null)
             audio = GetComponent<AudioSource>();
     }
@@ -109,47 +112,5 @@ public class PlayerController : NetworkBehaviour, IRespawnable
         }
     }
 
-    #endregion
-    #region Rage
-
-    [Networked(OnChanged = nameof(OnRageChanged))]
-    public float Rage { get; private set; }
-    public static void OnRageChanged(Changed<PlayerController> playerInfo)
-    {
-        UIController.main.UpdatePlayerUI(playerInfo.Behaviour.Object.InputAuthority);
-    }
-    public void BuildUpRage(float buildup)
-    {
-        Rage = Mathf.Clamp(Rage + buildup, 0, 100);
-    }
-    #endregion
-    #region Damage
-
-
-    [Networked(OnChanged = nameof(OnDamageChanged))]
-    public float Damage { get; private set; }
-    public static void OnDamageChanged(Changed<PlayerController> playerInfo)
-    {
-        UIController.main.UpdatePlayerUI(playerInfo.Behaviour.Object.InputAuthority);
-    }
-    public void TakeDamageAndKnockback(float damage, float knockback, Vector3 kbCenter)
-    {
-        Debug.Log("Player " + name + " hit for " + damage + " damage and " + knockback + " knockback strength!");
-
-        RecieveKnockBack(kbCenter, knockback);
-        Damage += damage;
-    }
-    #endregion
-    #region Knockback
-    public void RecieveKnockBack(Vector3 center, float strength)
-    {
-        float damageDelta = Damage / 20;
-        KnockBack((transform.position - center).normalized, strength * (.8f + damageDelta * .2f), 1 * (.5f + damageDelta * .5f));
-    }
-    public void KnockBack(Vector3 direction, float strength, float duration)
-    {
-        actionman.BeginAction(PlayerAction.stagger, duration);
-        rigidbody.velocity = direction * strength;
-    }
     #endregion
 }
