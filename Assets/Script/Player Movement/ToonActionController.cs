@@ -168,9 +168,9 @@ public class ToonActionController : NetworkBehaviour, IRespawnable
                     BeginAction(PlayerAction.free);
                 break;
             case PlayerAction.charging:
-                controller.damageable.BuildUpRage(ABC);
+                controller.BuildUpRage(ABC);
                 ChargeBuildUp = Mathf.Max(ChargeBuildUp + DEF,1);
-                if (ChargeBuildUp >= 1 || controller.damageable.Rage <= 0)
+                if (ChargeBuildUp >= 1 || controller.Rage <= 0)
                 {
                     BeginAction(PlayerAction.strongattack, SmashAttackDuration);
                 }
@@ -240,15 +240,15 @@ public class ToonActionController : NetworkBehaviour, IRespawnable
     if (sucker != controller && !PlayerHits.Contains(sucker))
     {
         PlayerHits.Add(sucker);
-            sucker.damageable.TakeDamageAndKnockback(strongAttack ? SmashAttackDamage : SlashAttackDamage, strongAttack ? SmashAttackKnockback : SlashAttackKnockback,transform.position);
+            sucker.TakeDamageAndKnockback(strongAttack ? SmashAttackDamage : SlashAttackDamage, strongAttack ? SmashAttackKnockback : SlashAttackKnockback,transform.position);
             if (!strongAttack)
             {
                 if (PlayerHits.Count == 1)
                 {
-                    controller.damageable.BuildUpRage(SlashAttackRageInitial);
-                    controller.damageable.KnockBack(Vector3.right, 1, SlashAttackSelfPush);
+                    controller.BuildUpRage(SlashAttackRageInitial);
+                    controller.KnockBack(Vector3.right, 1, SlashAttackSelfPush);
                 }
-                controller.damageable.BuildUpRage(SlashAttackRageConsecutive);
+                controller.BuildUpRage(SlashAttackRageConsecutive);
             }
         }
     }
