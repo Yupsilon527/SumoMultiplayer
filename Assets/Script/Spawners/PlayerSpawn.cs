@@ -23,7 +23,8 @@ public class PlayerSpawn : NetworkSpawner, IPlayerJoined, IPlayerLeft, ISpawned
 
     public void PlayerJoined(PlayerRef player)
     {
-       //if (GameController.main.currentState >= GameController.GameState.pregame) return;
+        if (!Object.HasStateAuthority) return;
+        //if (GameController.main.currentState >= GameController.GameState.pregame) return;
         SpawnPlayer(player);
     }
 
