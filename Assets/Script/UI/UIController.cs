@@ -19,11 +19,11 @@ public class UIController : MonoBehaviour
         }
     }
     private Dictionary<PlayerRef, PlayerInterfaceController> interfaceData = new Dictionary<PlayerRef, PlayerInterfaceController>();
-    
-        public void AddPlayer(PlayerRef playerRef, PlayerController controller)
-        {
-            if (interfaceData.ContainsKey(playerRef)) return;
-            if (controller == null) return;
+
+    public void AddPlayer(PlayerRef playerRef, PlayerController controller)
+    {
+        if (interfaceData.ContainsKey(playerRef)) return;
+        if (controller == null) return;
 
         PlayerInterfaceController table = null;
         foreach (PlayerInterfaceController plUI in UIList)

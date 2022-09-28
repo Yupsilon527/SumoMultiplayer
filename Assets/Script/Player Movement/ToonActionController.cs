@@ -3,12 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ToonActionController : NetworkBehaviour
+public class ToonActionController : NetworkBehaviour, IRespawnable
 {
+    #region Settings
     [Header("General Attack")]
     public float AttackContactDistance = 1f;
     public float AttackContactRadius = 1f;
     public LayerMask AttackHitMask;
+    public float ABC = 1f;
+    public float DEF = 1f;
 
     [Header("Regular Attack")]
     public AudioClip SlashSound;
@@ -39,22 +42,22 @@ public class ToonActionController : NetworkBehaviour
     public float DashDuration = .33f;
     public float DashStagger = .5f;
     public float DashSpeed = 1;
+    #endregion
 
+
+    #region General
     private PlayerController controller = null;
-    public enum PlayerAction
-    {
-        free = 0,
-        stagger = 1,
-        attack = 2,
-        charging = 3,
-        strongattack= 4,
-        parry = 5,
-        dash=6
-    }
-
     public override void Spawned()
     {
         controller = GetComponent<PlayerController>();
+    }
+    public void Respawn()
+    {
+        currentAction = PlayerAction.free;
+        actionTime = TickTimer.None;
+        actionDirection = Vector3.zero;
+        PlayerHits.Clear();
+        FrameHits.Clear();
     }
 
     public override void FixedUpdateNetwork()
@@ -65,7 +68,11 @@ public class ToonActionController : NetworkBehaviour
         }
         HandleAction();
     }
+    #endregion
+    #region Player Input
     [Networked] private NetworkButtons _buttonsPrevious { get; set; }
+    public float ChargeBuildUp1 { get => ChargeBuildUp; set => ChargeBuildUp = value; }
+
     void HandlePlayerInput(ToonInput input)
     {
         if (controller.CanAct())
@@ -91,6 +98,19 @@ public class ToonActionController : NetworkBehaviour
         {
             BeginAction(PlayerAction.strongattack, SmashAttackDuration);
         }
+    }
+    #endregion
+
+    #region Actions
+    public enum PlayerAction
+    {
+        free = 0,
+        stagger = 1,
+        attack = 2,
+        charging = 3,
+        strongattack = 4,
+        parry = 5,
+        dash = 6
     }
 
     [HideInInspector]
@@ -147,6 +167,14 @@ public class ToonActionController : NetworkBehaviour
                 if (actionTime.ExpiredOrNotRunning(Runner))
                     BeginAction(PlayerAction.free);
                 break;
+            case PlayerAction.charging:
+                controller.damageable.BuildUpRage(ABC);
+                ChargeBuildUp = Mathf.Max(ChargeBuildUp + DEF,1);
+                if (ChargeBuildUp >= 1 || controller.damageable.Rage <= 0)
+                {
+                    BeginAction(PlayerAction.strongattack, SmashAttackDuration);
+                }
+                break;
             case PlayerAction.parry:
                 if (actionTime.ExpiredOrNotRunning(Runner))
                     BeginAction(PlayerAction.free);
@@ -173,6 +201,7 @@ public class ToonActionController : NetworkBehaviour
     {
         return currentAction == PlayerAction.free || !actionTime.ExpiredOrNotRunning(Runner);
     }
+    #endregion
     #region Dashing and Parrying
     public bool IsDodging()
     {
@@ -211,15 +240,15 @@ public class ToonActionController : NetworkBehaviour
     if (sucker != controller && !PlayerHits.Contains(sucker))
     {
         PlayerHits.Add(sucker);
-            sucker.TakeDamageAndKnockback(strongAttack ? SmashAttackDamage : SlashAttackDamage, strongAttack ? SmashAttackKnockback : SlashAttackKnockback,transform.position);
+            sucker.damageable.TakeDamageAndKnockback(strongAttack ? SmashAttackDamage : SlashAttackDamage, strongAttack ? SmashAttackKnockback : SlashAttackKnockback,transform.position);
             if (!strongAttack)
             {
                 if (PlayerHits.Count == 1)
                 {
-                    controller.BuildUpRage(SlashAttackRageInitial);
-                    controller.KnockBack(Vector3.right, 1, SlashAttackSelfPush);
+                    controller.damageable.BuildUpRage(SlashAttackRageInitial);
+                    controller.damageable.KnockBack(Vector3.right, 1, SlashAttackSelfPush);
                 }
-                controller.BuildUpRage(SlashAttackRageConsecutive);
+                controller.damageable.BuildUpRage(SlashAttackRageConsecutive);
             }
         }
     }
@@ -231,6 +260,7 @@ public class ToonActionController : NetworkBehaviour
 
     #endregion
     #region Charging Attacks
+    [Networked] private float ChargeBuildUp { get; set; }
     public bool IsChargingAttack()
     {
         return currentAction == PlayerAction.charging;

@@ -24,7 +24,6 @@ public class GameController : NetworkBehaviour
         postgame,
     }
 
-    private List<NetworkBehaviourId> _playerDataNetworkedIds = new List<NetworkBehaviourId>();
 
     [Networked] public TickTimer gameTimer { get; set; }
     [Networked] public GameState currentState { get; set; }
@@ -52,8 +51,20 @@ public class GameController : NetworkBehaviour
         }
     }
     #endregion
-
-
+    #region Game Start And Restart
+    public void HandleRestart()
+    {
+        foreach (IRespawnable respawnable in UfoController.main.GetComponents<IRespawnable>())
+        {
+            respawnable.Respawn();
+        }
+        foreach (KeyValuePair<PlayerRef, PlayerController> Player in PlayerSpawners.RegisteredPlayers)
+        foreach (IRespawnable respawnable in Player.Value.GetComponents<IRespawnable>())
+        {
+            respawnable.Respawn();
+        }
+    }
+    #endregion
     #region Initialization
     void InitializeRoom()
     {
@@ -90,7 +101,6 @@ public class GameController : NetworkBehaviour
     }
     void HandleState()
     {
-
     }
 
     public void ChangeState(GameState newstate)
@@ -104,7 +114,10 @@ public class GameController : NetworkBehaviour
                 break;
             case GameState.ingame:
                 if (IsServer())
+                {
                     gameTimer = TickTimer.CreateFromSeconds(Runner, RoundTime);
+                    HandleRestart();
+                }
                 break;
         }
         currentState = newstate;

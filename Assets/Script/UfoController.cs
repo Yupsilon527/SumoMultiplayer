@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UfoController : NetworkBehaviour
+public class UfoController : NetworkBehaviour, IRespawnable
 {
     public float AbductionRadius = 1;
 
@@ -25,17 +25,9 @@ public class UfoController : NetworkBehaviour
     }
     public override void Spawned()
     {
-        OnGameReset();
-    }
 
-    public override void FixedUpdateNetwork()
-    {
-        if (Object.HasStateAuthority && GameController.main.currentState == GameController.GameState.ingame)
-        {
-            MoveUfo();
-        }
     }
-    public void OnGameReset()
+    public void Respawn()
     {
         if (Object.HasStateAuthority)
         {
@@ -43,6 +35,14 @@ public class UfoController : NetworkBehaviour
             transform.position = new Vector3(realPosition.x, transform.position.y, realPosition.y);
 
             desiredPosition = Vector2.zero;
+        }
+    }
+
+    public override void FixedUpdateNetwork()
+    {
+        if (Object.HasStateAuthority && GameController.main.currentState == GameController.GameState.ingame)
+        {
+            MoveUfo();
         }
     }
     void MoveUfo()

@@ -3,17 +3,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ToonMovement : NetworkBehaviour
+public class ToonMovement : NetworkBehaviour, IRespawnable
 {
     public float MoveSpeed = 0;
     public float MoveAcceleration = 0;
     public float ChargeMultiplier = 0;
 
     private PlayerController controller = null;
+    public Vector3 StartPosition { get; private set; }
 
     public override void Spawned()
     {
         controller = GetComponent<PlayerController>();
+    }
+    public void Respawn()
+    {
+        moveDir *= 0;
+        controller.rigidbody.velocity *= 0;
     }
 
     public override void FixedUpdateNetwork()

@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using static ToonActionController;
 
-public class PlayerController : NetworkBehaviour
+public class PlayerController : NetworkBehaviour, IRespawnable
 {
-    public NetworkString<_16> NickName { get; private set; }
 
     public ToonMovement mover;
     public ToonActionController actionman;
+    public PlayerDamageable damageable;
     public Rigidbody rigidbody ;
     public AudioSource audio;
     private void Awake()
@@ -20,6 +20,8 @@ public class PlayerController : NetworkBehaviour
             actionman = GetComponent<ToonActionController>();
         if (rigidbody == null)
             rigidbody = GetComponent<Rigidbody>();
+        if (damageable == null)
+            damageable = GetComponent<PlayerDamageable>();
         if (audio == null)
             audio = GetComponent<AudioSource>();
     }
@@ -46,8 +48,6 @@ public class PlayerController : NetworkBehaviour
     public void Respawn()
     {
         Score = 0;
-        Damage = 0;
-        Rage = 0;
         transform.position = StartPosition;
     }
     public override void FixedUpdateNetwork()
@@ -55,6 +55,45 @@ public class PlayerController : NetworkBehaviour
         HandleScoreUpdate();
     }
     #endregion
+
+
+    public bool CanAct()
+    {
+        return GameController.main.currentState == GameController.GameState.ingame && actionman.currentAction == PlayerAction.free;
+    }
+
+    public bool CanMove()
+    {
+        return GameController.main.currentState == GameController.GameState.ingame && (actionman.currentAction == PlayerAction.free || actionman.currentAction == PlayerAction.charging);
+    }
+    #region Nickname
+       public NetworkString<_16> NickName { get; private set; }
+    [Rpc(sources: RpcSources.InputAuthority, targets: RpcTargets.StateAuthority)]
+    private void RpcSetNickName(string nickName)
+    {
+        if (string.IsNullOrEmpty(nickName)) return;
+        NickName = nickName;
+    }
+    #endregion
+    #region Score
+
+    [Networked(OnChanged = nameof(OnEnterAbductionBeam))]
+    public bool IsAbducted { get; private set; }
+    public static void OnEnterAbductionBeam(Changed<PlayerController> playerInfo)
+    {
+
+    }
+    public void AddToScore(float points)
+    {
+        Score += points;
+    }
+
+    [Networked(OnChanged = nameof(OnScoreChanged))]
+    public float Score { get; private set; }
+    public static void OnScoreChanged(Changed<PlayerController> playerInfo)
+    {
+        UIController.main.UpdatePlayerUI(playerInfo.Behaviour.Object.InputAuthority);
+    }
     void HandleScoreUpdate()
     {
         if (Object.HasStateAuthority)
@@ -71,96 +110,5 @@ public class PlayerController : NetworkBehaviour
         }
     }
 
-    public void AddToScore(float points)
-    {
-        Score += points;
-    }
-
-    public bool CanAct()
-    {
-        return GameController.main.currentState == GameController.GameState.ingame && actionman.currentAction == PlayerAction.free;
-    }
-
-    public bool CanMove()
-    {
-        return GameController.main.currentState == GameController.GameState.ingame && (actionman.currentAction == PlayerAction.free || actionman.currentAction == PlayerAction.charging);
-    }
-
-
-    [Rpc(sources: RpcSources.InputAuthority, targets: RpcTargets.StateAuthority)]
-    private void RpcSetNickName(string nickName)
-    {
-        if (string.IsNullOrEmpty(nickName)) return;
-        NickName = nickName;
-    }
-    #region UI and Update RPC
-    /*
-    [HideInInspector]
-    [Networked(OnChanged = nameof(OnNickNameChanged))]
-
-
-    [HideInInspector]
-    [Networked(OnChanged = nameof(OnScoreChanged))]
-    public static void OnNickNameChanged(Changed<PlayerController> playerInfo)
-    {
-        playerInfo.Behaviour._overviewPanel.UpdateNickName(playerInfo.Behaviour.Object.InputAuthority,
-            playerInfo.Behaviour.NickName.ToString());
-    }*/
-
-
-    [Networked(OnChanged = nameof(OnScoreChanged))]
-    public float Score { get; private set; }
-    public static void OnScoreChanged(Changed<PlayerController> playerInfo)
-    {
-        UIController.main.UpdatePlayerUI(playerInfo.Behaviour.Object.InputAuthority);
-    }
-
-
-    [Networked(OnChanged = nameof(OnRageChanged))]
-    public float Rage { get; private set; }
-    public static void OnRageChanged(Changed<PlayerController> playerInfo)
-    {
-        UIController.main.UpdatePlayerUI(playerInfo.Behaviour.Object.InputAuthority);
-    }
-    public void BuildUpRage(float rage)
-    {
-        Rage = Mathf.Clamp(Rage+rage,0,100);
-    }
-    public bool HasEnoughRage(float needed)
-    {
-        return Rage > needed;
-    }
-
-    [Networked(OnChanged = nameof(OnDamageChanged))]
-    public float Damage { get; private set; }
-    public void TakeDamageAndKnockback(float damage, float knockback, Vector3 kbCenter)
-    {
-        Debug.Log("Player " + name + " hit for " + damage + " damage and " + knockback + " knockback strength!");
-
-        RecieveKnockBack(kbCenter, knockback);
-        Damage += damage;
-    }
-    public static void OnDamageChanged(Changed<PlayerController> playerInfo)
-    {
-        UIController.main.UpdatePlayerUI(playerInfo.Behaviour.Object.InputAuthority);
-    }
-    [Networked(OnChanged = nameof(OnEnterAbductionBeam))]
-    public bool IsAbducted { get; private set; }
-    public static void OnEnterAbductionBeam(Changed<PlayerController> playerInfo)
-    {
-
-    }
-    #endregion
-    #region Knockback
-    public void RecieveKnockBack(Vector3 center, float strength)
-    {
-        float damageDelta = Damage / 20;
-        KnockBack((transform.position - center).normalized, strength * (.8f + damageDelta * .2f), 1 * (.5f + damageDelta * .5f));
-    }
-    public void KnockBack(Vector3 direction, float strength, float duration)
-    {
-        actionman.BeginAction(PlayerAction.stagger, duration);
-        rigidbody.velocity = direction * strength;
-    }
     #endregion
 }

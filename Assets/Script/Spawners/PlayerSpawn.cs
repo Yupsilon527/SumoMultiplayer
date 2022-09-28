@@ -33,6 +33,27 @@ public class PlayerSpawn : NetworkSpawner, IPlayerJoined, IPlayerLeft, ISpawned
     }
     #endregion
 
+    #region Register Players
+    public Dictionary<PlayerRef, PlayerController> RegisteredPlayers = new Dictionary<PlayerRef, PlayerController>();
+    public void RegisterPlayer(PlayerRef playerRef, PlayerController controller)
+    {
+        if (RegisteredPlayers.ContainsKey(playerRef)) return;
+        if (controller == null) return;
+
+        RegisteredPlayers.Add(playerRef, controller);
+    }
+    public void RemovePlayer(PlayerRef playerRef)
+    {
+        if (RegisteredPlayers.TryGetValue(playerRef, out PlayerController controller) == false) return;
+
+        if (controller != null)
+        {
+            controller.gameObject.SetActive(false);
+        }
+
+        RegisteredPlayers.Remove(playerRef);
+    }
+    #endregion
     #region Spawns
     private Transform[] spawnPoints = null;
     void InitSpawns()
@@ -48,8 +69,12 @@ public class PlayerSpawn : NetworkSpawner, IPlayerJoined, IPlayerLeft, ISpawned
     {
         Transform spawnPoint = spawnPoints[player.PlayerId % spawnPoints.Length];
 
-        var playerObject = Spawn(spawnPoint.position, player);
+        NetworkObject playerObject = Spawn(spawnPoint.position, player);
         Runner.SetPlayerObject(player, playerObject);
+        if (playerObject.TryGetComponent(out PlayerController controller))
+        {
+            RegisterPlayer(player, controller);
+        }
     }
 
     private void DespawnPlayer(PlayerRef player)
@@ -58,6 +83,7 @@ public class PlayerSpawn : NetworkSpawner, IPlayerJoined, IPlayerLeft, ISpawned
         {
             Runner.Despawn(playerNetworkObject);
         }
+        RemovePlayer(player);
         Runner.SetPlayerObject(player, null);
     }
     #endregion

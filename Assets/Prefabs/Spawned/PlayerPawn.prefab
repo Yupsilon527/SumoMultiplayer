@@ -130,7 +130,6 @@ MonoBehaviour:
     RawGuidValue: 2d81322ce84110545aba98d79474fb8b
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 3801039324017845438}
   - {fileID: -1296540427797451724}
   - {fileID: -7315478742508970568}
   - {fileID: 4818091953077637352}
@@ -146,10 +145,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 6624063373450815426}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1871b07f4f492a34da23b7f5fb023b95, type: 3}
+  m_Script: {fileID: 11500000, guid: 6281ab9d34890934eae8db5b2a37d9ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interpolationDataSource: 2
 --- !u!54 &551771899282069799
 Rigidbody:
   m_ObjectHideFlags: 0
