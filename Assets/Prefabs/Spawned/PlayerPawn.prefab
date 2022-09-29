@@ -201,6 +201,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
+  RegularDrag: 4
+  StaggerDrag: 1
+  RegularBounce: 0
+  StaggerBounce: 0.5
   AttackContactDistance: 0.28
   AttackContactRadius: 0.33
   AttackHitMask:
@@ -210,7 +214,7 @@ MonoBehaviour:
   SlashAttackDuration: 0.8333333
   SlashAttackContactStart: 0.25
   SlashAttackContactEnd: 0.55
-  SlashAttackDamage: 8
+  SlashAttackDamage: 4
   SlashAttackKnockback: 2
   SlashAttackRageInitial: 5
   SlashAttackRageConsecutive: 3
@@ -219,7 +223,7 @@ MonoBehaviour:
   SmashAttackDuration: 1
   SmashAttackContactStart: 0.25
   SmashAttackContactEnd: 0.5
-  SmashAttackDamage: 18
+  SmashAttackDamage: 9
   SmashAttackKnockback: 1
   SmashAttackRageMultiplier: 3
   SmashAttackRageBuildupTime: 2

@@ -1,6 +1,7 @@
 using Fusion;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ToonActionController : NetworkBehaviour, IRespawnable
@@ -142,6 +143,7 @@ public class ToonActionController : NetworkBehaviour, IRespawnable
         actionTime = TickTimer.None;
         currentAction = nState;
         Debug.Log(name + " return to state " + nState);
+        UpdatePhysics();
     }
     public void BeginAction(PlayerAction nState, float dur)
     {
@@ -170,6 +172,12 @@ public class ToonActionController : NetworkBehaviour, IRespawnable
                 break;
         }
         currentAction = nState;
+        UpdatePhysics();
+    }
+    void UpdatePhysics()
+    {
+        controller.rigidbody.drag = (currentAction == PlayerAction.stagger) ? StaggerDrag : RegularDrag;
+        collider.material.bounciness = (currentAction == PlayerAction.stagger) ? StaggerBounce : RegularBounce;
     }
     void HandleAction()
     {
