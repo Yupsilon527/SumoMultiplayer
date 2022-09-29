@@ -57,6 +57,10 @@ public class ToonMovement : NetworkBehaviour, IRespawnable
 
         controller.rigidbody.velocity = rigidbodyvelocity;
     }
+    public Vector3 GetVectorForward()
+    {
+        return facesRight ? Vector3.right : Vector3.left;
+    }
     public static void OnPlayerFacingChange(Changed<ToonMovement> playerInfo)
     {
         if (playerInfo.Behaviour.controller == null)

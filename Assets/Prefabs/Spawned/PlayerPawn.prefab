@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 6624063373450815438}
   - component: {fileID: 6624063373450815425}
   - component: {fileID: -1092285775583282189}
-  - component: {fileID: 3801039324017845438}
   - component: {fileID: 551771899282069799}
   - component: {fileID: -1296540427797451724}
   - component: {fileID: -7315478742508970568}
+  - component: {fileID: 3801039324017845438}
   - component: {fileID: 4818091953077637352}
   - component: {fileID: 1258359365125640815}
   - component: {fileID: 874765995518869657}
@@ -81,29 +81,14 @@ MonoBehaviour:
     RawGuidValue: 2d81322ce84110545aba98d79474fb8b
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 3801039324017845438}
   - {fileID: -1296540427797451724}
   - {fileID: -7315478742508970568}
+  - {fileID: 3801039324017845438}
   - {fileID: 4818091953077637352}
   - {fileID: 1258359365125640815}
   - {fileID: 3355099813043041685}
   SimulationBehaviours:
   - {fileID: 7108365669117957674}
---- !u!114 &3801039324017845438
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6624063373450815426}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6281ab9d34890934eae8db5b2a37d9ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _interpolationDataSource: 0
-  _Rage: 0
-  _Damage: 0
 --- !u!54 &551771899282069799
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -167,6 +152,24 @@ MonoBehaviour:
   audio: {fileID: 0}
   _IsAbducted: 0
   _Score: 0
+--- !u!114 &3801039324017845438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6624063373450815426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6281ab9d34890934eae8db5b2a37d9ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
+  DamageKnockbackMultiplier: 0.05
+  RageMax: 100
+  DamageToRage: 0.33
+  _Rage: 0
+  _Damage: 0
 --- !u!114 &4818091953077637352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -181,10 +184,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
   MoveSpeed: 3.5
-  MoveAcceleration: 10
+  MoveAcceleration: 15
   ChargeMultiplier: 2
   _facesRight: 0
-  moveDir: {x: 0, y: 0}
+  _moveDir: {x: 0, y: 0}
 --- !u!114 &1258359365125640815
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -198,35 +201,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
-  AttackContactDistance: 0.18
-  AttackContactRadius: 0.16
+  AttackContactDistance: 0.28
+  AttackContactRadius: 0.33
   AttackHitMask:
     serializedVersion: 2
     m_Bits: 2147483647
-  ABC: 1
-  DEF: 1
   SlashSound: {fileID: 8300000, guid: c53743bc7c6d0114d9351717b24d79b7, type: 3}
-  SlashAttackDuration: 0.75
-  SlashAttackContactStart: 0.1
-  SlashAttackContactEnd: 0.4
-  SlashAttackDamage: 1
-  SlashAttackKnockback: 1
-  SlashAttackRageInitial: 1
-  SlashAttackRageConsecutive: 1
-  SlashAttackSelfPush: 1
+  SlashAttackDuration: 0.8333333
+  SlashAttackContactStart: 0.25
+  SlashAttackContactEnd: 0.55
+  SlashAttackDamage: 8
+  SlashAttackKnockback: 2
+  SlashAttackRageInitial: 5
+  SlashAttackRageConsecutive: 3
+  SlashAttackSelfPush: 0.5
   SmashSound: {fileID: 8300000, guid: 4a6b1325e0a12e14bbca1101c4f7e5cb, type: 3}
   SmashAttackDuration: 1
-  SmashAttackContactStart: 1
-  SmashAttackContactEnd: 1
-  SmashAttackDamage: 1
+  SmashAttackContactStart: 0.25
+  SmashAttackContactEnd: 0.5
+  SmashAttackDamage: 18
   SmashAttackKnockback: 1
+  SmashAttackRageMultiplier: 3
+  SmashAttackRageBuildupTime: 2
   ParryContactSound: {fileID: 8300000, guid: 68ee96408a29bd946859fabfb4ad28ea, type: 3}
-  ParryDuration: 0.15
-  ParryStagger: 0.3
+  ParryDuration: 0.25
+  ParryStagger: 0.333
+  ParryCooldown: 0.66
+  ParryKnockbackStrength: 2
+  ParryKnockbackDuration: 1
+  ParryRage: 6
   DodgeSound: {fileID: 8300000, guid: a449d1f4b5ae48044b44c76972609dbe, type: 3}
-  DashDuration: 0.1
-  DashStagger: 0.2
-  DashSpeed: 4
+  DashDuration: 0.333
+  DashStagger: 0.666
+  DashSpeed: 3.5
+  DashCooldown: 1
   _currentAction: 0
 --- !u!82 &874765995518869657
 AudioSource:
@@ -372,10 +380,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10f8b738181de2f4bace55e44ff535cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FacesRight: 0
-  IsWalking: 0
-  Charging: 0
-  Staggered: 0
 --- !u!212 &9219906277055937784
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -6,12 +6,16 @@ using UnityEngine;
 public class ToonActionController : NetworkBehaviour, IRespawnable
 {
     #region Settings
+    [Header("General Stats")]
+    public float RegularDrag = 0;
+    public float StaggerDrag = 0;
+    public float RegularBounce = 0;
+    public float StaggerBounce = 0;
+
     [Header("General Attack")]
     public float AttackContactDistance = 1f;
     public float AttackContactRadius = 1f;
     public LayerMask AttackHitMask;
-    public float ABC = 1f;
-    public float DEF = 1f;
 
     [Header("Regular Attack")]
     public AudioClip SlashSound;
@@ -31,25 +35,34 @@ public class ToonActionController : NetworkBehaviour, IRespawnable
     public float SmashAttackContactEnd = 1f;
     public float SmashAttackDamage = 1f;
     public float SmashAttackKnockback = 1f;
+    public float SmashAttackRageMultiplier = 1f;
+    public float SmashAttackRageBuildupTime = 1f;
 
     [Header("Parry")]
     public AudioClip ParryContactSound;
     public float ParryDuration = .33f;
     public float ParryStagger = .5f;
+    public float ParryCooldown = 1;
+    public float ParryKnockbackStrength = 1;
+    public float ParryKnockbackDuration = 1;
+    public float ParryRage = 1;
 
     [Header("Dodge")]
     public AudioClip DodgeSound;
     public float DashDuration = .33f;
     public float DashStagger = .5f;
     public float DashSpeed = 1;
+    public float DashCooldown = 1;
     #endregion
 
 
     #region General
     private PlayerController controller = null;
+    private Collider collider = null;
     public override void Spawned()
     {
         controller = GetComponent<PlayerController>();
+        collider = GetComponent<Collider>();
     }
     public void Respawn()
     {
@@ -72,7 +85,6 @@ public class ToonActionController : NetworkBehaviour, IRespawnable
     #endregion
     #region Player Input
     [Networked] private NetworkButtons _buttonsPrevious { get; set; }
-    public float ChargeBuildUp1 { get => ChargeBuildUp; set => ChargeBuildUp = value; }
 
     void HandlePlayerInput(ToonInput input)
     {
@@ -88,11 +100,17 @@ public class ToonActionController : NetworkBehaviour, IRespawnable
             }
             if (input.Buttons.WasPressed(_buttonsPrevious, ToonInput.Button.Parry))
             {
-                BeginAction(PlayerAction.parry, ParryStagger);
+                if (dashCooldown.ExpiredOrNotRunning(Runner))
+                {
+                    BeginAction(PlayerAction.parry, ParryStagger);
+                }
             }
             if (input.Buttons.WasPressed(_buttonsPrevious, ToonInput.Button.Dash))
             {
-                BeginAction(PlayerAction.dash, DashStagger);
+                if (dashCooldown.ExpiredOrNotRunning(Runner))
+                {
+                    BeginAction(PlayerAction.dash, DashStagger);
+                }
             }
         }
         if (currentAction == PlayerAction.charging && !input.Buttons.IsSet(ToonInput.Button.Strong))
@@ -128,11 +146,10 @@ public class ToonActionController : NetworkBehaviour, IRespawnable
     public void BeginAction(PlayerAction nState, float dur)
     {
         actionTime = TickTimer.CreateFromSeconds(Runner, dur);
-        currentAction = nState;
-        actionDirection = new Vector3(controller.mover.moveDir.x,0, controller.mover.moveDir.y);
+        actionDirection = new Vector3(controller.mover.moveDir.x,0, controller.mover.moveDir.y).normalized;
         Debug.Log(name + " begin action " + nState+" for "+dur+" seconds.");
 
-        switch (currentAction)
+        switch (nState)
         {
             case PlayerAction.attack:
                 controller.audio.PlayOneShot(SlashSound);
@@ -145,13 +162,15 @@ public class ToonActionController : NetworkBehaviour, IRespawnable
             case PlayerAction.parry:
             case PlayerAction.dash:
                 controller.audio.PlayOneShot(DodgeSound);
+                dashCooldown = TickTimer.CreateFromSeconds(Runner, (currentAction == PlayerAction.dash) ? DashCooldown : ParryCooldown);
                 break;
             case PlayerAction.stagger:
                 controller.audio.PlayOneShot(SlashSound);
                 PlayerHits.Clear();
                 break;
         }
-        }
+        currentAction = nState;
+    }
     void HandleAction()
     {
         switch (currentAction)
@@ -160,8 +179,8 @@ public class ToonActionController : NetworkBehaviour, IRespawnable
             case PlayerAction.strongattack:
 
                 float remainTime = actionTime.RemainingTime(Runner) ?? 0;
-                if ((currentAction ==  PlayerAction.attack && SlashAttackDuration - remainTime > SlashAttackContactStart && SlashAttackDuration - remainTime < SlashAttackContactEnd) ||
-                    (currentAction == PlayerAction.strongattack && SmashAttackDuration - remainTime > SmashAttackContactStart && SmashAttackDuration - remainTime < SmashAttackContactEnd))
+                if ((currentAction ==  PlayerAction.attack && SlashAttackDuration - remainTime >= SlashAttackContactStart && SlashAttackDuration - remainTime <= SlashAttackContactEnd) ||
+                    (currentAction == PlayerAction.strongattack && SmashAttackDuration - remainTime >= SmashAttackContactStart && SmashAttackDuration - remainTime <= SmashAttackContactEnd))
                 {
                     AttackFrame();
                 }
@@ -170,8 +189,10 @@ public class ToonActionController : NetworkBehaviour, IRespawnable
                     BeginAction(PlayerAction.free);
                 break;
             case PlayerAction.charging:
-                controller.damageable.BuildUpRage(ABC);
-                ChargeBuildUp = Mathf.Max(ChargeBuildUp + DEF,1);
+
+                float percent = 1f / SmashAttackRageBuildupTime * Runner.DeltaTime;
+                controller.damageable.BuildUpRage(controller.damageable.RageMax * percent);
+                ChargeBuildUp = Mathf.Max(ChargeBuildUp + percent, 1);
                 if (ChargeBuildUp >= 1 || controller.damageable.Rage <= 0)
                 {
                     BeginAction(PlayerAction.strongattack, SmashAttackDuration);
@@ -228,6 +249,7 @@ public class ToonActionController : NetworkBehaviour, IRespawnable
     }
     #endregion
     #region Dashing and Parrying
+    TickTimer dashCooldown;
     public bool IsDodging()
     {
         return currentAction == PlayerAction.dash && actionTime.RemainingTime(Runner) > DashStagger - DashDuration;
@@ -260,21 +282,43 @@ public class ToonActionController : NetworkBehaviour, IRespawnable
             }
         }
     }
-    void ProcessHit(PlayerController sucker, bool strongAttack)
-{
-    if (sucker != controller && !PlayerHits.Contains(sucker))
+    void ProcessHit(PlayerController victim, bool strongAttack)
     {
-        PlayerHits.Add(sucker);
-            sucker.damageable.TakeDamageAndKnockback(strongAttack ? SmashAttackDamage : SlashAttackDamage, strongAttack ? SmashAttackKnockback : SlashAttackKnockback,transform.position);
+        if (victim != controller && !PlayerHits.Contains(victim))
+        {
+            PlayerHits.Add(victim);
+            if (victim.actionman.IsDodging())
+                return;
+
+            float damage = strongAttack ? SmashAttackDamage : SlashAttackDamage;
+            float knockback = strongAttack ? SmashAttackKnockback : SlashAttackKnockback;
+
             if (!strongAttack)
             {
-                if (PlayerHits.Count == 1)
+                if (victim.actionman.IsParrying())
                 {
-                    controller.damageable.BuildUpRage(SlashAttackRageInitial);
-                    controller.damageable.KnockBack(Vector3.right, 1, SlashAttackSelfPush);
+                    victim.damageable.BuildUpRage(victim.actionman.ParryRage);
+                    victim.audio.PlayOneShot(ParryContactSound);
+                    controller.damageable.KnockBack((victim.transform.position - transform.position), ParryKnockbackDuration, ParryKnockbackStrength, true);
+                    return;
                 }
-                controller.damageable.BuildUpRage(SlashAttackRageConsecutive);
+                else
+                {
+                    if (PlayerHits.Count == 1)
+                    {
+                        controller.damageable.BuildUpRage(SlashAttackRageInitial);
+                        controller.damageable.KnockBack(-controller.mover.GetVectorForward(), 1, SlashAttackSelfPush,false);
+                    }
+                    controller.damageable.BuildUpRage(SlashAttackRageConsecutive);
+                }
             }
+            else
+            {
+                float rageModifier = SmashAttackRageMultiplier * ChargeBuildUp ;
+                damage *= 1 + rageModifier;
+                knockback *= 1 + rageModifier;
+            }
+            victim.damageable.TakeDamageAndKnockback(damage, knockback, transform.position);
         }
     }
     private void OnDrawGizmosSelected()
