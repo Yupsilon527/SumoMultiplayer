@@ -62,6 +62,7 @@ public class ToonActionController : NetworkBehaviour, IRespawnable
 
     public override void FixedUpdateNetwork()
     {
+        if (!Object.HasStateAuthority) return;
         if (Runner.TryGetInputForPlayer(Object.InputAuthority, out ToonInput input))
         {
             HandlePlayerInput(input);
@@ -201,7 +202,6 @@ public class ToonActionController : NetworkBehaviour, IRespawnable
     {
         if (playerInfo.Behaviour.controller == null)
             return;
-
         switch (playerInfo.Behaviour.currentAction)
         {
             case PlayerAction.attack:
@@ -216,7 +216,10 @@ public class ToonActionController : NetworkBehaviour, IRespawnable
             case PlayerAction.dash:
                 playerInfo.Behaviour.controller.animations.PlaySpecific("dodge");
                 break;
+
         }
+        playerInfo.Behaviour.controller.animations.SetStaggered(playerInfo.Behaviour.currentAction == PlayerAction.stagger);
+        playerInfo.Behaviour.controller.animations.SetCharging(playerInfo.Behaviour.currentAction == PlayerAction.charging);
     }
 
     public bool IsActing()

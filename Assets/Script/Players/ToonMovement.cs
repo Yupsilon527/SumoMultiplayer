@@ -24,14 +24,18 @@ public class ToonMovement : NetworkBehaviour, IRespawnable
 
     public override void FixedUpdateNetwork()
     {
-        if (controller.CanMove() && Runner.TryGetInputForPlayer(Object.InputAuthority, out ToonInput input))
+        if (Object.HasStateAuthority)
         {
-            Move(input);
+            if (controller.CanMove() && Runner.TryGetInputForPlayer(Object.InputAuthority, out ToonInput input))
+            {
+                Move(input);
+            }
         }
-        CheckScreenBounds();
     }
-   [Networked] public bool facesRight { get; set; }
-    public Vector2 moveDir;
+   [Networked(OnChanged =nameof(OnPlayerFacingChange))] 
+    public bool facesRight { get; set; }
+    [Networked(OnChanged = nameof(OnPlayerWalkingChange))]
+    public Vector2 moveDir { get; set; }
     void Move(ToonInput input)
     {
         float speedMult = controller.actionman.IsChargingAttack() ? ChargeMultiplier : 1;
@@ -40,7 +44,9 @@ public class ToonMovement : NetworkBehaviour, IRespawnable
 
         moveDir = new Vector2(input.HorizontalInput, input.VerticalInput);
         if (moveDir.x != 0)
-        facesRight = moveDir.x > 0;
+        {
+            facesRight = moveDir.x > 0;
+        }
 
         //acceleration
         float deltaAcceleration = MoveAcceleration * Runner.DeltaTime / speedMult;
@@ -51,7 +57,16 @@ public class ToonMovement : NetworkBehaviour, IRespawnable
 
         controller.rigidbody.velocity = rigidbodyvelocity;
     }
-    void CheckScreenBounds()
+    public static void OnPlayerFacingChange(Changed<ToonMovement> playerInfo)
     {
+        if (playerInfo.Behaviour.controller == null)
+            return;
+        playerInfo.Behaviour.controller.animations.SetFacing(playerInfo.Behaviour.facesRight);
+    }
+    public static void OnPlayerWalkingChange(Changed<ToonMovement> playerInfo)
+    {
+        if (playerInfo.Behaviour.controller == null)
+            return;
+        playerInfo.Behaviour.controller.animations.SetWalking(playerInfo.Behaviour.moveDir.x != 0 || playerInfo.Behaviour.moveDir.y != 0);
     }
 }
