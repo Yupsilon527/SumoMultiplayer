@@ -277,9 +277,9 @@ public class ToonActionController : NetworkBehaviour, IRespawnable
 
         bool strongattack = currentAction == PlayerAction.strongattack;
 
-        Vector3 center = transform.position + controller.mover.GetVectorForward() ;
+        Vector3 center = transform.position + controller.mover.GetVectorForward() * AttackContactDistance;
 
-        float radiusScale = strongattack ? (1 + ChargeBuildUp * SmashAttackRageGrowth) : 1;
+        float radiusScale = strongattack ? (1f + ChargeBuildUp * SmashAttackRageGrowth) : 1;
         int count = Runner.LagCompensation.OverlapSphere(center, AttackContactRadius * radiusScale,
             Object.InputAuthority, FrameHits, AttackHitMask.value);
         Debug.Log(count);
