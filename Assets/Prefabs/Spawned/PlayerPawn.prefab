@@ -201,7 +201,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
-  RegularDrag: 4
+  RegularDrag: 5
   StaggerDrag: 1
   RegularBounce: 0
   StaggerBounce: 0.5
@@ -225,6 +225,7 @@ MonoBehaviour:
   SmashAttackContactEnd: 0.5
   SmashAttackDamage: 9
   SmashAttackKnockback: 1
+  SmashAttackRageGrowth: 0.2
   SmashAttackRageMultiplier: 3
   SmashAttackRageBuildupTime: 2
   ParryContactSound: {fileID: 8300000, guid: 68ee96408a29bd946859fabfb4ad28ea, type: 3}

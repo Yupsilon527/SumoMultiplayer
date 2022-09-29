@@ -36,6 +36,7 @@ public class ToonActionController : NetworkBehaviour, IRespawnable
     public float SmashAttackContactEnd = 1f;
     public float SmashAttackDamage = 1f;
     public float SmashAttackKnockback = 1f;
+    public float SmashAttackRageGrowth = 1f;
     public float SmashAttackRageMultiplier = 1f;
     public float SmashAttackRageBuildupTime = 1f;
 
@@ -199,8 +200,8 @@ public class ToonActionController : NetworkBehaviour, IRespawnable
             case PlayerAction.charging:
 
                 float percent = 1f / SmashAttackRageBuildupTime * Runner.DeltaTime;
-                controller.damageable.BuildUpRage(controller.damageable.RageMax * percent);
-                ChargeBuildUp = Mathf.Max(ChargeBuildUp + percent, 1);
+                controller.damageable.BuildUpRage(-controller.damageable.RageMax * percent);
+                ChargeBuildUp = Mathf.Min(ChargeBuildUp + percent, 1);
                 if (ChargeBuildUp >= 1 || controller.damageable.Rage <= 0)
                 {
                     BeginAction(PlayerAction.strongattack, SmashAttackDuration);
@@ -274,9 +275,12 @@ public class ToonActionController : NetworkBehaviour, IRespawnable
     {
         FrameHits.Clear();
 
-        Vector3 center = transform.position;
-        
-        int count = Runner.LagCompensation.OverlapSphere(center, AttackContactRadius,
+        bool strongattack = currentAction == PlayerAction.strongattack;
+
+        Vector3 center = transform.position + controller.mover.GetVectorForward() ;
+
+        float radiusScale = strongattack ? (1 + ChargeBuildUp * SmashAttackRageGrowth) : 1;
+        int count = Runner.LagCompensation.OverlapSphere(center, AttackContactRadius * radiusScale,
             Object.InputAuthority, FrameHits, AttackHitMask.value);
         Debug.Log(count);
 
@@ -286,7 +290,7 @@ public class ToonActionController : NetworkBehaviour, IRespawnable
         {
             if (hit.GameObject.TryGetComponent(out PlayerController enemy))
             {
-                    ProcessHit(enemy, currentAction == PlayerAction.strongattack);
+                    ProcessHit(enemy, strongattack);
             }
         }
     }
