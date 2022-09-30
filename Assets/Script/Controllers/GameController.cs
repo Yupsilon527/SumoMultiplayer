@@ -32,10 +32,6 @@ public class GameController : NetworkBehaviour
     public PlayerSpawn PlayerSpawners;
     public UfoSpawner UfoSpawner;
 
-    bool IsServer()
-    {
-        return Object.HasStateAuthority;
-    }
     #region NetworkFunctions
     public override void Spawned()
     {
@@ -54,7 +50,7 @@ public class GameController : NetworkBehaviour
     #region Game Start And Restart
      void HandleRestart()
     {
-        if (!IsServer()) return;
+        if (!Object.HasStateAuthority) return;
 
         foreach (IRespawnable respawnable in UfoController.main.GetComponents<IRespawnable>())
         {
@@ -71,7 +67,7 @@ public class GameController : NetworkBehaviour
     #region Initialization
     void InitializeRoom()
     {
-        if (IsServer())
+        if (Object.HasStateAuthority)
         {
             if (Object.HasStateAuthority)
             {
@@ -133,7 +129,7 @@ public class GameController : NetworkBehaviour
         switch (newstate)
         {
             case GameState.pregame:
-                if (IsServer())
+                if (Object.HasStateAuthority)
                 {
                     PlayerSpawners.RespawnAllPlayers();
                     HandleRestart();
@@ -141,7 +137,7 @@ public class GameController : NetworkBehaviour
                 }
                 break;
             case GameState.ingame:
-                if (IsServer())
+                if (Object.HasStateAuthority)
                 {
                     gameTimer = TickTimer.CreateFromSeconds(Runner, RoundTime);
                 }

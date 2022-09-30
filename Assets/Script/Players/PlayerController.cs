@@ -34,12 +34,16 @@ public class PlayerController : NetworkBehaviour, IRespawnable
     }
     void Initalize()
     {
+        StartPosition = transform.position;
         if (Object.HasStateAuthority)
         {
-            StartPosition = transform.position;
             Respawn();
         }
         UIController.main.AddPlayer(Object.InputAuthority, this);
+    }
+    public override void Despawned(NetworkRunner runner, bool hasState)
+    {
+        UIController.main.RemovePlayer(Object.InputAuthority);
     }
     #region Respawn
     public Vector3 StartPosition { get; private set; }
