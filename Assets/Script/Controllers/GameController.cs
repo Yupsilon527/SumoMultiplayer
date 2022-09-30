@@ -15,6 +15,7 @@ public class GameController : NetworkBehaviour
     }
     public float PreGameTime = 3;
     public float RoundTime = 180;
+    public float WinScore = 100;
 
     public enum GameState
     {
@@ -39,12 +40,11 @@ public class GameController : NetworkBehaviour
     public override void Spawned()
     {
         InitializeRoom();
-        StartTheGame();
+        StartNewGame();
     }
 
     public override void FixedUpdateNetwork()
     {
-        HandleState();
         if (gameTimer.Expired(Runner))
         {
             HandleTimer();
@@ -52,17 +52,20 @@ public class GameController : NetworkBehaviour
     }
     #endregion
     #region Game Start And Restart
-    public void HandleRestart()
+     void HandleRestart()
     {
+        if (!IsServer()) return;
+
         foreach (IRespawnable respawnable in UfoController.main.GetComponents<IRespawnable>())
         {
             respawnable.Respawn();
         }
         foreach (KeyValuePair<PlayerRef, PlayerController> Player in PlayerSpawners.RegisteredPlayers)
-        foreach (IRespawnable respawnable in Player.Value.GetComponents<IRespawnable>())
-        {
-            respawnable.Respawn();
-        }
+            foreach (IRespawnable respawnable in Player.Value.GetComponents<IRespawnable>())
+            {
+                respawnable.Respawn();
+            }
+        WinningPlayer = null;
     }
     #endregion
     #region Initialization
@@ -70,18 +73,41 @@ public class GameController : NetworkBehaviour
     {
         if (IsServer())
         {
-            PlayerSpawners.SpawnPlayers();
-            UfoSpawner.SpawnHazards();
+            if (Object.HasStateAuthority)
+            {
+                PlayerSpawners.InitSpawns();
+                UfoSpawner.SpawnHazards();
+            }
         }
     }
-    void StartTheGame()
+    public void StartNewGame()
     {
-        if (IsServer())
             ChangeState(GameState.pregame);
+        UIController.main.ShowInGameScreen();
     }
-    void RestartGame()
+    [HideInInspector][Networked] public PlayerController WinningPlayer { get; set; }
+    public void CheckGameOver()
     {
+        if (Object.HasStateAuthority) 
+            DeclareWinner(false);
 
+        if (WinningPlayer != null)
+        {
+            ChangeState(GameState.postgame);
+        }
+    }
+    void DeclareWinner(bool forced)
+    {
+        foreach (KeyValuePair<PlayerRef, PlayerController> Player in PlayerSpawners.RegisteredPlayers)
+        {
+            if (forced ||Player.Value.Score >= WinScore)
+            {
+                if (WinningPlayer == null || WinningPlayer.Score < Player.Value.Score)
+                {
+                    WinningPlayer = Player.Value;
+                }
+            }
+        }
     }
     #endregion
     #region States
@@ -94,13 +120,11 @@ public class GameController : NetworkBehaviour
                 ChangeState(GameState.ingame);
                 break;
             case GameState.ingame:
+                DeclareWinner(true);
                 ChangeState(GameState.postgame);
                 break;
         }
         gameTimer = default;
-    }
-    void HandleState()
-    {
     }
 
     public void ChangeState(GameState newstate)
@@ -110,17 +134,24 @@ public class GameController : NetworkBehaviour
         {
             case GameState.pregame:
                 if (IsServer())
-                gameTimer = TickTimer.CreateFromSeconds(Runner, PreGameTime);
+                {
+                    PlayerSpawners.RespawnAllPlayers();
+                    HandleRestart();
+                    gameTimer = TickTimer.CreateFromSeconds(Runner, PreGameTime);
+                }
                 break;
             case GameState.ingame:
                 if (IsServer())
                 {
                     gameTimer = TickTimer.CreateFromSeconds(Runner, RoundTime);
-                    HandleRestart();
                 }
+                break;
+            case GameState.postgame:
+                UIController.main.ShowEndOfGameScreen();
                 break;
         }
         currentState = newstate;
     }
+
     #endregion
 }

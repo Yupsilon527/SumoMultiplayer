@@ -166,6 +166,8 @@ public class ToonActionController : NetworkBehaviour, IRespawnable
             case PlayerAction.dash:
                 controller.audio.PlayOneShot(DodgeSound);
                 dashCooldown = TickTimer.CreateFromSeconds(Runner, (currentAction == PlayerAction.dash) ? DashCooldown : ParryCooldown);
+                if (actionDirection.x == 0 && actionDirection.y == 0)
+                    actionDirection = controller.mover.GetVectorForward();
                 break;
             case PlayerAction.stagger:
                 controller.audio.PlayOneShot(SlashSound);
@@ -282,7 +284,6 @@ public class ToonActionController : NetworkBehaviour, IRespawnable
         float radiusScale = strongattack ? (1f + ChargeBuildUp * SmashAttackRageGrowth) : 1;
         int count = Runner.LagCompensation.OverlapSphere(center, AttackContactRadius * radiusScale,
             Object.InputAuthority, FrameHits, AttackHitMask.value);
-        Debug.Log(count);
 
         if (count <= 0) return;
 

@@ -32,10 +32,6 @@ public class PlayerController : NetworkBehaviour, IRespawnable
     {
         Initalize();
     }
-
-    public override void Despawned(NetworkRunner runner, bool hasState)
-    {
-    }
     void Initalize()
     {
         if (Object.HasStateAuthority)
@@ -88,6 +84,7 @@ public class PlayerController : NetworkBehaviour, IRespawnable
     public void AddToScore(float points)
     {
         Score += points;
+        GameController.main.CheckGameOver();
     }
 
     [Networked(OnChanged = nameof(OnScoreChanged))]
@@ -98,7 +95,7 @@ public class PlayerController : NetworkBehaviour, IRespawnable
     }
     void HandleScoreUpdate()
     {
-        if (Object.HasStateAuthority)
+        if (Object.HasStateAuthority && GameController.main.currentState == GameController.GameState.ingame)
         {
             if (UfoController.main == null)
                 return;

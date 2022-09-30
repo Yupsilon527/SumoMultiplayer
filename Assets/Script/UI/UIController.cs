@@ -2,11 +2,21 @@ using Fusion;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
     public static UIController main;
+
+    [Header("Components")]
     public PlayerInterfaceController[] UIList;
+
+    public GameObject InGameWindow;
+    public GameObject PostGameWindow;
+
+    [Header("Winner Menu")]
+    public TMPro.TextMeshProUGUI WinnerName;
+    public Button RestartGameButton;
 
     private void Awake()
     {
@@ -91,4 +101,28 @@ public class UIController : MonoBehaviour
 
          entry.text = $"{nickName}\nScore: {score}\nLives: {lives}";
      }*/
+
+    public void ShowInGameScreen()
+    {
+        if (InGameWindow != null)
+            InGameWindow.SetActive(true);
+        if (PostGameWindow != null)
+            PostGameWindow.SetActive(false);
+    }
+    public void ShowEndOfGameScreen()
+    {
+        if (InGameWindow != null)
+            InGameWindow.SetActive(false);
+        if (PostGameWindow != null)
+            PostGameWindow.SetActive(true);
+
+        if (RestartGameButton!=null)
+        {
+            RestartGameButton.interactable = GameController.main.Object.HasStateAuthority;
+        }
+        if (WinnerName != null)
+        {
+            WinnerName.text = GameController.main.WinningPlayer.NickName.Value;
+        }
+    }
 }
