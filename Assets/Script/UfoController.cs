@@ -18,6 +18,7 @@ public class UfoController : NetworkBehaviour, IRespawnable
 
     public Vector2 desiredPosition = Vector2.zero;
     public Vector2 realPosition = Vector2.zero;
+    NetworkTransform ntf;
 
     private void Awake()
     {
@@ -25,14 +26,16 @@ public class UfoController : NetworkBehaviour, IRespawnable
     }
     public override void Spawned()
     {
-
+        if (ntf == null)
+            ntf = GetComponent<NetworkTransform>();
     }
     public void Respawn()
     {
         if (Object.HasStateAuthority)
         {
             realPosition = Vector2.zero;
-            transform.position = new Vector3(realPosition.x, transform.position.y, realPosition.y);
+                
+            ntf.TeleportToPosition( new Vector3(realPosition.x, transform.position.y, realPosition.y));
 
             desiredPosition = Vector2.zero;
         }
@@ -69,7 +72,7 @@ public class UfoController : NetworkBehaviour, IRespawnable
         else
         {
             realPosition += (desiredPosition - realPosition).normalized * displacement;
-            transform.position = new Vector3(realPosition.x, transform.position.y, realPosition.y);
+            ntf.TeleportToPosition(new Vector3(realPosition.x, transform.position.y, realPosition.y));
         }
     }
     float GetRandomWaitInterval()

@@ -11,6 +11,7 @@ public class UIController : MonoBehaviour
     [Header("Components")]
     public PlayerInterfaceController[] UIList;
 
+    public TMPro.TextMeshProUGUI GameTimer;
     public GameObject InGameWindow;
     public GameObject PostGameWindow;
 
@@ -26,6 +27,13 @@ public class UIController : MonoBehaviour
         foreach (PlayerInterfaceController plUI in UIList)
         {
             plUI.gameObject.SetActive(false);
+        }
+    }
+    public void UpdateTimer()
+    {
+        if (GameTimer!=null && GameTimer.isActiveAndEnabled )
+        {
+            GameTimer.text = Mathf.Ceil(GameController.main.gameTimer.RemainingTime(GameController.main.Runner) ?? 0)+"s";
         }
     }
     private Dictionary<PlayerRef, PlayerInterfaceController> interfaceData = new Dictionary<PlayerRef, PlayerInterfaceController>();

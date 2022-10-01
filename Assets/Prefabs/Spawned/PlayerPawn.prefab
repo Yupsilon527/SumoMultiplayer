@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 6624063373450815425}
   - component: {fileID: -1092285775583282189}
   - component: {fileID: 551771899282069799}
-  - component: {fileID: -1296540427797451724}
   - component: {fileID: -7315478742508970568}
   - component: {fileID: 3801039324017845438}
   - component: {fileID: 4818091953077637352}
@@ -23,6 +22,7 @@ GameObject:
   - component: {fileID: 7108365669117957674}
   - component: {fileID: 9219906277055937784}
   - component: {fileID: 8314047611596587689}
+  - component: {fileID: -5717417148352075861}
   m_Layer: 0
   m_Name: PlayerPawn
   m_TagString: Untagged
@@ -81,12 +81,12 @@ MonoBehaviour:
     RawGuidValue: 2d81322ce84110545aba98d79474fb8b
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: -1296540427797451724}
   - {fileID: -7315478742508970568}
   - {fileID: 3801039324017845438}
   - {fileID: 4818091953077637352}
   - {fileID: 1258359365125640815}
   - {fileID: 3355099813043041685}
+  - {fileID: -5717417148352075861}
   SimulationBehaviours:
   - {fileID: 7108365669117957674}
 --- !u!54 &551771899282069799
@@ -105,32 +105,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 116
   m_CollisionDetection: 0
---- !u!114 &-1296540427797451724
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6624063373450815426}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 158639473, guid: e725a070cec140c4caffb81624c8c787, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _interpolationDataSource: 2
-  InterpolationSpace: 0
-  InterpolationTarget: {fileID: 6624063373450815438}
-  InterpolateErrorCorrection: 1
-  InterpolatedErrorCorrectionSettings:
-    MinRate: 3.3
-    MaxRate: 10
-    PosBlendStart: 0.25
-    PosBlendEnd: 1
-    PosMinCorrection: 0.025
-    PosTeleportDistance: 2
-    RotBlendStart: 0.1
-    RotBlendEnd: 0.5
-    RotTeleportRadians: 1.5
 --- !u!114 &-7315478742508970568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -457,3 +431,29 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-5717417148352075861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6624063373450815426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1710889294, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
+  InterpolationSpace: 0
+  InterpolationTarget: {fileID: 0}
+  InterpolateErrorCorrection: 1
+  InterpolatedErrorCorrectionSettings:
+    MinRate: 3.3
+    MaxRate: 10
+    PosBlendStart: 0.25
+    PosBlendEnd: 1
+    PosMinCorrection: 0.025
+    PosTeleportDistance: 2
+    RotBlendStart: 0.1
+    RotBlendEnd: 0.5
+    RotTeleportRadians: 1.5

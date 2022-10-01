@@ -50,7 +50,10 @@ public class PlayerController : NetworkBehaviour, IRespawnable
     public void Respawn()
     {
         Score = 0;
-        transform.position = StartPosition;
+        if (TryGetComponent(out NetworkRigidbody netrig))
+        {
+            netrig.TeleportToPosition(StartPosition);
+        }
     }
     public override void FixedUpdateNetwork()
     {

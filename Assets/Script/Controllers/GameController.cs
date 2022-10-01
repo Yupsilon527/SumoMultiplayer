@@ -41,6 +41,7 @@ public class GameController : NetworkBehaviour
 
     public override void FixedUpdateNetwork()
     {
+        UIController.main.UpdateTimer();
         if (gameTimer.Expired(Runner))
         {
             HandleTimer();
@@ -78,7 +79,8 @@ public class GameController : NetworkBehaviour
     }
     public void StartNewGame()
     {
-            ChangeState(GameState.pregame);
+        HandleRestart();
+        ChangeState(GameState.pregame);
         UIController.main.ShowInGameScreen();
     }
     [HideInInspector][Networked] public PlayerController WinningPlayer { get; set; }
@@ -119,8 +121,10 @@ public class GameController : NetworkBehaviour
                 DeclareWinner(true);
                 ChangeState(GameState.postgame);
                 break;
+            default:
+                gameTimer = default;
+                break;
         }
-        gameTimer = default;
     }
 
     public void ChangeState(GameState newstate)
@@ -132,7 +136,6 @@ public class GameController : NetworkBehaviour
                 if (Object.HasStateAuthority)
                 {
                     PlayerSpawners.RespawnAllPlayers();
-                    HandleRestart();
                     gameTimer = TickTimer.CreateFromSeconds(Runner, PreGameTime);
                 }
                 break;
