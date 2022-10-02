@@ -8,10 +8,12 @@ public class PlayerDamageable : NetworkBehaviour, IRespawnable
 {
     private PlayerController controller = null;
 
-    public float DamageKnockbackMultiplier = 1/20;
+    public float DamageKnockbackMultiplier = 1 / 20;
     public float RageMax = 100;
     public float DamageToRage = .2f;
 
+    public float DamageRegen = 20;
+    public float DamageRegenTime = 5;
 
     public override void Spawned()
     {
@@ -19,8 +21,15 @@ public class PlayerDamageable : NetworkBehaviour, IRespawnable
     }
     public void Respawn()
     {
-       Rage = 0;
-       Damage = 0;
+        Rage = 0;
+        Damage = 0;
+    }
+    public override void FixedUpdateNetwork()
+    {
+        if (damageRegenTimer.Expired(Runner))
+        {
+            HandleDamageRegen();
+        }
     }
     #region Rage
 
@@ -40,6 +49,7 @@ public class PlayerDamageable : NetworkBehaviour, IRespawnable
 
     [Networked(OnChanged = nameof(OnDamageChanged))]
     public float Damage { get; private set; }
+    TickTimer damageRegenTimer;
     public static void OnDamageChanged(Changed<PlayerDamageable> playerInfo)
     {
         UIController.main.UpdatePlayerUI(playerInfo.Behaviour.Object.InputAuthority);
@@ -51,6 +61,21 @@ public class PlayerDamageable : NetworkBehaviour, IRespawnable
         Damage += damage;
         BuildUpRage(damage * DamageToRage);
         ScaledKnockBack(kbCenter, knockback);
+
+        RefreshRegenTimer();
+    }
+    void HandleDamageRegen()
+    {
+        if (Damage > DamageRegen)
+            Damage -= DamageRegen;
+        else
+            Damage = 0;
+        RefreshRegenTimer();
+    }
+    void RefreshRegenTimer()
+    {
+
+        damageRegenTimer = TickTimer.CreateFromSeconds(Runner, DamageRegenTime);
     }
     #endregion
     #region Knockback

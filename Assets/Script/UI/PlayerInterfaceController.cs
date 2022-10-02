@@ -27,7 +27,7 @@ public class PlayerInterfaceController : MonoBehaviour
     public void UpdateData()
     {
         if (trackedPlayer == null) return;
-        playerDamage.text = Mathf.Ceil(trackedPlayer.damageable.Damage) + "%";
+        playerDamage.text = Mathf.Ceil(trackedPlayer.damageable.Damage) + "";
         playerScore.text = Mathf.CeilToInt(trackedPlayer.Score / GameController.main.WinScore * 100f) + "%";
 
         if (playerRage != null)

@@ -116,7 +116,7 @@ public class PlayerController : NetworkBehaviour, IRespawnable
             }
             else 
             {
-                AddToScore(Runner.DeltaTime * ScoreDecay);
+                AddToScore( - Runner.DeltaTime * ScoreDecay);
             }
         }
     }
