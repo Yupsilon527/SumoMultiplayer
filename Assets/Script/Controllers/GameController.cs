@@ -44,6 +44,10 @@ public class GameController : NetworkBehaviour
         {
             StartNewGame();
         }
+        else
+        {
+            PlayerSpawners.RespawnAllPlayers();
+        }
 
         UIController.main.UpdateTimer();
         if (gameTimer.Expired(Runner))
