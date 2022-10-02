@@ -139,8 +139,11 @@ public class GameController : NetworkBehaviour
                 ChangeState(GameState.ingame);
                 break;
             case GameState.ingame:
-                DeclareWinner(true);
-                ChangeState(GameState.postgame);
+                if (RoundTime > 0)
+                {
+                    DeclareWinner(true);
+                    ChangeState(GameState.postgame);
+                }
                 break;
             default:
                 gameTimer = default;
