@@ -1772,7 +1772,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
   PreGameTime: 3
-  RoundTime: 60
+  RoundTime: 0
   WinScore: 30
   _currentState: 0
   PlayerSpawners: {fileID: 769372890}

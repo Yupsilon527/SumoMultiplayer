@@ -82,6 +82,7 @@ public class PlayerController : NetworkBehaviour, IRespawnable
     #endregion
     #region Score
 
+    public float ScoreDecay = .5f;
     [Networked(OnChanged = nameof(OnEnterAbductionBeam))]
     public bool IsAbducted { get; private set; }
     public static void OnEnterAbductionBeam(Changed<PlayerController> playerInfo)
@@ -90,7 +91,7 @@ public class PlayerController : NetworkBehaviour, IRespawnable
     }
     public void AddToScore(float points)
     {
-        Score += points;
+        Score = Mathf.Max(Score + points,0);
         GameController.main.CheckGameOver();
     }
 
@@ -112,6 +113,10 @@ public class PlayerController : NetworkBehaviour, IRespawnable
             if (IsAbducted)
             {
                 AddToScore(Runner.DeltaTime);
+            }
+            else 
+            {
+                AddToScore(Runner.DeltaTime * ScoreDecay);
             }
         }
     }
