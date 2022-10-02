@@ -153,7 +153,7 @@ public class GameController : NetworkBehaviour
                 }
                 break;
             case GameState.ingame:
-                if (Object.HasStateAuthority)
+                if (Object.HasStateAuthority && RoundTime>0)
                 {
                     gameTimer = TickTimer.CreateFromSeconds(Runner, RoundTime);
                 }
