@@ -143,6 +143,8 @@ MonoBehaviour:
   DamageKnockbackMultiplier: 0.05
   RageMax: 100
   DamageToRage: 0.5
+  DamageRegen: 20
+  DamageRegenTime: 5
   _Rage: 0
   _Damage: 0
 --- !u!114 &4818091953077637352
@@ -398,8 +400,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 997529669
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 1794758360, guid: fedd9e45d898e764b8a54684cc4f14f2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
