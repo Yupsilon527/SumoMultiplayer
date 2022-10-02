@@ -35,6 +35,10 @@ public class UIController : MonoBehaviour
         {
             GameTimer.text = Mathf.Ceil(GameController.main.gameTimer.RemainingTime(GameController.main.Runner) ?? 0)+"s";
         }
+        else
+        {
+            GameTimer.text = "";
+        }
     }
     private Dictionary<PlayerRef, PlayerInterfaceController> interfaceData = new Dictionary<PlayerRef, PlayerInterfaceController>();
 

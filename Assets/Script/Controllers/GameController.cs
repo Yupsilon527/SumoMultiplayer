@@ -36,17 +36,21 @@ public class GameController : NetworkBehaviour
     public override void Spawned()
     {
         InitializeRoom();
+        UIController.main.ShowInGameScreen();
     }
 
     public override void FixedUpdateNetwork()
     {
-        if (Object.HasStateAuthority && currentState == GameState.lobby && CheckAllPlayersLoaded())
+        if (Object.HasStateAuthority)
         {
-            StartNewGame();
-        }
-        else
-        {
-            PlayerSpawners.RespawnAllPlayers();
+            if (currentState == GameState.lobby && CheckAllPlayersLoaded())
+            {
+                StartNewGame();
+            }
+            else
+            {
+                PlayerSpawners.RespawnAllPlayers();
+            }
         }
 
         UIController.main.UpdateTimer();
