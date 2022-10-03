@@ -8,24 +8,14 @@ public class PlayerSpawn : NetworkSpawner, IPlayerJoined, IPlayerLeft, ISpawned
     #region Network Object
     public override void Spawned()
     {
-    }
-    public void SpawnPlayers()
-    {
-        if (!Object.HasStateAuthority) return;
-        InitSpawns();
-
-        foreach (PlayerRef player in Runner.ActivePlayers)
-        {
-            SpawnPlayer(player);
-        }
 
     }
 
     public void PlayerJoined(PlayerRef player)
     {
         if (!Object.HasStateAuthority) return;
-        //if (GameController.main.currentState >= GameController.GameState.pregame) return;
-        SpawnPlayer(player);
+        if (GameController.main.currentState >= GameController.GameState.pregame) return;
+            SpawnPlayer(player);
     }
 
     public void PlayerLeft(PlayerRef player)
@@ -57,7 +47,7 @@ public class PlayerSpawn : NetworkSpawner, IPlayerJoined, IPlayerLeft, ISpawned
     #endregion
     #region Spawns
     private Transform[] spawnPoints = null;
-    void InitSpawns()
+    public void InitSpawns()
     {
         spawnPoints =new Transform[transform.childCount];
         for (int i = 0; i<spawnPoints.Length; i++)
@@ -66,8 +56,20 @@ public class PlayerSpawn : NetworkSpawner, IPlayerJoined, IPlayerLeft, ISpawned
         }
     }
 
+    public void RespawnAllPlayers()
+    {
+
+        foreach (PlayerRef player in Runner.ActivePlayers)
+        {
+                SpawnPlayer(player);
+        }
+    }
+
     private void SpawnPlayer(PlayerRef player)
     {
+        if (RegisteredPlayers.ContainsKey(player) && RegisteredPlayers[player] != null)
+            return;
+
         Transform spawnPoint = spawnPoints[player.PlayerId % spawnPoints.Length];
 
         NetworkObject playerObject = Spawn(spawnPoint.position, player);

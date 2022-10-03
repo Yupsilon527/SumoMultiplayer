@@ -8,20 +8,15 @@ public class PlayerInterfaceController : MonoBehaviour
 {
     PlayerController trackedPlayer;
 
-    public TextMeshProUGUI playerName;
+    public TextMeshProUGUI playerDamage;
     public TextMeshProUGUI playerScore;
-    public GameObject playerHealth;
-    public GameObject playerCharge;
+    public GameObject playerRage;
     private void Awake()
     {
-        if (playerName == null)
-        playerName = transform.Find("Name").GetComponent<TextMeshProUGUI>();
+        if (playerDamage == null)
+            playerDamage = transform.Find("Damage").GetComponent<TextMeshProUGUI>();
         if (playerScore == null)
             playerScore = transform.Find("Score").GetComponent<TextMeshProUGUI>();
-        if (playerHealth == null)
-            playerHealth = transform.Find("HealthBar").gameObject;
-        if (playerCharge == null)
-            playerCharge = transform.Find("Charge Bar").gameObject;
     }
 
     public void AssignPlayer(PlayerController player)
@@ -32,7 +27,13 @@ public class PlayerInterfaceController : MonoBehaviour
     public void UpdateData()
     {
         if (trackedPlayer == null) return;
-        playerName.text = trackedPlayer.NickName.Value;
-        playerScore.text = (Mathf.CeilToInt(trackedPlayer.Score*10f)*.1f) + "%";
+        playerDamage.text = Mathf.Ceil(trackedPlayer.damageable.Damage) + "";
+        playerScore.text = Mathf.CeilToInt(trackedPlayer.Score / GameController.main.WinScore * 100f) + "%";
+
+        if (playerRage != null)
+        {
+            float manaPercent = trackedPlayer.damageable.Rage / trackedPlayer.damageable.RageMax;
+            playerRage.transform.localScale = new Vector3(manaPercent, 1, 1);
+        }
     }
 }

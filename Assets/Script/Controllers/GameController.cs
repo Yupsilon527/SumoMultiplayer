@@ -15,6 +15,7 @@ public class GameController : NetworkBehaviour
     }
     public float PreGameTime = 3;
     public float RoundTime = 180;
+    public float WinScore = 100;
 
     public enum GameState
     {
@@ -31,57 +32,101 @@ public class GameController : NetworkBehaviour
     public PlayerSpawn PlayerSpawners;
     public UfoSpawner UfoSpawner;
 
-    bool IsServer()
-    {
-        return Object.HasStateAuthority;
-    }
     #region NetworkFunctions
     public override void Spawned()
     {
         InitializeRoom();
-        StartTheGame();
+        UIController.main.ShowInGameScreen();
     }
 
     public override void FixedUpdateNetwork()
     {
-        HandleState();
+        if (Object.HasStateAuthority)
+        {
+            if (currentState == GameState.lobby && CheckAllPlayersLoaded())
+            {
+                StartNewGame();
+            }
+            else
+            {
+                PlayerSpawners.RespawnAllPlayers();
+            }
+        }
+
+        UIController.main.UpdateTimer();
         if (gameTimer.Expired(Runner))
         {
             HandleTimer();
         }
     }
+    bool CheckAllPlayersLoaded()
+    {
+        foreach (PlayerRef player in Runner.ActivePlayers)
+        {
+            if (!PlayerSpawners.RegisteredPlayers.ContainsKey(player))
+                return false;
+        }
+        return true;
+    }
     #endregion
     #region Game Start And Restart
-    public void HandleRestart()
+     void HandleRestart()
     {
+        if (!Object.HasStateAuthority) return;
+
         foreach (IRespawnable respawnable in UfoController.main.GetComponents<IRespawnable>())
         {
             respawnable.Respawn();
         }
         foreach (KeyValuePair<PlayerRef, PlayerController> Player in PlayerSpawners.RegisteredPlayers)
-        foreach (IRespawnable respawnable in Player.Value.GetComponents<IRespawnable>())
-        {
-            respawnable.Respawn();
-        }
+            foreach (IRespawnable respawnable in Player.Value.GetComponents<IRespawnable>())
+            {
+                respawnable.Respawn();
+            }
+        WinningPlayer = null;
     }
     #endregion
     #region Initialization
     void InitializeRoom()
     {
-        if (IsServer())
+        if (Object.HasStateAuthority)
         {
-            PlayerSpawners.SpawnPlayers();
-            UfoSpawner.SpawnHazards();
+            if (Object.HasStateAuthority)
+            {
+                PlayerSpawners.InitSpawns();
+                UfoSpawner.SpawnHazards();
+            }
         }
     }
-    void StartTheGame()
+    public void StartNewGame()
     {
-        if (IsServer())
-            ChangeState(GameState.pregame);
+        HandleRestart();
+        ChangeState(GameState.pregame);
+        UIController.main.ShowInGameScreen();
     }
-    void RestartGame()
+    [HideInInspector][Networked] public PlayerController WinningPlayer { get; set; }
+    public void CheckGameOver()
     {
+        if (Object.HasStateAuthority) 
+            DeclareWinner(false);
 
+        if (WinningPlayer != null)
+        {
+            ChangeState(GameState.postgame);
+        }
+    }
+    void DeclareWinner(bool forced)
+    {
+        foreach (KeyValuePair<PlayerRef, PlayerController> Player in PlayerSpawners.RegisteredPlayers)
+        {
+            if (forced ||Player.Value.Score >= WinScore)
+            {
+                if (WinningPlayer == null || WinningPlayer.Score < Player.Value.Score)
+                {
+                    WinningPlayer = Player.Value;
+                }
+            }
+        }
     }
     #endregion
     #region States
@@ -94,13 +139,16 @@ public class GameController : NetworkBehaviour
                 ChangeState(GameState.ingame);
                 break;
             case GameState.ingame:
-                ChangeState(GameState.postgame);
+                if (RoundTime > 0)
+                {
+                    DeclareWinner(true);
+                    ChangeState(GameState.postgame);
+                }
+                break;
+            default:
+                gameTimer = default;
                 break;
         }
-        gameTimer = default;
-    }
-    void HandleState()
-    {
     }
 
     public void ChangeState(GameState newstate)
@@ -109,18 +157,24 @@ public class GameController : NetworkBehaviour
         switch (newstate)
         {
             case GameState.pregame:
-                if (IsServer())
-                gameTimer = TickTimer.CreateFromSeconds(Runner, PreGameTime);
+                if (Object.HasStateAuthority)
+                {
+                    PlayerSpawners.RespawnAllPlayers();
+                    gameTimer = TickTimer.CreateFromSeconds(Runner, PreGameTime);
+                }
                 break;
             case GameState.ingame:
-                if (IsServer())
+                if (Object.HasStateAuthority && RoundTime>0)
                 {
                     gameTimer = TickTimer.CreateFromSeconds(Runner, RoundTime);
-                    HandleRestart();
                 }
+                break;
+            case GameState.postgame:
+                UIController.main.ShowEndOfGameScreen();
                 break;
         }
         currentState = newstate;
     }
+
     #endregion
 }
