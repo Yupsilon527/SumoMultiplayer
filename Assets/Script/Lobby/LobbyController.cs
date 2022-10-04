@@ -3,39 +3,73 @@ using Fusion.Sockets;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static ToonInput;
+using Random = UnityEngine.Random;
 
 public class LobbyController : MonoBehaviour, INetworkRunnerCallbacks
 {
     [SerializeField] private NetworkRunner _networkRunnerPrefab = null;
     public NetworkRunner runner;
-    public string GameScene = "Game";
-    #region Lobby
-    private Dictionary<PlayerRef, NetworkObject> _spawnedCharacters = new Dictionary<PlayerRef, NetworkObject>();
-    private void OnGUI()
+    public int MaxPlayersCount = 4;
+
+    [Header("Components")]
+    public GameObject MainMenu;
+    public GameObject HostMenu;
+    public GameObject JoinMenu;
+    public GameObject LobbyMenu;
+
+    public enum LobbyWindow
     {
-        if (runner == null)
+        Main,
+        Host,
+        Join,
+        Lobby
+    }
+
+    public void ChangeMenu(int Window)
+    {
+        ChangeMenu((LobbyWindow)Window);
+    }
+
+    public void ChangeMenu(LobbyWindow Window)
+    {
+        if (Window == LobbyWindow.Main)
+            OnRoomNameChanged("Room " + Random.Range(1, 100));
+        MainMenu.gameObject.SetActive(Window == LobbyWindow.Main);
+        HostMenu.gameObject.SetActive(Window == LobbyWindow.Host);
+        JoinMenu.gameObject.SetActive(Window == LobbyWindow.Join);
+        LobbyMenu.gameObject.SetActive(Window == LobbyWindow.Lobby);
+    }
+
+    #region Lobby
+    private void Awake()
+    {
+        ChangeMenu(LobbyWindow.Main);
+    }
+
+    string SessionName = "TestRoom";
+    public void OnRoomNameChanged(string newName)
+    {
+        SessionName = newName;
+        foreach (TMP_InputField field in GetComponentsInChildren<TMP_InputField>())
         {
-            if (GUI.Button(new Rect(0, 0, 200, 40), "Host"))
-            {
-                StartGame(GameMode.Host);
-            }
-            if (GUI.Button(new Rect(0, 40, 200, 40), "Join"))
-            {
-                StartGame(GameMode.Client);
-            }
+            field.text = SessionName;
         }
-        else
-        {
-            if (runner.IsServer)
-            {
-                if (GUI.Button(new Rect(0, 0, 200, 40), "Play"))
-                {
-                    runner.SetActiveScene(GameScene);
-                }
-            }
-        }
+    }
+    public void OnHostButtonPressed()
+    {
+        StartGame(GameMode.Host);
+    }
+    public void OnJoinButtonPressed()
+    {
+        StartGame(GameMode.Client);
+    }
+    public void OnDisconnectButtonPressed()
+    {
+        runner.Shutdown();
     }
 
     async void StartGame(GameMode mode)
@@ -45,26 +79,29 @@ public class LobbyController : MonoBehaviour, INetworkRunnerCallbacks
         {
             runner = Instantiate(_networkRunnerPrefab);
         }
+        runner.AddCallbacks(this);
         runner.ProvideInput = true;
 
         await runner.StartGame(new StartGameArgs()
         {
             GameMode = mode,
-            SessionName = "TestRoom",
+            SessionName = SessionName,
             Scene = SceneManager.GetActiveScene().buildIndex,
-            SceneManager = runner.GetComponent<NetworkSceneManagerDefault>()
+            SceneManager = runner.GetComponent<NetworkSceneManagerDefault>(),
+            PlayerCount = MaxPlayersCount
         });
+        ChangeMenu(LobbyWindow.Lobby);
     }
     #endregion
 
     public void OnConnectedToServer(NetworkRunner runner)
     {
-
+        ChangeMenu(LobbyWindow.Lobby);
     }
 
     public void OnConnectFailed(NetworkRunner runner, NetAddress remoteAddress, NetConnectFailedReason reason)
     {
-
+        ChangeMenu(LobbyWindow.Main);
     }
 
     public void OnConnectRequest(NetworkRunner runner, NetworkRunnerCallbackArgs.ConnectRequest request, byte[] token)
@@ -79,7 +116,7 @@ public class LobbyController : MonoBehaviour, INetworkRunnerCallbacks
 
     public void OnDisconnectedFromServer(NetworkRunner runner)
     {
-
+        ChangeMenu(LobbyWindow.Main);
     }
 
     public void OnHostMigration(NetworkRunner runner, HostMigrationToken hostMigrationToken)
@@ -99,20 +136,10 @@ public class LobbyController : MonoBehaviour, INetworkRunnerCallbacks
 
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
     {
-        if (runner.IsServer)
-        {
-           // NetworkObject networkPlayerObject = PlayerSpawners.Spawn(runner, player);
-           // _spawnedCharacters.Add(player, networkPlayerObject);
-        }
     }
 
     public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
     {
-        if (_spawnedCharacters.TryGetValue(player, out NetworkObject networkObject))
-        {
-            //runner.Despawn(networkObject);
-            //_spawnedCharacters.Remove(player);
-        }
     }
 
     public void OnReliableDataReceived(NetworkRunner runner, PlayerRef player, ArraySegment<byte> data)
@@ -137,7 +164,7 @@ public class LobbyController : MonoBehaviour, INetworkRunnerCallbacks
 
     public void OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason)
     {
-
+        ChangeMenu(LobbyWindow.Main);
     }
 
     public void OnUserSimulationMessage(NetworkRunner runner, SimulationMessagePtr message)
