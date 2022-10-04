@@ -107,7 +107,7 @@ public class PlayerController : NetworkBehaviour, IRespawnable
         {
             if (UfoController.main == null)
                 return;
-            Vector2 ufoDelta = new Vector2(transform.position.x - UfoController.main.transform.position.x, transform.position.z - UfoController.main.transform.position.z);
+            Vector2 ufoDelta = new Vector2(transform.position.x, transform.position.z) - UfoController.main.realPosition;
 
             IsAbducted = ufoDelta.sqrMagnitude < UfoController.main.AbductionRadius * UfoController.main.AbductionRadius;
             if (IsAbducted)

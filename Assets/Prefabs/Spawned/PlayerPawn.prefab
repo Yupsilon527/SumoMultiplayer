@@ -124,7 +124,7 @@ MonoBehaviour:
   animations: {fileID: 0}
   rigidbody: {fileID: 0}
   audio: {fileID: 0}
-  ScoreDecay: 0.5
+  ScoreDecay: 0
   _IsAbducted: 0
   _Score: 0
 --- !u!114 &3801039324017845438

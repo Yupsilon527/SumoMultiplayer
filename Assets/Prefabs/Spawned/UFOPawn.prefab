@@ -9803,7 +9803,7 @@ MonoBehaviour:
   MinWaitInterval: 1
   MaxWaitInterval: 2
   MinMoveCircle: 0.5
-  MoveCircle: 2.8
+  MoveCircle: 2.4
   MoveSpeed: 1
   desiredPosition: {x: 0, y: 0}
   realPosition: {x: 0, y: 0}

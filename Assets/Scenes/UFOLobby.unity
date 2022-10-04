@@ -14553,6 +14553,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameScene: UFOArena
   RoomName: {fileID: 1395404763}
+  PlayerLabel: {fileID: 1979255079}
   PlayButton: {fileID: 749902824}
 --- !u!1 &2119836760
 GameObject:

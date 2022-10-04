@@ -1534,6 +1534,28 @@ Transform:
   m_Father: {fileID: 1755853558}
   m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &291124341 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3365389193791414071, guid: cc3f08f1517aed04db0f849a34393e7e, type: 3}
+  m_PrefabInstance: {fileID: 444482846}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fd80065a1e83d549b3177e628517afe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &291124343 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3365389193791414066, guid: cc3f08f1517aed04db0f849a34393e7e, type: 3}
+  m_PrefabInstance: {fileID: 444482846}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 235d7c2a32d7e424cb9c309e60baa5b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &304769149
 GameObject:
   m_ObjectHideFlags: 0
@@ -1718,6 +1740,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 9026213110000333056, guid: 51d475d4d37917b488d838b819aa7969, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 291124341}
+    - target: {fileID: 9026213110000333056, guid: 51d475d4d37917b488d838b819aa7969, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: StartNewGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 9026213110642504234, guid: 51d475d4d37917b488d838b819aa7969, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 291124343}
+    - target: {fileID: 9026213110642504234, guid: 51d475d4d37917b488d838b819aa7969, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: HandlePlayerDisconnect
+      objectReference: {fileID: 0}
+    - target: {fileID: 9026213110642504234, guid: 51d475d4d37917b488d838b819aa7969, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 291124341}
     - target: {fileID: 9026213111149388258, guid: 51d475d4d37917b488d838b819aa7969, type: 3}
       propertyPath: m_Pivot.x
       value: 0
