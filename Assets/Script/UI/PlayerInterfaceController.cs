@@ -3,20 +3,23 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerInterfaceController : MonoBehaviour
 {
     PlayerController trackedPlayer;
 
+    public Sprite[] CharacterIcons;
+
+    public Image playerIcon;
     public TextMeshProUGUI playerDamage;
-    public TextMeshProUGUI playerScore;
+    public GameObject playerHeart;
+    public GameObject playerProgress;
     public GameObject playerRage;
     private void Awake()
     {
         if (playerDamage == null)
             playerDamage = transform.Find("Damage").GetComponent<TextMeshProUGUI>();
-        if (playerScore == null)
-            playerScore = transform.Find("Score").GetComponent<TextMeshProUGUI>();
     }
 
     public void AssignPlayer(PlayerController player)
@@ -27,8 +30,14 @@ public class PlayerInterfaceController : MonoBehaviour
     public void UpdateData()
     {
         if (trackedPlayer == null) return;
-        playerDamage.text = Mathf.Ceil(trackedPlayer.damageable.Damage) + "";
-        playerScore.text = Mathf.CeilToInt(trackedPlayer.Score / GameController.main.WinScore * 100f) + "%";
+        playerDamage.text = Mathf.Ceil(trackedPlayer.damageable.Damage) + "%";
+
+
+            float progressPercent = trackedPlayer.Score / GameController.main.WinScore;
+        if (playerHeart!=null)
+        playerHeart.transform.localScale = Vector3.one * progressPercent;
+        if (playerProgress != null)
+            playerProgress.transform.localScale = new Vector3(progressPercent, 1, 1);
 
         if (playerRage != null)
         {
