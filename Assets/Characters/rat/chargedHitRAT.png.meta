@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0e92233d9869a1141bb1c311dd7b0bea
+guid: a6abfc71b1354e74183df6fe24a7ac2a
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,9 +47,9 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 200
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 1
+  spriteGenerateFallbackPhysicsShape: 0
   alphaUsage: 1
   alphaIsTransparency: 0
   spriteTessellationDetail: -1
@@ -117,7 +117,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: dashRAT_0
+      name: chargedHitRAT_0
       rect:
         serializedVersion: 2
         x: 0
@@ -131,14 +131,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 754b59945db93914f975182f710ef09f
-      internalID: -1134739214
+      spriteID: e7e4fbff07f6a1c4aba7980abe6fff5a
+      internalID: 1452983999
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dashRAT_1
+      name: chargedHitRAT_1
       rect:
         serializedVersion: 2
         x: 1700
@@ -152,14 +152,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e65fe13c1febb9c4eab5be6fb99c2461
-      internalID: 240383498
+      spriteID: 000790287b6dfc340bf83348e4146b5c
+      internalID: 405048817
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dashRAT_2
+      name: chargedHitRAT_2
       rect:
         serializedVersion: 2
         x: 3400
@@ -173,14 +173,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e5d9af0e49bcf9e47a08ca54978056b4
-      internalID: 1223147216
+      spriteID: 407179991272ff149bf56c3a900a011c
+      internalID: 1093962497
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dashRAT_3
+      name: chargedHitRAT_3
       rect:
         serializedVersion: 2
         x: 5100
@@ -194,14 +194,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bce673dca23bd5541b350a03587f8341
-      internalID: 801911765
+      spriteID: 77dc0cb7531fcf644af14c977437269d
+      internalID: 1251273565
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dashRAT_4
+      name: chargedHitRAT_4
       rect:
         serializedVersion: 2
         x: 0
@@ -215,14 +215,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 23590aacf2f352a4782a379f0ee81cfc
-      internalID: 188455630
+      spriteID: 27087710ca385c646b8d4e6eb7edab50
+      internalID: 803973827
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dashRAT_5
+      name: chargedHitRAT_5
       rect:
         serializedVersion: 2
         x: 1700
@@ -236,14 +236,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7d784a89d58e39c43bec6161252eaa4f
-      internalID: 218148731
+      spriteID: b11e0556b18cbca48918113b9cf55f28
+      internalID: -1129556811
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dashRAT_6
+      name: chargedHitRAT_6
       rect:
         serializedVersion: 2
         x: 3400
@@ -257,14 +257,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 287658dfd5a1457488157da0e044bce0
-      internalID: -1952626567
+      spriteID: ee038e40f8b1c194cb9db61a61439d2e
+      internalID: -772594637
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dashRAT_7
+      name: chargedHitRAT_7
       rect:
         serializedVersion: 2
         x: 5100
@@ -278,14 +278,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7da9ab93c42c77643ba38954422f0116
-      internalID: 2066074380
+      spriteID: 1e12252ded9fa9b48bb15e4462208cc7
+      internalID: 2082382149
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dashRAT_8
+      name: chargedHitRAT_8
       rect:
         serializedVersion: 2
         x: 0
@@ -299,14 +299,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 09dce56f8d5a06f4cae338e162319a99
-      internalID: -853501614
+      spriteID: bfc646578b89cb44aa1c948c339789ea
+      internalID: -431974002
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dashRAT_9
+      name: chargedHitRAT_9
       rect:
         serializedVersion: 2
         x: 1700
@@ -320,14 +320,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 12ea625a27ff1e84eadbab0ccc447d2f
-      internalID: -1172176747
+      spriteID: e03858b57424bf940b395f67bc0febf0
+      internalID: -102806302
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: dashRAT_10
+      name: chargedHitRAT_10
       rect:
         serializedVersion: 2
         x: 3400
@@ -341,29 +341,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8b7fe3619e452e247beb9bddfceaac11
-      internalID: 833763213
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: dashRAT_11
-      rect:
-        serializedVersion: 2
-        x: 5100
-        y: 0
-        width: 1700
-        height: 1700
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 13aa037a770e6db4baa84471353443c8
-      internalID: 1942172742
+      spriteID: f6f021de0504f434d96174d60f3de5b6
+      internalID: 244069298
       vertices: []
       indices: 
       edges: []
@@ -371,7 +350,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: c08c479d02d31b440a412f22863ba2e7
+    spriteID: 3787a7636b3ee824ebc6efffe54d61f8
     internalID: 0
     vertices: []
     indices: 
@@ -379,18 +358,17 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      dashRAT_0: -1134739214
-      dashRAT_6: -1952626567
-      dashRAT_11: 1942172742
-      dashRAT_9: -1172176747
-      dashRAT_7: 2066074380
-      dashRAT_1: 240383498
-      dashRAT_5: 218148731
-      dashRAT_8: -853501614
-      dashRAT_10: 833763213
-      dashRAT_2: 1223147216
-      dashRAT_3: 801911765
-      dashRAT_4: 188455630
+      chargedHitRAT_7: 2082382149
+      chargedHitRAT_6: -772594637
+      chargedHitRAT_4: 803973827
+      chargedHitRAT_1: 405048817
+      chargedHitRAT_10: 244069298
+      chargedHitRAT_9: -102806302
+      chargedHitRAT_3: 1251273565
+      chargedHitRAT_8: -431974002
+      chargedHitRAT_5: -1129556811
+      chargedHitRAT_2: 1093962497
+      chargedHitRAT_0: 1452983999
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

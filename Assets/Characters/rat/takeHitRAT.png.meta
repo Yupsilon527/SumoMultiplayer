@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a6abfc71b1354e74183df6fe24a7ac2a
+guid: 2cdb21061de1ae1469f71caccf4aecec
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,9 +47,9 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 200
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 1
+  spriteGenerateFallbackPhysicsShape: 0
   alphaUsage: 1
   alphaIsTransparency: 0
   spriteTessellationDetail: -1
@@ -117,91 +117,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: chargedHitRAT_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 3400
-        width: 1700
-        height: 1700
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e7e4fbff07f6a1c4aba7980abe6fff5a
-      internalID: 1452983999
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: chargedHitRAT_1
-      rect:
-        serializedVersion: 2
-        x: 1700
-        y: 3400
-        width: 1700
-        height: 1700
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 000790287b6dfc340bf83348e4146b5c
-      internalID: 405048817
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: chargedHitRAT_2
-      rect:
-        serializedVersion: 2
-        x: 3400
-        y: 3400
-        width: 1700
-        height: 1700
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 407179991272ff149bf56c3a900a011c
-      internalID: 1093962497
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: chargedHitRAT_3
-      rect:
-        serializedVersion: 2
-        x: 5100
-        y: 3400
-        width: 1700
-        height: 1700
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 77dc0cb7531fcf644af14c977437269d
-      internalID: 1251273565
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: chargedHitRAT_4
+      name: takeHitRAT_0
       rect:
         serializedVersion: 2
         x: 0
@@ -215,14 +131,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 27087710ca385c646b8d4e6eb7edab50
-      internalID: 803973827
+      spriteID: d939e77c2b6b2d043a673b68e497c2e9
+      internalID: -1099985358
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: chargedHitRAT_5
+      name: takeHitRAT_1
       rect:
         serializedVersion: 2
         x: 1700
@@ -236,14 +152,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b11e0556b18cbca48918113b9cf55f28
-      internalID: -1129556811
+      spriteID: d1d1d3706007e7e4087e0a423b927a43
+      internalID: -363110812
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: chargedHitRAT_6
+      name: takeHitRAT_2
       rect:
         serializedVersion: 2
         x: 3400
@@ -257,35 +173,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ee038e40f8b1c194cb9db61a61439d2e
-      internalID: -772594637
+      spriteID: bf57cf916c26888488ae1782e6befcf5
+      internalID: -43457753
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: chargedHitRAT_7
-      rect:
-        serializedVersion: 2
-        x: 5100
-        y: 1700
-        width: 1700
-        height: 1700
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1e12252ded9fa9b48bb15e4462208cc7
-      internalID: 2082382149
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: chargedHitRAT_8
+      name: takeHitRAT_3
       rect:
         serializedVersion: 2
         x: 0
@@ -299,14 +194,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bfc646578b89cb44aa1c948c339789ea
-      internalID: -431974002
+      spriteID: e9097cd8c62583844869f13a4605feea
+      internalID: -1346717238
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: chargedHitRAT_9
+      name: takeHitRAT_4
       rect:
         serializedVersion: 2
         x: 1700
@@ -320,29 +215,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e03858b57424bf940b395f67bc0febf0
-      internalID: -102806302
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: chargedHitRAT_10
-      rect:
-        serializedVersion: 2
-        x: 3400
-        y: 0
-        width: 1700
-        height: 1700
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f6f021de0504f434d96174d60f3de5b6
-      internalID: 244069298
+      spriteID: bb743db12df254f4793b29a7a94b34fe
+      internalID: 1914069084
       vertices: []
       indices: 
       edges: []
@@ -350,7 +224,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 3787a7636b3ee824ebc6efffe54d61f8
+    spriteID: 87b2b6b07e7edff468edb62f26ff60e5
     internalID: 0
     vertices: []
     indices: 
@@ -358,17 +232,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      chargedHitRAT_7: 2082382149
-      chargedHitRAT_6: -772594637
-      chargedHitRAT_4: 803973827
-      chargedHitRAT_1: 405048817
-      chargedHitRAT_10: 244069298
-      chargedHitRAT_9: -102806302
-      chargedHitRAT_3: 1251273565
-      chargedHitRAT_8: -431974002
-      chargedHitRAT_5: -1129556811
-      chargedHitRAT_2: 1093962497
-      chargedHitRAT_0: 1452983999
+      takeHitRAT_3: -1346717238
+      takeHitRAT_2: -43457753
+      takeHitRAT_4: 1914069084
+      takeHitRAT_0: -1099985358
+      takeHitRAT_1: -363110812
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

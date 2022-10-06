@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 89caf126d856d5545a5bd309a71c38fe
+guid: e978d07cc23bbef45bb2adba1e5cb014
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,9 +47,9 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 200
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 1
+  spriteGenerateFallbackPhysicsShape: 0
   alphaUsage: 1
   alphaIsTransparency: 0
   spriteTessellationDetail: -1
@@ -117,7 +117,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: walkRAT_0
+      name: parryRAT_0
       rect:
         serializedVersion: 2
         x: 0
@@ -131,14 +131,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b4e68b8163c651b4eb098549baa7af12
-      internalID: 79017076
+      spriteID: 274a60750d04a9548a09c3f2818f3df0
+      internalID: 1578100650
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: walkRAT_1
+      name: parryRAT_1
       rect:
         serializedVersion: 2
         x: 1700
@@ -152,14 +152,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6c12b82c47a61714799d883305db3371
-      internalID: 2046562481
+      spriteID: 5542ed252611ff54e9a2fec7e1e5d010
+      internalID: -68625173
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: walkRAT_2
+      name: parryRAT_2
       rect:
         serializedVersion: 2
         x: 3400
@@ -173,14 +173,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d410374f182bb134e9ca8165496d8d9c
-      internalID: -154161974
+      spriteID: 06e74949edc59d24ca418cb956d844ad
+      internalID: 957441383
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: walkRAT_3
+      name: parryRAT_3
       rect:
         serializedVersion: 2
         x: 0
@@ -194,14 +194,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8389fdc0c44db97468f39842bc6ccac3
-      internalID: 1177939409
+      spriteID: cc823ba2ead4db946aaf5c231b0c5b74
+      internalID: -2032350387
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: walkRAT_4
+      name: parryRAT_4
       rect:
         serializedVersion: 2
         x: 1700
@@ -215,14 +215,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: da47ef3c2fc7ae04e899ae42b2f242e9
-      internalID: 1190865942
+      spriteID: 18af11b1cfbb1df45bd110e4511a380c
+      internalID: 1045528189
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: walkRAT_5
+      name: parryRAT_5
       rect:
         serializedVersion: 2
         x: 3400
@@ -236,14 +236,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 05cdf072afd930240b4eb195f8e7dc27
-      internalID: 941034661
+      spriteID: 42c7eddbfb4dd61469a4e8e158e9cefe
+      internalID: -1492757728
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: walkRAT_6
+      name: parryRAT_6
       rect:
         serializedVersion: 2
         x: 0
@@ -257,14 +257,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4a2b727d85c317343a36eba077e1cf98
-      internalID: 1401793732
+      spriteID: 1b02b0ca8c79463458d11e485dd17a8d
+      internalID: -194348687
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: walkRAT_7
+      name: parryRAT_7
       rect:
         serializedVersion: 2
         x: 1700
@@ -278,8 +278,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 71501ca5d61c10a42bc5c4e8956c8a58
-      internalID: 2046463445
+      spriteID: 9ae0018c79271074497e8798b21c5f98
+      internalID: 1560530077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: parryRAT_8
+      rect:
+        serializedVersion: 2
+        x: 3400
+        y: 0
+        width: 1700
+        height: 1700
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f4eaae6aeba98224d9a8e92029abdd28
+      internalID: -629566810
       vertices: []
       indices: 
       edges: []
@@ -287,7 +308,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: b7a865341926a6443ac58292570297ad
+    spriteID: 3dfc87d9280735442a193563d89381fe
     internalID: 0
     vertices: []
     indices: 
@@ -295,14 +316,15 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      walkRAT_1: 2046562481
-      walkRAT_4: 1190865942
-      walkRAT_5: 941034661
-      walkRAT_0: 79017076
-      walkRAT_3: 1177939409
-      walkRAT_6: 1401793732
-      walkRAT_2: -154161974
-      walkRAT_7: 2046463445
+      parryRAT_5: -1492757728
+      parryRAT_3: -2032350387
+      parryRAT_4: 1045528189
+      parryRAT_2: 957441383
+      parryRAT_6: -194348687
+      parryRAT_0: 1578100650
+      parryRAT_8: -629566810
+      parryRAT_1: -68625173
+      parryRAT_7: 1560530077
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

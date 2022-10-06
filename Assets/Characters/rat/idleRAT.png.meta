@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2cdb21061de1ae1469f71caccf4aecec
+guid: af7c673a85ade9b4986f1de7f48f8fc2
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,9 +47,9 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 200
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 1
+  spriteGenerateFallbackPhysicsShape: 0
   alphaUsage: 1
   alphaIsTransparency: 0
   spriteTessellationDetail: -1
@@ -117,7 +117,91 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: takeHitRAT_0
+      name: idleRAT_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3400
+        width: 1700
+        height: 1700
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b98ef79f054fc134c88d9a212fe0ca81
+      internalID: -200999183
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idleRAT_1
+      rect:
+        serializedVersion: 2
+        x: 1700
+        y: 3400
+        width: 1700
+        height: 1700
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 730308bdff092664bb5dd729a81f9e4c
+      internalID: 829783577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idleRAT_2
+      rect:
+        serializedVersion: 2
+        x: 3400
+        y: 3400
+        width: 1700
+        height: 1700
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61b57c32e33b5e64e8df00fd12379473
+      internalID: -1661376905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idleRAT_3
+      rect:
+        serializedVersion: 2
+        x: 5100
+        y: 3400
+        width: 1700
+        height: 1700
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad37a57faddc75841843aee83d21a4e7
+      internalID: 1795849926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idleRAT_4
       rect:
         serializedVersion: 2
         x: 0
@@ -131,14 +215,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d939e77c2b6b2d043a673b68e497c2e9
-      internalID: -1099985358
+      spriteID: f6b9e76052d77ca489ab0913e21f3124
+      internalID: -2109565456
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: takeHitRAT_1
+      name: idleRAT_5
       rect:
         serializedVersion: 2
         x: 1700
@@ -152,14 +236,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d1d1d3706007e7e4087e0a423b927a43
-      internalID: -363110812
+      spriteID: 8fa0966d14c0e4d4cb2711951f12fdc1
+      internalID: 473243028
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: takeHitRAT_2
+      name: idleRAT_6
       rect:
         serializedVersion: 2
         x: 3400
@@ -173,14 +257,35 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bf57cf916c26888488ae1782e6befcf5
-      internalID: -43457753
+      spriteID: 77363afcac4b4a64f8e8be6beff9e3b7
+      internalID: 1869062308
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: takeHitRAT_3
+      name: idleRAT_7
+      rect:
+        serializedVersion: 2
+        x: 5100
+        y: 1700
+        width: 1700
+        height: 1700
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9475210bbfb8bf24a9711867b6a89e29
+      internalID: -693498729
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idleRAT_8
       rect:
         serializedVersion: 2
         x: 0
@@ -194,14 +299,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e9097cd8c62583844869f13a4605feea
-      internalID: -1346717238
+      spriteID: b880b2a1732bbf142b9ef1e55e3c9410
+      internalID: 1473678855
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: takeHitRAT_4
+      name: idleRAT_9
       rect:
         serializedVersion: 2
         x: 1700
@@ -215,8 +320,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bb743db12df254f4793b29a7a94b34fe
-      internalID: 1914069084
+      spriteID: e4bf9e3f166d2ed428ae7847f9ba627e
+      internalID: 617133194
       vertices: []
       indices: 
       edges: []
@@ -224,7 +329,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 87b2b6b07e7edff468edb62f26ff60e5
+    spriteID: 890520d4f44d2b24c9cd64c31e9e15c6
     internalID: 0
     vertices: []
     indices: 
@@ -232,11 +337,16 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      takeHitRAT_3: -1346717238
-      takeHitRAT_2: -43457753
-      takeHitRAT_4: 1914069084
-      takeHitRAT_0: -1099985358
-      takeHitRAT_1: -363110812
+      idleRAT_0: -200999183
+      idleRAT_3: 1795849926
+      idleRAT_2: -1661376905
+      idleRAT_5: 473243028
+      idleRAT_8: 1473678855
+      idleRAT_9: 617133194
+      idleRAT_4: -2109565456
+      idleRAT_7: -693498729
+      idleRAT_1: 829783577
+      idleRAT_6: 1869062308
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
