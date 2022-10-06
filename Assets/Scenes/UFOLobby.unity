@@ -9234,10 +9234,10 @@ MonoBehaviour:
   _networkRunnerPrefab: {fileID: 4371050096258705437, guid: 963047897b3c54c438248b5d5a2c28c4, type: 3}
   runner: {fileID: 0}
   MaxPlayersCount: 4
-  MainMenu: {fileID: 0}
-  HostMenu: {fileID: 0}
-  JoinMenu: {fileID: 0}
-  LobbyMenu: {fileID: 0}
+  MainMenu: {fileID: 905179390}
+  HostMenu: {fileID: 1633621171}
+  JoinMenu: {fileID: 1394818486}
+  LobbyMenu: {fileID: 2112480959}
 --- !u!1 &1633621171
 GameObject:
   m_ObjectHideFlags: 0
