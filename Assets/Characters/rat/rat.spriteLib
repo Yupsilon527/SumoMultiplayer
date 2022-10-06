@@ -271,12 +271,12 @@ MonoBehaviour:
       m_Hash: 1280260067
       m_Sprite: {fileID: -1641054322, guid: 6478b9a4d3e39c44cb1fa0f77b2d7b2c, type: 3}
       m_FromMain: 1
-      m_SpriteOverride: {fileID: 801911765, guid: 0e92233d9869a1141bb1c311dd7b0bea, type: 3}
+      m_SpriteOverride: {fileID: 1223147216, guid: 0e92233d9869a1141bb1c311dd7b0bea, type: 3}
     - m_Name: dash_3
       m_Hash: 994576245
       m_Sprite: {fileID: 489766187, guid: 6478b9a4d3e39c44cb1fa0f77b2d7b2c, type: 3}
       m_FromMain: 1
-      m_SpriteOverride: {fileID: 188455630, guid: 0e92233d9869a1141bb1c311dd7b0bea, type: 3}
+      m_SpriteOverride: {fileID: 801911765, guid: 0e92233d9869a1141bb1c311dd7b0bea, type: 3}
     - m_Name: dash_4
       m_Hash: -1523805482
       m_Sprite: {fileID: 940819292, guid: 6478b9a4d3e39c44cb1fa0f77b2d7b2c, type: 3}

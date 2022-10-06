@@ -184,8 +184,8 @@ MonoBehaviour:
   StaggerDrag: 1
   RegularBounce: 0
   StaggerBounce: 0.5
-  AttackContactDistance: 0.56
-  AttackContactRadius: 0.66
+  AttackContactDistance: 0.45
+  AttackContactRadius: 0.5
   AttackHitMask:
     serializedVersion: 2
     m_Bits: 2147483647
@@ -329,7 +329,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
-  BroadRadius: 0.1
+  BroadRadius: 0.25
   Offset: {x: 0, y: 0, z: 0}
   GizmosColor: {r: 1, g: 0.9696858, b: 0, a: 1}
   Hitboxes:
@@ -347,7 +347,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Type: 2
-  SphereRadius: 0.1
+  SphereRadius: 0.25
   BoxExtents: {x: 0, y: 0, z: 0}
   Offset: {x: 0, y: 0, z: 0}
   Root: {fileID: 3355099813043041685}
@@ -405,7 +405,7 @@ SpriteRenderer:
   m_SortingLayerID: 997529669
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1794758360, guid: fedd9e45d898e764b8a54684cc4f14f2, type: 3}
+  m_Sprite: {fileID: -441314488, guid: 4de2db3421041024aa558ff1bd9430b5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
