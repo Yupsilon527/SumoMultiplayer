@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: -5717417148352075861}
   - component: {fileID: 6055008545893127787}
   - component: {fileID: 8473431741746935689}
+  - component: {fileID: 228776460010062892}
   m_Layer: 0
   m_Name: PlayerPawn
   m_TagString: Untagged
@@ -124,6 +125,7 @@ MonoBehaviour:
   actionman: {fileID: 0}
   damageable: {fileID: 0}
   animations: {fileID: 0}
+  character: {fileID: 0}
   rigidbody: {fileID: 0}
   audio: {fileID: 0}
   ScoreDecay: 0
@@ -405,7 +407,7 @@ SpriteRenderer:
   m_SortingLayerID: 997529669
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: -441314488, guid: 4de2db3421041024aa558ff1bd9430b5, type: 3}
+  m_Sprite: {fileID: 79017076, guid: 89caf126d856d5545a5bd309a71c38fe, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -475,7 +477,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Library: []
-  m_SpriteLibraryAsset: {fileID: 7108339969198208228, guid: 8c821f325db4e6740855ef0d48206c1e, type: 3}
+  m_SpriteLibraryAsset: {fileID: 7108339969198208228, guid: 70eac714583bdda4c952a2801c9ebad2, type: 3}
 --- !u!114 &8473431741746935689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -491,3 +493,18 @@ MonoBehaviour:
   m_CategoryHash: 0
   m_labelHash: 0
   m_SpriteKey: -2.942742e+36
+--- !u!114 &228776460010062892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6624063373450815426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 986e19e9ee51aa7449803e204bea8208, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SwappableCharacters:
+  - {fileID: 11400000, guid: 0bb2e5bdc3780b64e893ee3160379865, type: 2}
+  resolver: {fileID: 6055008545893127787}

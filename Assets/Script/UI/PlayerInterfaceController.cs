@@ -25,6 +25,7 @@ public class PlayerInterfaceController : MonoBehaviour
     public void AssignPlayer(PlayerController player)
     {
         trackedPlayer = player;
+        playerIcon.sprite = player.character.GetCurrentCharacter().characterIcon;
         UpdateData();
     }
     public void UpdateData()

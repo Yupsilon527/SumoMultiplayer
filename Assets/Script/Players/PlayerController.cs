@@ -10,6 +10,7 @@ public class PlayerController : NetworkBehaviour, IRespawnable
     public ToonActionController actionman;
     public PlayerDamageable damageable;
     public PlayerAnimationController animations;
+    public CharacterResolver character;
     public Rigidbody rigidbody ;
     public AudioSource audio;
     private void Awake()
@@ -26,6 +27,11 @@ public class PlayerController : NetworkBehaviour, IRespawnable
             animations = GetComponent<PlayerAnimationController>();
         if (audio == null)
             audio = GetComponent<AudioSource>();
+
+        if (character == null)
+            character = GetComponent<CharacterResolver>();
+        if (character != null)
+            InitalizeCharacter();
     }
 
     public override void Spawned()
@@ -121,5 +127,14 @@ public class PlayerController : NetworkBehaviour, IRespawnable
         }
     }
 
+    #endregion
+    #region Character
+    void InitalizeCharacter()
+    {
+        int rerolls = character.SwappableCharacters.Length;
+
+        int nChar = Random.Range(0, rerolls - 1);
+        character.ChangeCharacter(nChar);
+    }
     #endregion
 }

@@ -9,3 +9,4 @@ public class CharacterSO : ScriptableObject
     public Sprite characterIcon;
     public SpriteLibraryAsset spriteLibraryAsset;
 }
+ 
