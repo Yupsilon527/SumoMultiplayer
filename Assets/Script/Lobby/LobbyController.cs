@@ -36,7 +36,7 @@ public class LobbyController : MonoBehaviour, INetworkRunnerCallbacks
 
     public void ChangeMenu(LobbyWindow Window)
     {
-        if (Window == LobbyWindow.Main)
+        if (Window == LobbyWindow.Host)
             OnRoomNameChanged("Room " + Random.Range(1, 100));
         MainMenu.gameObject.SetActive(Window == LobbyWindow.Main);
         HostMenu.gameObject.SetActive(Window == LobbyWindow.Host);
@@ -79,8 +79,9 @@ public class LobbyController : MonoBehaviour, INetworkRunnerCallbacks
         {
             runner = Instantiate(_networkRunnerPrefab);
         }
-        runner.AddCallbacks(this);
+        //runner.AddCallbacks(this);
         runner.ProvideInput = true;
+        Debug.Log("JoinSession " + SessionName);
 
         await runner.StartGame(new StartGameArgs()
         {
@@ -90,6 +91,7 @@ public class LobbyController : MonoBehaviour, INetworkRunnerCallbacks
             SceneManager = runner.GetComponent<NetworkSceneManagerDefault>(),
             PlayerCount = MaxPlayersCount
         });
+        Debug.Log("Joined " + SessionName);
         ChangeMenu(LobbyWindow.Lobby);
     }
     #endregion

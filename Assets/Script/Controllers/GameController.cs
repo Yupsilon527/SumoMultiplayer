@@ -37,6 +37,8 @@ public class GameController : NetworkBehaviour
     {
         InitializeRoom();
         UIController.main.ShowInGameScreen();
+        if (TryGetComponent(out GameDisconnectManager gdman))
+            Runner.AddCallbacks(gdman);
     }
 
     public override void FixedUpdateNetwork()
