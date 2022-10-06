@@ -23,6 +23,8 @@ GameObject:
   - component: {fileID: 9219906277055937784}
   - component: {fileID: 8314047611596587689}
   - component: {fileID: -5717417148352075861}
+  - component: {fileID: 6055008545893127787}
+  - component: {fileID: 8473431741746935689}
   m_Layer: 0
   m_Name: PlayerPawn
   m_TagString: Untagged
@@ -460,3 +462,32 @@ MonoBehaviour:
     RotBlendStart: 0.1
     RotBlendEnd: 0.5
     RotTeleportRadians: 1.5
+--- !u!114 &6055008545893127787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6624063373450815426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c29cff538c195c249b69c6f2236de67b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Library: []
+  m_SpriteLibraryAsset: {fileID: 7108339969198208228, guid: 8c821f325db4e6740855ef0d48206c1e, type: 3}
+--- !u!114 &8473431741746935689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6624063373450815426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed8b1ae4e4e52b34ea557c1c11e076fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CategoryHash: 0
+  m_labelHash: 0
+  m_SpriteKey: -2.942742e+36
