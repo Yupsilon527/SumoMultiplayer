@@ -31,7 +31,7 @@ public class UIController : MonoBehaviour
     }
     public void UpdateTimer()
     {
-        if (GameTimer!=null && GameTimer.isActiveAndEnabled && GameController.main.gameTimer.IsRunning)
+        if (GameTimer!=null && GameTimer.isActiveAndEnabled && !GameController.main.gameTimer.ExpiredOrNotRunning(GameController.main.Runner))
         {
             GameTimer.text = Mathf.Ceil(GameController.main.gameTimer.RemainingTime(GameController.main.Runner) ?? 0)+"s";
         }
