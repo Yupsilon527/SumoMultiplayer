@@ -134,7 +134,7 @@ public class GameController : NetworkBehaviour
     #region States
     void HandleTimer()
     {
-        Debug.Log("[GameController] Handle timer expire at state: "+currentState);
+        //Debug.Log("[GameController] Handle timer expire at state: "+currentState);
         switch (currentState)
         {
             case GameState.pregame:

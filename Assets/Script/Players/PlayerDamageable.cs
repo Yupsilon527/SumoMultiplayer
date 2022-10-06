@@ -7,6 +7,7 @@ using static ToonActionController;
 public class PlayerDamageable : NetworkBehaviour, IRespawnable
 {
     private PlayerController controller = null;
+    private AfterImageEmitter emitter = null;
 
     public float DamageKnockbackMultiplier = 1 / 20;
     public float RageMax = 100;
@@ -15,9 +16,13 @@ public class PlayerDamageable : NetworkBehaviour, IRespawnable
     public float DamageRegen = 20;
     public float DamageRegenTime = 5;
 
+
+    public float TrailDuration = .4f;
+
     public override void Spawned()
     {
         controller = GetComponent<PlayerController>();
+        emitter = GetComponent<AfterImageEmitter>();
     }
     public void Respawn()
     {
@@ -38,6 +43,17 @@ public class PlayerDamageable : NetworkBehaviour, IRespawnable
     public static void OnRageChanged(Changed<PlayerDamageable> playerInfo)
     {
         UIController.main.UpdatePlayerUI(playerInfo.Behaviour.Object.InputAuthority);
+
+
+        playerInfo.Behaviour.UpdateTrails();
+    }
+    void UpdateTrails()
+    {
+        float rageCharge = Rage / RageMax;
+
+        emitter.TrailAppearance = rageCharge * .1f;
+        emitter.TrailDuration = rageCharge * TrailDuration;
+        emitter.TrailAlpha = rageCharge;
     }
     public void BuildUpRage(float buildup)
     {

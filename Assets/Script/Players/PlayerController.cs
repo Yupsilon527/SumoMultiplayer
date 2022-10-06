@@ -30,8 +30,6 @@ public class PlayerController : NetworkBehaviour, IRespawnable
 
         if (character == null)
             character = GetComponent<CharacterResolver>();
-        if (character != null)
-            InitalizeCharacter();
     }
 
     public override void Spawned()
@@ -45,6 +43,7 @@ public class PlayerController : NetworkBehaviour, IRespawnable
         {
             Respawn();
         }
+        InitalizeCharacter();
         UIController.main.AddPlayer(Object.InputAuthority, this);
     }
     public override void Despawned(NetworkRunner runner, bool hasState)
@@ -129,12 +128,13 @@ public class PlayerController : NetworkBehaviour, IRespawnable
 
     #endregion
     #region Character
+    [Networked]
+    int CharacterID { get; set; }
     void InitalizeCharacter()
     {
         int rerolls = character.SwappableCharacters.Length;
-
-        int nChar = Random.Range(0, rerolls - 1);
-        character.ChangeCharacter(nChar);
+        CharacterID = Random.Range(0, rerolls - 1);
+        character.ChangeCharacter(CharacterID);
     }
     #endregion
 }

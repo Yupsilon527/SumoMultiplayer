@@ -29,5 +29,9 @@ public class CharacterResolver : MonoBehaviour
     void UpdateVisuals()
     {
         resolver.spriteLibraryAsset = CurrentCharacter.spriteLibraryAsset;
+        if (TryGetComponent(out AfterImageEmitter aie))
+        {
+            aie.TrailColor = CurrentCharacter.characterColor;
+        }
     }
 }

@@ -44,8 +44,13 @@ public class UIController : MonoBehaviour
 
     public void AddPlayer(PlayerRef playerRef, PlayerController controller)
     {
-        if (interfaceData.ContainsKey(playerRef)) return;
         if (controller == null) return;
+        if (interfaceData.ContainsKey(playerRef))
+        {
+            interfaceData[playerRef].AssignPlayer(controller);
+            UpdatePlayerUI(playerRef);
+            return;
+        }
 
         PlayerInterfaceController table = null;
         foreach (PlayerInterfaceController plUI in UIList)

@@ -36,8 +36,6 @@ public class LobbyController : MonoBehaviour, INetworkRunnerCallbacks
 
     public void ChangeMenu(LobbyWindow Window)
     {
-        if (Window == LobbyWindow.Host)
-            OnRoomNameChanged("Room " + Random.Range(1, 100));
         MainMenu.gameObject.SetActive(Window == LobbyWindow.Main);
         HostMenu.gameObject.SetActive(Window == LobbyWindow.Host);
         JoinMenu.gameObject.SetActive(Window == LobbyWindow.Join);
@@ -48,6 +46,7 @@ public class LobbyController : MonoBehaviour, INetworkRunnerCallbacks
     private void Awake()
     {
         ChangeMenu(LobbyWindow.Main);
+            OnRoomNameChanged("Room " + Random.Range(1, 100));
     }
 
     string SessionName = "TestRoom";

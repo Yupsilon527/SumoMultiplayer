@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72c01b6bc3375b0449adfd80e14b69b7, type: 3}
   m_Name: Rat
   m_EditorClassIdentifier: 
+  characterColor: {r: 0.9333334, g: 0.68235296, b: 0.5411765, a: 1}
   characterIcon: {fileID: 21300000, guid: f4cfbd3ffd2cd7e4eb940f846000bdb3, type: 3}
   spriteLibraryAsset: {fileID: 7108339969198208228, guid: 70eac714583bdda4c952a2801c9ebad2, type: 3}

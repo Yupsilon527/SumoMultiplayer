@@ -6,6 +6,7 @@ using UnityEngine.U2D.Animation;
 [CreateAssetMenu(fileName = "New Character", menuName = "Custom/Character")]
 public class CharacterSO : ScriptableObject
 {
+    public Color characterColor;
     public Sprite characterIcon;
     public SpriteLibraryAsset spriteLibraryAsset;
 }
