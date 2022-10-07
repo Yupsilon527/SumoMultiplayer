@@ -64,6 +64,7 @@ public class PlayerController : NetworkBehaviour, IRespawnable
     public override void FixedUpdateNetwork()
     {
         HandleScoreUpdate();
+        animations.SetHighlighted(GameController.main.currentState == GameController.GameState.pregame && Object.HasInputAuthority);
     }
     #endregion
 
