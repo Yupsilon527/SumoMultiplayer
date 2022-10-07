@@ -26,7 +26,7 @@ GameObject:
   - component: {fileID: 6055008545893127787}
   - component: {fileID: 8473431741746935689}
   - component: {fileID: 228776460010062892}
-  - component: {fileID: 5202626936957717185}
+  - component: {fileID: 8571861746418913916}
   m_Layer: 0
   m_Name: PlayerPawn
   m_TagString: Untagged
@@ -514,6 +514,24 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 51bc0adad60e113448ba0e98998a35cc, type: 2}
   - {fileID: 11400000, guid: 62e9e3391a363c1438cadc8bf743990d, type: 2}
   resolver: {fileID: 6055008545893127787}
+--- !u!114 &8571861746418913916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6624063373450815426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24c6829e0fe2eca438e60308ef8b0a20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TrailColor: {r: 1, g: 1, b: 1, a: 1}
+  TrailInterval: 0.06
+  TrailFailure: 0.1
+  TrailAppearance: 0
+  TrailDuration: 0
+  TrailAlpha: 1
 --- !u!1 &8237343817468581931
 GameObject:
   m_ObjectHideFlags: 0

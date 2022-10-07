@@ -28,6 +28,7 @@ public class AfterImageEmitter : MonoBehaviour
         if (lastTrail > Time.time || TrailDuration + TrailAppearance < TrailFailure)
             return;
 
+        mCol = TrailColor;
         mCol.a = TrailColor.a * TrailAlpha;
 
         SpecialEffectPooler.main.CreateTrailOnGameObject(gameObject, mCol, TrailAppearance, TrailDuration);
