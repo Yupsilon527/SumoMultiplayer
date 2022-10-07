@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72c01b6bc3375b0449adfd80e14b69b7, type: 3}
   m_Name: Cow
   m_EditorClassIdentifier: 
+  characterColor: {r: 0.2688679, g: 0.502777, b: 1, a: 0.49019608}
   characterIcon: {fileID: 21300000, guid: 3ebd7774f2dd86c4ea1e71009016fd2c, type: 3}
   spriteLibraryAsset: {fileID: 7108339969198208228, guid: 08fc7ceb93d15284597a5e6b21648d33, type: 3}

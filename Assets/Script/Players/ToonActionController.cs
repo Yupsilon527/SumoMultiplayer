@@ -197,7 +197,10 @@ public class ToonActionController : NetworkBehaviour, IRespawnable
                 }
 
                 if (actionTime.ExpiredOrNotRunning(Runner))
+                {
+                    ChargeBuildUp = 0;
                     BeginAction(PlayerAction.free);
+                }
                 break;
             case PlayerAction.charging:
 

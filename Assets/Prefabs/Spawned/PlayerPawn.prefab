@@ -128,6 +128,7 @@ MonoBehaviour:
   damageable: {fileID: 0}
   animations: {fileID: 0}
   character: {fileID: 0}
+  emitter: {fileID: 0}
   rigidbody: {fileID: 0}
   audio: {fileID: 0}
   ScoreDecay: 0
@@ -151,7 +152,7 @@ MonoBehaviour:
   DamageToRage: 0.4
   DamageRegen: 20
   DamageRegenTime: 5
-  TrailDuration: 0.7
+  TrailDuration: 0.3
   _Rage: 0
   _Damage: 0
 --- !u!114 &4818091953077637352

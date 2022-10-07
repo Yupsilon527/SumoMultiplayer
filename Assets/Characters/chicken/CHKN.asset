@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72c01b6bc3375b0449adfd80e14b69b7, type: 3}
   m_Name: CHKN
   m_EditorClassIdentifier: 
+  characterColor: {r: 0.764151, g: 0, b: 0.030545605, a: 0.49019608}
   characterIcon: {fileID: 21300000, guid: 7358033bcbbcfd34da9ec2d5c039d337, type: 3}
   spriteLibraryAsset: {fileID: 7108339969198208228, guid: 6dd22cf04e1735a4da080aa7b3995dd0, type: 3}

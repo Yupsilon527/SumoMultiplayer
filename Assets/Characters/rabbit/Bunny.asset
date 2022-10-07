@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72c01b6bc3375b0449adfd80e14b69b7, type: 3}
   m_Name: Bunny
   m_EditorClassIdentifier: 
+  characterColor: {r: 1, g: 0.5424528, b: 0.85878175, a: 0.49019608}
   characterIcon: {fileID: 21300000, guid: f329f87665bbe424c89b5510c4801dd1, type: 3}
   spriteLibraryAsset: {fileID: 7108339969198208228, guid: b96b4ffe4d868624284f9699a3968220, type: 3}

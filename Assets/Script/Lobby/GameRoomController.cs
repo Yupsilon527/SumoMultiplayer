@@ -75,7 +75,7 @@ public class GameRoomController : MonoBehaviour, INetworkRunnerCallbacks
     }
     public void OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason)
     {
-        gameObject.SetActive(false);
+
     }
 
     public void OnConnectRequest(NetworkRunner runner, NetworkRunnerCallbackArgs.ConnectRequest request, byte[] token)
