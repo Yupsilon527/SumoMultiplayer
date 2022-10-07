@@ -130,12 +130,28 @@ public class PlayerController : NetworkBehaviour, IRespawnable
 
     #endregion
     #region Character
+    [Networked]
+    int CharacterID { get; set; }
     void InitalizeCharacter()
     {
-        int rerolls = character.SwappableCharacters.Length;
+        int MaxChars = character.SwappableCharacters.Length;
 
-        int nChar = Random.Range(0, rerolls - 1);
-        character.ChangeCharacter(nChar);
+        CharacterID = Random.Range(0, MaxChars - 1);
+        while (CharacterExists(CharacterID))
+        {
+            CharacterID = (CharacterID + 1) % MaxChars;
+        }
+        character.ChangeCharacter(CharacterID);
+    }
+    bool CharacterExists(int chID)
+    {
+        foreach (KeyValuePair<PlayerRef, PlayerController> player in GameController.main.PlayerSpawners.RegisteredPlayers)
+        {
+            if (player.Value.CharacterID == chID)
+                return true;
+        }
+
+        return false;
     }
     #endregion
 }
