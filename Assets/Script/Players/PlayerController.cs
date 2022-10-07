@@ -63,6 +63,7 @@ public class PlayerController : NetworkBehaviour, IRespawnable
     public override void FixedUpdateNetwork()
     {
         HandleScoreUpdate();
+        animations.SetHighlighted(GameController.main.currentState == GameController.GameState.pregame && Object.HasInputAuthority);
     }
     #endregion
 
@@ -132,9 +133,24 @@ public class PlayerController : NetworkBehaviour, IRespawnable
     int CharacterID { get; set; }
     void InitalizeCharacter()
     {
-        int rerolls = character.SwappableCharacters.Length;
-        CharacterID = Random.Range(0, rerolls - 1);
+        int MaxChars = character.SwappableCharacters.Length;
+
+        CharacterID = Random.Range(0, MaxChars - 1);
+        while (CharacterExists(CharacterID))
+        {
+            CharacterID = (CharacterID + 1) % MaxChars;
+        }
         character.ChangeCharacter(CharacterID);
+    }
+    bool CharacterExists(int chID)
+    {
+        foreach (KeyValuePair<PlayerRef, PlayerController> player in GameController.main.PlayerSpawners.RegisteredPlayers)
+        {
+            if (player.Value.CharacterID == chID)
+                return true;
+        }
+
+        return false;
     }
     #endregion
 }

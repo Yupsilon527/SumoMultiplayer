@@ -23,6 +23,10 @@ public class PlayerAnimationController : SimulationBehaviour
     {
         animator.SetBool("staggered", staggered);
     }
+    public void SetHighlighted(bool highlight)
+    {
+        animator.SetBool("highlighted", highlight);
+    }
     public void PlaySpecific(string animation)
     {
         animator.Play(animation);

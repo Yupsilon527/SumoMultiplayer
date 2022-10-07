@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2cdb21061de1ae1469f71caccf4aecec
+guid: 6af48e1c56048ea43a313226600c912f
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -42,14 +42,14 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 250
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 0
+  spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 0
   spriteTessellationDetail: -1
@@ -115,128 +115,18 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: takeHitRAT_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 1700
-        width: 1700
-        height: 1700
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d939e77c2b6b2d043a673b68e497c2e9
-      internalID: -1099985358
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: takeHitRAT_1
-      rect:
-        serializedVersion: 2
-        x: 1700
-        y: 1700
-        width: 1700
-        height: 1700
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d1d1d3706007e7e4087e0a423b927a43
-      internalID: -363110812
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: takeHitRAT_2
-      rect:
-        serializedVersion: 2
-        x: 3400
-        y: 1700
-        width: 1700
-        height: 1700
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bf57cf916c26888488ae1782e6befcf5
-      internalID: -43457753
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: takeHitRAT_3
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1700
-        height: 1700
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e9097cd8c62583844869f13a4605feea
-      internalID: -1346717238
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: takeHitRAT_4
-      rect:
-        serializedVersion: 2
-        x: 1700
-        y: 0
-        width: 1700
-        height: 1700
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bb743db12df254f4793b29a7a94b34fe
-      internalID: 1914069084
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 87b2b6b07e7edff468edb62f26ff60e5
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      takeHitRAT_3: -1346717238
-      takeHitRAT_2: -43457753
-      takeHitRAT_4: 1914069084
-      takeHitRAT_0: -1099985358
-      takeHitRAT_1: -363110812
+    nameFileIdTable: {}
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
