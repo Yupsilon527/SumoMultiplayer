@@ -385,9 +385,9 @@ MonoBehaviour:
   SmashAttackRageMultiplier: 3
   SmashAttackRageBuildupTime: 2
   ParryContactSound: {fileID: 8300000, guid: 68ee96408a29bd946859fabfb4ad28ea, type: 3}
-  ParryDuration: 0.33
-  ParryStagger: 0.333
-  ParryCooldown: 0.42
+  ParryDuration: 0.35
+  ParryStagger: 0.35
+  ParryCooldown: 0.35
   ParryKnockbackStrength: 3
   ParryKnockbackDuration: 0.33
   ParryRage: 18
