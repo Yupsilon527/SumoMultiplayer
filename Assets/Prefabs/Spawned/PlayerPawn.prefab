@@ -302,6 +302,7 @@ MonoBehaviour:
   character: {fileID: 0}
   rigidbody: {fileID: 0}
   audio: {fileID: 0}
+  TrailDuration: 0.4
   ScoreDecay: 0
   _IsAbducted: 0
   _Score: 0
@@ -319,7 +320,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
   DamageKnockbackMultiplier: 0.05
-  RageMax: 100
+  RageMax: 50
   DamageToRage: 0.4
   DamageRegen: 20
   DamageRegenTime: 5
@@ -368,9 +369,9 @@ MonoBehaviour:
     m_Bits: 2147483647
   SlashSound: {fileID: 8300000, guid: c53743bc7c6d0114d9351717b24d79b7, type: 3}
   SlashAttackDuration: 0.8333333
-  SlashAttackContactStart: 0.25
+  SlashAttackContactStart: 0.15
   SlashAttackContactEnd: 0.55
-  SlashAttackDamage: 4
+  SlashAttackDamage: 0
   SlashAttackKnockback: 2
   SlashAttackRageInitial: 12
   SlashAttackRageConsecutive: 6
@@ -379,7 +380,7 @@ MonoBehaviour:
   SmashAttackDuration: 1
   SmashAttackContactStart: 0.25
   SmashAttackContactEnd: 0.5
-  SmashAttackDamage: 9
+  SmashAttackDamage: 0
   SmashAttackKnockback: 1
   SmashAttackRageGrowth: 0.5
   SmashAttackRageMultiplier: 3
@@ -387,9 +388,9 @@ MonoBehaviour:
   ParryContactSound: {fileID: 8300000, guid: 68ee96408a29bd946859fabfb4ad28ea, type: 3}
   ParryDuration: 0.33
   ParryStagger: 0.333
-  ParryCooldown: 0.66
+  ParryCooldown: 0.42
   ParryKnockbackStrength: 3
-  ParryKnockbackDuration: 1
+  ParryKnockbackDuration: 0.33
   ParryRage: 18
   DodgeSound: {fileID: 8300000, guid: a449d1f4b5ae48044b44c76972609dbe, type: 3}
   DashDuration: 0.2664
@@ -582,7 +583,7 @@ SpriteRenderer:
   m_SortingLayerID: 997529669
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 456839818, guid: 8f0f5ae037fdce941b6b624091c777a2, type: 3}
+  m_Sprite: {fileID: -621979369, guid: 4de2db3421041024aa558ff1bd9430b5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
