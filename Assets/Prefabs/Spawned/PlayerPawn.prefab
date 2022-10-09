@@ -378,7 +378,7 @@ MonoBehaviour:
   SlashAttackSelfPush: 0.75
   SmashSound: {fileID: 8300000, guid: 4a6b1325e0a12e14bbca1101c4f7e5cb, type: 3}
   SmashAttackDuration: 1
-  SmashAttackContactStart: 0.25
+  SmashAttackContactStart: 0.2
   SmashAttackContactEnd: 0.5
   SmashAttackDamage: 0
   SmashAttackKnockback: 1
@@ -583,7 +583,7 @@ SpriteRenderer:
   m_SortingLayerID: 997529669
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: -621979369, guid: 4de2db3421041024aa558ff1bd9430b5, type: 3}
+  m_Sprite: {fileID: 71638974, guid: 4dc50ae7380310247a9c5d3dbed1b80d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

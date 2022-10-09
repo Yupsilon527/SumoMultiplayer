@@ -19,6 +19,7 @@ public class LobbyController : MonoBehaviour, INetworkRunnerCallbacks
     public GameObject MainMenu;
     public GameObject HostMenu;
     public GameObject JoinMenu;
+    public GameObject AboutMenu;
     public GameObject LobbyMenu;
 
     public enum LobbyWindow
@@ -26,7 +27,8 @@ public class LobbyController : MonoBehaviour, INetworkRunnerCallbacks
         Main,
         Host,
         Join,
-        Lobby
+        Lobby,
+        About
     }
 
     public void ChangeMenu(int Window)
@@ -40,6 +42,7 @@ public class LobbyController : MonoBehaviour, INetworkRunnerCallbacks
         HostMenu.gameObject.SetActive(Window == LobbyWindow.Host);
         JoinMenu.gameObject.SetActive(Window == LobbyWindow.Join);
         LobbyMenu.gameObject.SetActive(Window == LobbyWindow.Lobby);
+        AboutMenu.gameObject.SetActive(Window == LobbyWindow.About);
     }
 
     #region Lobby
