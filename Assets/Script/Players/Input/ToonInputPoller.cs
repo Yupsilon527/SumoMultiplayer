@@ -17,34 +17,46 @@ public class ToonInputPoller : MonoBehaviour, INetworkRunnerCallbacks
         localInput = new ToonInput();
 
         playerInput.Player.Movement.Enable();
-        playerInput.Player.Movement.performed += ctx =>
-        {
-            Vector2 movement = ctx.ReadValue<Vector2>();
-            localInput.HorizontalInput = movement.x;
-            localInput.VerticalInput = movement.y;
-        };
+        playerInput.Player.Movement.performed += ReadMovement;
+        playerInput.Player.Movement.canceled += ReadMovement;
+
         playerInput.Player.NormalAttack.Enable();
-        playerInput.Player.NormalAttack.performed += ctx =>
-        {
-            localInput.Buttons.Set(ToonInput.Button.Weak, ctx.ReadValueAsButton());
-        };
+        playerInput.Player.NormalAttack.performed += ReadNormalAttack;
+        playerInput.Player.NormalAttack.canceled += ReadNormalAttack;
+
         playerInput.Player.StrongAttack.Enable();
-        playerInput.Player.StrongAttack.performed += ctx =>
-        {
-            localInput.Buttons.Set(ToonInput.Button.Strong, ctx.ReadValueAsButton());
-        };
+        playerInput.Player.StrongAttack.performed += ReadStrongAttack;
+        playerInput.Player.StrongAttack.canceled += ReadStrongAttack;
 
         playerInput.Player.Parry.Enable();
-        playerInput.Player.Parry.performed += ctx =>
-        {
-            localInput.Buttons.Set(ToonInput.Button.Parry, ctx.ReadValueAsButton());
-        };
+        playerInput.Player.Parry.performed += ReadParry;
+        playerInput.Player.Parry.canceled += ReadParry;
 
         playerInput.Player.Dash.Enable();
-        playerInput.Player.Dash.performed += ctx =>
-        {
-            localInput.Buttons.Set(ToonInput.Button.Dash, ctx.ReadValueAsButton());
-        };
+        playerInput.Player.Dash.performed += ReadDash;
+        playerInput.Player.Dash.canceled += ReadDash;
+    }
+    void ReadMovement(InputAction.CallbackContext ctx)
+    {
+        Vector2 movement = ctx.ReadValue<Vector2>();
+        localInput.HorizontalInput = movement.x;
+        localInput.VerticalInput = movement.y;
+    }
+    void ReadNormalAttack(InputAction.CallbackContext ctx)
+    {
+        localInput.Buttons.Set(ToonInput.Button.Strong, ctx.ReadValueAsButton());
+    }
+    void ReadStrongAttack(InputAction.CallbackContext ctx)
+    {
+        localInput.Buttons.Set(ToonInput.Button.Strong, ctx.ReadValueAsButton());
+    }
+    void ReadDash(InputAction.CallbackContext ctx)
+    {
+        localInput.Buttons.Set(ToonInput.Button.Dash, ctx.ReadValueAsButton());
+    }
+    void ReadParry(InputAction.CallbackContext ctx)
+    {
+        localInput.Buttons.Set(ToonInput.Button.Parry, ctx.ReadValueAsButton());
     }
     public void OnInput(NetworkRunner runner, NetworkInput input)
     {
