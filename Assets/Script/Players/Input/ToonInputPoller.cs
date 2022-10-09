@@ -44,7 +44,7 @@ public class ToonInputPoller : MonoBehaviour, INetworkRunnerCallbacks
     }
     void ReadNormalAttack(InputAction.CallbackContext ctx)
     {
-        localInput.Buttons.Set(ToonInput.Button.Strong, ctx.ReadValueAsButton());
+        localInput.Buttons.Set(ToonInput.Button.Weak, ctx.ReadValueAsButton());
     }
     void ReadStrongAttack(InputAction.CallbackContext ctx)
     {
