@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4371050096258705437}
   - component: {fileID: 4371050096258705436}
   - component: {fileID: 4044236861504676682}
-  - component: {fileID: 9104794627073899347}
+  - component: {fileID: 8705363152801398306}
   m_Layer: 0
   m_Name: Network Runner
   m_TagString: Untagged
@@ -73,7 +73,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowHierarchyWindowOverlay: 1
   PostLoadDelayFrames: 1
---- !u!114 &9104794627073899347
+--- !u!114 &8705363152801398306
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -100,6 +100,6 @@ MonoBehaviour:
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: Player 1
+  m_DefaultActionMap: 
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
