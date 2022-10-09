@@ -4,20 +4,29 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(PlayerInput))]
 public class ToonInputPoller : MonoBehaviour, INetworkRunnerCallbacks
 {
-
+    public PlayerInput playerInput;
+    private void Awake()
+    {
+        if (playerInput==null)
+        playerInput = GetComponent<PlayerInput>();
+    }
     public void OnInput(NetworkRunner runner, NetworkInput input)
     {
         ToonInput localInput = new ToonInput();
 
-        localInput.HorizontalInput = Input.GetAxis("Horizontal");
-        localInput.VerticalInput = Input.GetAxis("Vertical");
-        localInput.Buttons.Set(ToonInput.Button.Weak, Input.GetButton("Norm Attack"));
-        localInput.Buttons.Set(ToonInput.Button.Strong, Input.GetButton("Strong Attack"));
-        localInput.Buttons.Set(ToonInput.Button.Dash, Input.GetButton("Dash"));
-        localInput.Buttons.Set(ToonInput.Button.Parry, Input.GetButton("Parry"));
+        var inputAction = playerInput.actions.FindAction("ASD");
+
+        localInput.HorizontalInput = playerInput.actions.FindAction("Horizontal").ReadValue<float>();
+        localInput.VerticalInput = playerInput.actions.FindAction("Vertical").ReadValue<float>();
+        localInput.Buttons.Set(ToonInput.Button.Weak, playerInput.actions.FindAction("Normal Attack").IsPressed());
+        localInput.Buttons.Set(ToonInput.Button.Strong, playerInput.actions.FindAction("Strong Attack").IsPressed());
+        localInput.Buttons.Set(ToonInput.Button.Dash, playerInput.actions.FindAction("Dash").IsPressed());
+        localInput.Buttons.Set(ToonInput.Button.Parry, playerInput.actions.FindAction("Parry").IsPressed());
 
         input.Set(localInput);
     }

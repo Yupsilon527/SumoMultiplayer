@@ -71,7 +71,7 @@ public class GameRoomController : MonoBehaviour, INetworkRunnerCallbacks
     }
     public void OnDisconnectedFromServer(NetworkRunner runner)
     {
-        gameObject.SetActive(false);
+        gameObject.SetActive(false); 
     }
     public void OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason)
     {
