@@ -128,7 +128,6 @@ MonoBehaviour:
   damageable: {fileID: 0}
   animations: {fileID: 0}
   character: {fileID: 0}
-  emitter: {fileID: 0}
   rigidbody: {fileID: 0}
   audio: {fileID: 0}
   ScoreDecay: 0
@@ -606,8 +605,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 3625043607559282579, guid: 19fb86013d8c24d6cb8410c0aadf30fa, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 1d2a50412f5c03648aea17201d1ae66b, type: 3}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
