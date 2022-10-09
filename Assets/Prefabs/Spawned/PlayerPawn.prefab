@@ -324,7 +324,6 @@ MonoBehaviour:
   DamageToRage: 0.4
   DamageRegen: 20
   DamageRegenTime: 5
-  TrailDuration: 0.3
   _Rage: 0
   _Damage: 0
 --- !u!114 &4818091953077637352
@@ -359,7 +358,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
   RegularDrag: 5
-  StaggerDrag: 1
+  StaggerDrag: 0.33
   RegularBounce: 0
   StaggerBounce: 0.5
   AttackContactDistance: 0.45
@@ -368,18 +367,18 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2147483647
   SlashSound: {fileID: 8300000, guid: c53743bc7c6d0114d9351717b24d79b7, type: 3}
-  SlashAttackDuration: 0.8333333
-  SlashAttackContactStart: 0.15
-  SlashAttackContactEnd: 0.55
+  SlashAttackDuration: 0.45
+  SlashAttackContactStart: 0.05
+  SlashAttackContactEnd: 0.35
   SlashAttackDamage: 0
-  SlashAttackKnockback: 2
+  SlashAttackKnockback: 4
   SlashAttackRageInitial: 12
   SlashAttackRageConsecutive: 6
   SlashAttackSelfPush: 0.75
   SmashSound: {fileID: 8300000, guid: 4a6b1325e0a12e14bbca1101c4f7e5cb, type: 3}
-  SmashAttackDuration: 1
-  SmashAttackContactStart: 0.2
-  SmashAttackContactEnd: 0.5
+  SmashAttackDuration: 0.6
+  SmashAttackContactStart: 0.13333334
+  SmashAttackContactEnd: 0.33333334
   SmashAttackDamage: 0
   SmashAttackKnockback: 1
   SmashAttackRageGrowth: 0.5
@@ -395,7 +394,7 @@ MonoBehaviour:
   DodgeSound: {fileID: 8300000, guid: a449d1f4b5ae48044b44c76972609dbe, type: 3}
   DashDuration: 0.2664
   DashStagger: 0.5328
-  DashSpeed: 5
+  DashSpeed: 6
   DashCooldown: 1
   _currentAction: 0
 --- !u!82 &874765995518869657
@@ -583,7 +582,7 @@ SpriteRenderer:
   m_SortingLayerID: 997529669
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 71638974, guid: 4dc50ae7380310247a9c5d3dbed1b80d, type: 3}
+  m_Sprite: {fileID: 456839818, guid: 8f0f5ae037fdce941b6b624091c777a2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

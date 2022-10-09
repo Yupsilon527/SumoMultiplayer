@@ -197,6 +197,17 @@ public partial class @MasterInput : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""62aa0f39-c027-4ba4-9b34-b0d51bd95abc"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""GamePad"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""199b96e9-72d7-4e47-8ab3-0a1405578a50"",
                     ""path"": ""<Gamepad>/dpad"",
                     ""interactions"": """",

@@ -16,8 +16,6 @@ public class PlayerDamageable : NetworkBehaviour, IRespawnable
     public float DamageRegenTime = 5;
 
 
-    public float TrailDuration = .4f;
-
     public override void Spawned()
     {
         controller = GetComponent<PlayerController>();

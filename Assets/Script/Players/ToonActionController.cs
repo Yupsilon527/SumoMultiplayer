@@ -315,7 +315,7 @@ public class ToonActionController : NetworkBehaviour, IRespawnable
                 {
                     victim.damageable.BuildUpRage(victim.actionman.ParryRage);
                     victim.audio.PlayOneShot(ParryContactSound);
-                    controller.damageable.KnockBack((victim.transform.position - transform.position), ParryKnockbackDuration, ParryKnockbackStrength, true);
+                    controller.damageable.KnockBack((victim.transform.position - transform.position), ParryKnockbackDuration, ParryKnockbackStrength, false);
                     return;
                 }
                 else
