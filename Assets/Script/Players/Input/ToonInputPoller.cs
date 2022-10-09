@@ -4,21 +4,62 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(PlayerInput))]
 public class ToonInputPoller : MonoBehaviour, INetworkRunnerCallbacks
 {
+    public MasterInput playerInput;
+   public ToonInput localInput;
+    private void Awake()
+    {
+            playerInput = new MasterInput();
+        localInput = new ToonInput();
 
+        playerInput.Player.Movement.Enable();
+        playerInput.Player.Movement.performed += ReadMovement;
+        playerInput.Player.Movement.canceled += ReadMovement;
+
+        playerInput.Player.NormalAttack.Enable();
+        playerInput.Player.NormalAttack.performed += ReadNormalAttack;
+        playerInput.Player.NormalAttack.canceled += ReadNormalAttack;
+
+        playerInput.Player.StrongAttack.Enable();
+        playerInput.Player.StrongAttack.performed += ReadStrongAttack;
+        playerInput.Player.StrongAttack.canceled += ReadStrongAttack;
+
+        playerInput.Player.Parry.Enable();
+        playerInput.Player.Parry.performed += ReadParry;
+        playerInput.Player.Parry.canceled += ReadParry;
+
+        playerInput.Player.Dash.Enable();
+        playerInput.Player.Dash.performed += ReadDash;
+        playerInput.Player.Dash.canceled += ReadDash;
+    }
+    void ReadMovement(InputAction.CallbackContext ctx)
+    {
+        Vector2 movement = ctx.ReadValue<Vector2>();
+        localInput.HorizontalInput = movement.x;
+        localInput.VerticalInput = movement.y;
+    }
+    void ReadNormalAttack(InputAction.CallbackContext ctx)
+    {
+        localInput.Buttons.Set(ToonInput.Button.Weak, ctx.ReadValueAsButton());
+    }
+    void ReadStrongAttack(InputAction.CallbackContext ctx)
+    {
+        localInput.Buttons.Set(ToonInput.Button.Strong, ctx.ReadValueAsButton());
+    }
+    void ReadDash(InputAction.CallbackContext ctx)
+    {
+        localInput.Buttons.Set(ToonInput.Button.Dash, ctx.ReadValueAsButton());
+    }
+    void ReadParry(InputAction.CallbackContext ctx)
+    {
+        localInput.Buttons.Set(ToonInput.Button.Parry, ctx.ReadValueAsButton());
+    }
     public void OnInput(NetworkRunner runner, NetworkInput input)
     {
-        ToonInput localInput = new ToonInput();
-
-        localInput.HorizontalInput = Input.GetAxis("Horizontal");
-        localInput.VerticalInput = Input.GetAxis("Vertical");
-        localInput.Buttons.Set(ToonInput.Button.Weak, Input.GetButton("Norm Attack"));
-        localInput.Buttons.Set(ToonInput.Button.Strong, Input.GetButton("Strong Attack"));
-        localInput.Buttons.Set(ToonInput.Button.Dash, Input.GetButton("Dash"));
-        localInput.Buttons.Set(ToonInput.Button.Parry, Input.GetButton("Parry"));
-
         input.Set(localInput);
     }
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
