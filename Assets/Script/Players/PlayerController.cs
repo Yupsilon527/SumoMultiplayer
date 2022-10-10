@@ -103,7 +103,6 @@ public class PlayerController : NetworkBehaviour, IRespawnable
     public void AddToScore(float points)
     {
         Score = Mathf.Max(Score + points,0);
-        GameController.main.CheckGameOver();
     }
 
     [Networked(OnChanged = nameof(OnScoreChanged))]
@@ -113,6 +112,7 @@ public class PlayerController : NetworkBehaviour, IRespawnable
         UIController.main.UpdatePlayerUI(playerInfo.Behaviour.Object.InputAuthority);
 
         playerInfo.Behaviour.UpdateTrails();
+        GameController.main.CheckGameOver();
     }
     void UpdateTrails()
     {
@@ -145,16 +145,18 @@ public class PlayerController : NetworkBehaviour, IRespawnable
 
     #endregion
     #region Character
-    [Networked]
-    int CharacterID { get; set; }
+    [Networked]    int CharacterID { get; set; }
     void InitalizeCharacter()
     {
-        int MaxChars = character.SwappableCharacters.Length;
-
-        CharacterID = Random.Range(0, MaxChars - 1);
-        while (CharacterExists(CharacterID))
+        if (Object.HasStateAuthority)
         {
-            CharacterID = (CharacterID + 1) % MaxChars;
+            int MaxChars = character.SwappableCharacters.Length;
+
+            CharacterID = Random.Range(0, MaxChars - 1);
+            while (CharacterExists(CharacterID))
+            {
+                CharacterID = (CharacterID + 1) % MaxChars;
+            }
         }
         character.ChangeCharacter(CharacterID);
     }
@@ -162,7 +164,7 @@ public class PlayerController : NetworkBehaviour, IRespawnable
     {
         foreach (KeyValuePair<PlayerRef, PlayerController> player in GameController.main.PlayerSpawners.RegisteredPlayers)
         {
-            if (player.Value.CharacterID == chID)
+            if (player.Value!= this && player.Value.CharacterID == chID)
                 return true;
         }
 
