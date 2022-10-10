@@ -27,7 +27,6 @@ public class GameController : NetworkBehaviour
 
 
     [Networked] public TickTimer gameTimer { get; set; }
-    [Networked] public GameState currentState { get; set; }
 
     public PlayerSpawn PlayerSpawners;
     public UfoSpawner UfoSpawner;
@@ -36,7 +35,6 @@ public class GameController : NetworkBehaviour
     public override void Spawned()
     {
         InitializeRoom();
-        UIController.main.ShowInGameScreen();
         if (TryGetComponent(out GameDisconnectManager gdman))
             Runner.AddCallbacks(gdman);
     }
@@ -103,9 +101,10 @@ public class GameController : NetworkBehaviour
     public void StartNewGame()
     {
         HandleRestart();
-        ChangeState(GameState.pregame);
-        UIController.main.ShowInGameScreen();
+        currentState = GameState.pregame;
     }
+    #endregion
+    #region Winning and Game Over
     [HideInInspector][Networked] public PlayerController WinningPlayer { get; set; }
     public void CheckGameOver()
     {
@@ -114,7 +113,7 @@ public class GameController : NetworkBehaviour
 
         if (WinningPlayer != null)
         {
-            ChangeState(GameState.postgame);
+            currentState = GameState.postgame;
         }
     }
     void DeclareWinner(bool forced)
@@ -138,13 +137,13 @@ public class GameController : NetworkBehaviour
         switch (currentState)
         {
             case GameState.pregame:
-                ChangeState(GameState.ingame);
+                currentState = GameState.ingame;
                 break;
             case GameState.ingame:
                 if (RoundTime > 0)
                 {
                     DeclareWinner(true);
-                    ChangeState(GameState.postgame);
+                    currentState = GameState.postgame;
                 }
                 break;
             default:
@@ -153,29 +152,33 @@ public class GameController : NetworkBehaviour
         }
     }
 
-    public void ChangeState(GameState newstate)
+    [Networked(OnChanged = nameof(ChangeState))] public GameState currentState { get; set; }
+    public bool IsAbducted { get; private set; }
+    public static void ChangeState(Changed<GameController> gameInfo)
     {
-        Debug.Log("[GameController] Change state to " + newstate);
-        switch (newstate)
+        GameController game = gameInfo.Behaviour;
+
+        Debug.Log("[GameController] Change state to " + game.currentState);
+        switch (game.currentState)
         {
             case GameState.pregame:
-                if (Object.HasStateAuthority)
+                if (game.Object.HasStateAuthority)
                 {
-                    PlayerSpawners.RespawnAllPlayers();
-                    gameTimer = TickTimer.CreateFromSeconds(Runner, PreGameTime);
+                    game.PlayerSpawners.RespawnAllPlayers();
+                    game.gameTimer = TickTimer.CreateFromSeconds(game.Runner, game.PreGameTime);
                 }
+                UIController.main.ShowInGameScreen();
                 break;
             case GameState.ingame:
-                if (Object.HasStateAuthority && RoundTime>0)
+                if (game.Object.HasStateAuthority && game.RoundTime >0)
                 {
-                    gameTimer = TickTimer.CreateFromSeconds(Runner, RoundTime);
+                    game.gameTimer = TickTimer.CreateFromSeconds(game.Runner, game.RoundTime);
                 }
                 break;
             case GameState.postgame:
                 UIController.main.ShowEndOfGameScreen();
                 break;
         }
-        currentState = newstate;
     }
 
     #endregion
