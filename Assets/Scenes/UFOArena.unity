@@ -2723,14 +2723,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 79033590575042949, guid: 51d475d4d37917b488d838b819aa7969, type: 3}
-      propertyPath: m_Name
-      value: Rage  Bar Fill
-      objectReference: {fileID: 0}
-    - target: {fileID: 7980315190988084067, guid: 51d475d4d37917b488d838b819aa7969, type: 3}
-      propertyPath: m_Name
-      value: Rage Bar
-      objectReference: {fileID: 0}
     - target: {fileID: 9026213110000333056, guid: 51d475d4d37917b488d838b819aa7969, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -2743,18 +2735,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
       value: 
       objectReference: {fileID: 291124341}
-    - target: {fileID: 9026213111149388256, guid: 51d475d4d37917b488d838b819aa7969, type: 3}
-      propertyPath: m_MatchWidthOrHeight
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9026213111149388256, guid: 51d475d4d37917b488d838b819aa7969, type: 3}
-      propertyPath: m_ReferenceResolution.x
-      value: 1200
-      objectReference: {fileID: 0}
-    - target: {fileID: 9026213111149388256, guid: 51d475d4d37917b488d838b819aa7969, type: 3}
-      propertyPath: m_ReferenceResolution.y
-      value: 675
-      objectReference: {fileID: 0}
     - target: {fileID: 9026213111149388258, guid: 51d475d4d37917b488d838b819aa7969, type: 3}
       propertyPath: m_Pivot.x
       value: 0
