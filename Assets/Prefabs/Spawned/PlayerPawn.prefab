@@ -387,7 +387,6 @@ MonoBehaviour:
   character: {fileID: 0}
   rigidbody: {fileID: 0}
   audio: {fileID: 0}
-  TrailDuration: 0.4
   ScoreDecay: 0
   _IsAbducted: 0
   _Score: 0
@@ -409,6 +408,7 @@ MonoBehaviour:
   DamageToRage: 0
   DamageRegen: 20
   DamageRegenTime: 5
+  TrailDuration: 0.2
   _Rage: 0
   _Damage: 0
 --- !u!114 &4818091953077637352
@@ -468,12 +468,12 @@ MonoBehaviour:
   SmashAttackDamage: 0
   SmashAttackKnockback: 1
   SmashAttackRageGrowth: 1
-  SmashAttackRageMultiplier: 3
+  SmashAttackRageMultiplier: 6
   SmashAttackRageBuildupTime: 2
   ParryContactSound: {fileID: 8300000, guid: 68ee96408a29bd946859fabfb4ad28ea, type: 3}
   ParryDuration: 0.15
   ParryStagger: 0.35
-  ParryCooldown: 0.66
+  ParryCooldown: 0.5
   ParryKnockbackStrength: 3
   ParryKnockbackDuration: 0.33
   ParryRage: 12
@@ -668,7 +668,7 @@ SpriteRenderer:
   m_SortingLayerID: 997529669
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 2118122443, guid: 4dc50ae7380310247a9c5d3dbed1b80d, type: 3}
+  m_Sprite: {fileID: 456839818, guid: 8f0f5ae037fdce941b6b624091c777a2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -785,11 +785,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TrailColor: {r: 1, g: 1, b: 1, a: 1}
-  TrailInterval: 0.06
+  TrailInterval: 0.05
   TrailFailure: 0.1
   TrailAppearance: 0
   TrailDuration: 0
-  TrailAlpha: 1
+  TrailAlpha: 0.5
 --- !u!1 &8237343817468581931
 GameObject:
   m_ObjectHideFlags: 0
