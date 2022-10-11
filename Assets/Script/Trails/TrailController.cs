@@ -63,6 +63,8 @@ public class TrailController : MonoBehaviour
                 }
         foreach (SpriteRenderer childsprite in entity.GetComponentsInChildren<SpriteRenderer>())
         {
+            if (childsprite.color.a >= .5f)
+            {
                 sprites[i].transform.position = childsprite.transform.position;
                 sprites[i].transform.rotation = childsprite.transform.rotation;
                 sprites[i].transform.localScale = childsprite.transform.localScale;
@@ -70,7 +72,7 @@ public class TrailController : MonoBehaviour
                 sprites[i].flipX = childsprite.flipX;
                 sprites[i].enabled = childsprite.enabled;
                 i++;
-            
+            }
         }
     }
     public void Expire(float appearduration, float trailduration)
