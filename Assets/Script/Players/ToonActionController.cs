@@ -32,6 +32,7 @@ public class ToonActionController : NetworkBehaviour, IRespawnable
     [Header("Strong Attack")]
     public AudioClip SmashSound;
     public float SmashAttackDuration = 1f;
+    public float SmashAttackChargeStart = 1f;
     public float SmashAttackContactStart = 1f;
     public float SmashAttackContactEnd = 1f;
     public float SmashAttackDamage = 1f;
@@ -98,7 +99,7 @@ public class ToonActionController : NetworkBehaviour, IRespawnable
             }
             if (input.Buttons.WasPressed(_buttonsPrevious, ToonInput.Button.Strong))
             {
-                BeginAction(PlayerAction.charging);
+                BeginAction(PlayerAction.charging, SmashAttackChargeStart);
             }
             if (input.Buttons.WasPressed(_buttonsPrevious, ToonInput.Button.Parry))
             {
@@ -115,7 +116,7 @@ public class ToonActionController : NetworkBehaviour, IRespawnable
                 }
             }
         }
-        if (currentAction == PlayerAction.charging && !input.Buttons.IsSet(ToonInput.Button.Strong))
+        if (currentAction == PlayerAction.charging && !input.Buttons.IsSet(ToonInput.Button.Strong) && actionTime.ExpiredOrNotRunning(Runner))
         {
             BeginAction(PlayerAction.strongattack, SmashAttackDuration);
         }
@@ -203,7 +204,8 @@ public class ToonActionController : NetworkBehaviour, IRespawnable
                 }
                 break;
             case PlayerAction.charging:
-
+                if (!actionTime.ExpiredOrNotRunning(Runner))
+                    break;                
                 float percent = 1f / SmashAttackRageBuildupTime * Runner.DeltaTime;
                 controller.damageable.BuildUpRage(-controller.damageable.RageMax * percent);
                 ChargeBuildUp = Mathf.Min(ChargeBuildUp + percent, 1);
