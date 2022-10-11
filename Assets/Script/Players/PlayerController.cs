@@ -11,11 +11,8 @@ public class PlayerController : NetworkBehaviour, IRespawnable
     public PlayerDamageable damageable;
     public PlayerAnimationController animations;
     public CharacterResolver character;
-    private AfterImageEmitter emitter = null;
     public Rigidbody rigidbody ;
     public AudioSource audio;
-
-    public float TrailDuration = .4f;
     private void Awake()
     {
         if (mover==null)
@@ -31,8 +28,6 @@ public class PlayerController : NetworkBehaviour, IRespawnable
         if (audio == null)
             audio = GetComponent<AudioSource>();
 
-        if (emitter == null)
-            emitter = GetComponent<AfterImageEmitter>();
         if (character == null)
             character = GetComponent<CharacterResolver>();
     }
@@ -103,6 +98,7 @@ public class PlayerController : NetworkBehaviour, IRespawnable
     public void AddToScore(float points)
     {
         Score = Mathf.Max(Score + points,0);
+        GameController.main.CheckGameOver();
     }
 
     [Networked(OnChanged = nameof(OnScoreChanged))]
@@ -110,20 +106,8 @@ public class PlayerController : NetworkBehaviour, IRespawnable
     public static void OnScoreChanged(Changed<PlayerController> playerInfo)
     {
         UIController.main.UpdatePlayerUI(playerInfo.Behaviour.Object.InputAuthority);
-
-        playerInfo.Behaviour.UpdateTrails();
-        GameController.main.CheckGameOver();
     }
-    void UpdateTrails()
-    {
-        float rageCharge = Score / GameController.main.WinScore;
-
-        emitter.TrailAppearance = rageCharge * .1f;
-        emitter.TrailDuration = rageCharge * TrailDuration;
-        emitter.TrailAlpha = rageCharge;
-    }
-
-        void HandleScoreUpdate()
+    void HandleScoreUpdate()
     {
         if (Object.HasStateAuthority && GameController.main.currentState == GameController.GameState.ingame)
         {

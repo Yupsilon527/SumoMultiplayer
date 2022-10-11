@@ -1,5 +1,89 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3212882592488196638
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1496106614511962996}
+  - component: {fileID: 1661258980518042040}
+  m_Layer: 0
+  m_Name: Shadow
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1496106614511962996
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3212882592488196638}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: -1.5, z: 0.022}
+  m_LocalScale: {x: 1.5, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6624063373450815438}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!212 &1661258980518042040
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3212882592488196638}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: -1663672731
+  m_SortingLayer: 1
+  m_SortingOrder: -5
+  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.39215687}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!1 &5722263801946331731
 GameObject:
   m_ObjectHideFlags: 0
@@ -219,6 +303,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4174128316432314409}
+  - {fileID: 1496106614511962996}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -302,7 +387,6 @@ MonoBehaviour:
   character: {fileID: 0}
   rigidbody: {fileID: 0}
   audio: {fileID: 0}
-  TrailDuration: 0.4
   ScoreDecay: 0
   _IsAbducted: 0
   _Score: 0
@@ -319,11 +403,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
-  DamageKnockbackMultiplier: 0.05
+  DamageKnockbackMultiplier: 0
   RageMax: 50
-  DamageToRage: 0.4
+  DamageToRage: 0
   DamageRegen: 20
   DamageRegenTime: 5
+  TrailDuration: 0.2
   _Rage: 0
   _Damage: 0
 --- !u!114 &4818091953077637352
@@ -341,7 +426,7 @@ MonoBehaviour:
   _interpolationDataSource: 0
   MoveSpeed: 3.5
   MoveAcceleration: 15
-  ChargeMultiplier: 2
+  ChargeMultiplier: 1.5
   _facesRight: 0
   _moveDir: {x: 0, y: 0}
 --- !u!114 &1258359365125640815
@@ -372,25 +457,26 @@ MonoBehaviour:
   SlashAttackContactEnd: 0.35
   SlashAttackDamage: 0
   SlashAttackKnockback: 4
-  SlashAttackRageInitial: 12
+  SlashAttackRageInitial: 8
   SlashAttackRageConsecutive: 6
   SlashAttackSelfPush: 0.75
   SmashSound: {fileID: 8300000, guid: 4a6b1325e0a12e14bbca1101c4f7e5cb, type: 3}
-  SmashAttackDuration: 0.6
+  SmashAttackDuration: 0.3
+  SmashAttackChargeStart: 0.3
   SmashAttackContactStart: 0.13333334
   SmashAttackContactEnd: 0.33333334
   SmashAttackDamage: 0
   SmashAttackKnockback: 1
-  SmashAttackRageGrowth: 0.5
-  SmashAttackRageMultiplier: 3
+  SmashAttackRageGrowth: 1
+  SmashAttackRageMultiplier: 6
   SmashAttackRageBuildupTime: 2
   ParryContactSound: {fileID: 8300000, guid: 68ee96408a29bd946859fabfb4ad28ea, type: 3}
-  ParryDuration: 0.35
+  ParryDuration: 0.15
   ParryStagger: 0.35
-  ParryCooldown: 0.35
+  ParryCooldown: 0.5
   ParryKnockbackStrength: 3
   ParryKnockbackDuration: 0.33
-  ParryRage: 18
+  ParryRage: 12
   DodgeSound: {fileID: 8300000, guid: a449d1f4b5ae48044b44c76972609dbe, type: 3}
   DashDuration: 0.2664
   DashStagger: 0.5328
@@ -699,11 +785,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TrailColor: {r: 1, g: 1, b: 1, a: 1}
-  TrailInterval: 0.06
+  TrailInterval: 0.05
   TrailFailure: 0.1
   TrailAppearance: 0
   TrailDuration: 0
-  TrailAlpha: 1
+  TrailAlpha: 0.5
 --- !u!1 &8237343817468581931
 GameObject:
   m_ObjectHideFlags: 0
