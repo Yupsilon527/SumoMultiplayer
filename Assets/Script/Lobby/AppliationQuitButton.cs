@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AppliationQuitButton : MonoBehaviour
+public class AppliationQuitButton : MonoBehaviour, iButton
 {
-    public void OnPressed()
+    public void Pressed()
     {
 #if UNITY_EDITOR
         Debug.Log("Application QUIT");

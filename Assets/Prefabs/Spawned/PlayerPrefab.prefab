@@ -284,7 +284,7 @@ GameObject:
   - component: {fileID: 228776460010062892}
   - component: {fileID: 8571861746418913916}
   m_Layer: 0
-  m_Name: PlayerPawn
+  m_Name: PlayerPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -492,7 +492,7 @@ AudioSource:
   m_GameObject: {fileID: 6624063373450815426}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -5671778972750220825, guid: 1d93d047ce20ca846a5c65be5058bfe9, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1

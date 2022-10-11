@@ -5868,7 +5868,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 56702613}
         m_TargetAssemblyTypeName: AppliationQuitButton, Assembly-CSharp
-        m_MethodName: OnPressed
+        m_MethodName: Pressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

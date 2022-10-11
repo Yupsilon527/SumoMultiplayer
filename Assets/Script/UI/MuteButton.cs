@@ -1,18 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
-public class MuteButton : MonoBehaviour
+public class MuteButton : MonoBehaviour, iButton
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public AudioMixer controlled;
+    public string ParameterName;
+    public float ParameterDefaultValue;
 
-    // Update is called once per frame
-    void Update()
+    bool muted = false;
+    public void Pressed()
     {
-        
+        muted = !muted;
+        controlled.SetFloat (ParameterName, muted ? 0 : ParameterDefaultValue);
     }
 }
