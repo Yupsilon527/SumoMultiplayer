@@ -93,7 +93,7 @@ public class PlayerController : NetworkBehaviour, IRespawnable
     public bool IsAbducted { get; private set; }
     public static void OnEnterAbductionBeam(Changed<PlayerController> playerInfo)
     {
-
+        playerInfo.Behaviour.animations.SetAbducted(playerInfo.Behaviour.IsAbducted);
     }
     public void AddToScore(float points)
     {

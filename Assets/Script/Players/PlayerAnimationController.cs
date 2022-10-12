@@ -27,6 +27,8 @@ public class PlayerAnimationController : SimulationBehaviour
     {
         animator.SetBool("highlighted", highlight);
     }
+    public void SetAbducted(bool value)
+    { animator.SetBool("abducted", value); }
     public void PlaySpecific(string animation)
     {
         animator.Play(animation);
