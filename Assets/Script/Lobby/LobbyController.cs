@@ -50,6 +50,9 @@ public class LobbyController : MonoBehaviour, INetworkRunnerCallbacks
     {
         ChangeMenu(LobbyWindow.Main);
             OnRoomNameChanged("Room " + Random.Range(1, 100));
+        // You can do cleaner code ----------------------------------------
+        if(SoundSelector.Instance!=null)
+            SoundSelector.Instance.PlayMenuMusic();
     }
 
     string SessionName = "TestRoom";

@@ -98,6 +98,10 @@ public class PlayerController : NetworkBehaviour, IRespawnable
     public void AddToScore(float points)
     {
         Score = Mathf.Max(Score + points,0);
+        
+        if(SoundSelector.Instance!=null)
+            SoundSelector.Instance.floatValue=Mathf.Max(SoundSelector.Instance.floatValue,Score);
+
         GameController.main.CheckGameOver();
     }
 
