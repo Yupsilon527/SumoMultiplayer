@@ -19,9 +19,9 @@ public class UfoController : NetworkBehaviour, IRespawnable
 
     public Vector2 desiredPosition = Vector2.zero;
     public Vector2 realPosition = Vector2.zero;
-    NetworkTransform ntf;
-    NetworkAnimationResponder nar;
-    SpriteResolver Abductee;
+    public NetworkTransform ntf;
+    public NetworkAnimationResponder nar;
+    public SpriteResolver Abductee;
 
     private void Awake()
     {
