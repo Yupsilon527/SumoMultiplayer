@@ -16,6 +16,8 @@ public class SoundSelector : MonoBehaviour
 
     public bool playAtStart=false;
     public bool playMenuMusicAtStart=true;
+    public double menuMusicFadingTime=2;
+    private double menuMusicEnd=-1;
     public double startDelay=2;
 
     private static SoundSelector instance=null;
@@ -23,6 +25,7 @@ public class SoundSelector : MonoBehaviour
     {
         get=>instance;
     }
+
 
     public float setFloatValue(float newValue)
     {
@@ -66,14 +69,27 @@ public class SoundSelector : MonoBehaviour
     public void PlayMenuMusic()
     {
         StopGameMusic();
+        menuMusicEnd=-1;
         if(menuMusic!=null)
+        {
+            menuMusic.volume=1;
             menuMusic.Play();
+        }
+    }
+
+    public void PlayGameMusic()
+    {
+        PlayGameMusicScheduled(AudioSettings.dspTime+menuMusicFadingTime);
     }
 
     public void PlayGameMusicScheduled(double time)
     {
         if(menuMusic!=null)
+        {
+            menuMusicFadingTime=time - AudioSettings.dspTime;
+            menuMusicEnd=time;
             menuMusic.SetScheduledEndTime(time);
+        }
         foreach(SelectableSound sound in soundList)
         {
             if(sound.audioSource!=null)
@@ -82,8 +98,13 @@ public class SoundSelector : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        
+        if(menuMusicEnd<0 || menuMusic==null)
+            return;
+        double time=menuMusicEnd-AudioSettings.dspTime;
+        if(time<=0)
+            return;
+        menuMusic.volume=(float)(time/menuMusicFadingTime);
     }
 }
