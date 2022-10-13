@@ -9947,7 +9947,7 @@ SpriteRenderer:
   m_SortingLayerID: 997529669
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 456839818, guid: 8f0f5ae037fdce941b6b624091c777a2, type: 3}
+  m_Sprite: {fileID: 1794758360, guid: fedd9e45d898e764b8a54684cc4f14f2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -9986,7 +9986,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_CategoryHash: 0
   m_labelHash: 0
-  m_SpriteKey: -2.942742e+36
+  m_SpriteKey: 8.442681e-34
 --- !u!1 &4004183763537572663
 GameObject:
   m_ObjectHideFlags: 0

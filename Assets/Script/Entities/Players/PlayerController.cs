@@ -59,6 +59,7 @@ public class PlayerController : NetworkBehaviour, IRespawnable
         {
             netrig.TeleportToPosition(StartPosition);
         }
+        animations.PlaySpecific("idle");
     }
     public override void FixedUpdateNetwork()
     {

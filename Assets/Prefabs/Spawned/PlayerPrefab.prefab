@@ -225,6 +225,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
+  emitter: {fileID: 4883605990483188374}
   DamageKnockbackMultiplier: 0
   RageMax: 50
   DamageToRage: 0
