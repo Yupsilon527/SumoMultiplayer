@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6996f9f7b3bf6e04dacbc36c03a02b87
+guid: eb817c4ef6bbd684eaed6e4d71eff3dc
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -44,12 +44,12 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 30
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 1
+  spriteGenerateFallbackPhysicsShape: 0
   alphaUsage: 1
   alphaIsTransparency: 0
   spriteTessellationDetail: -1
@@ -113,89 +113,227 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ufohappy_0
+      name: ufoidle_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2400
+        width: 1200
+        height: 1200
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 793d302388a305248bc3867b541eaa6a
+      internalID: 1732058806
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ufoidle_1
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 2400
+        width: 1200
+        height: 1200
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c7a1c1e3215fd448a8ae2c985fd0f97
+      internalID: 2045391334
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ufoidle_2
+      rect:
+        serializedVersion: 2
+        x: 2400
+        y: 2400
+        width: 1200
+        height: 1200
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b330f5ac64d44e34fa34bf643020c15f
+      internalID: -933629119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ufoidle_3
+      rect:
+        serializedVersion: 2
+        x: 3600
+        y: 2400
+        width: 1200
+        height: 1200
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d5d8a28e97ad204295a7a2a55150bf4
+      internalID: -1434489842
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ufoidle_4
       rect:
         serializedVersion: 2
         x: 0
         y: 1200
         width: 1200
         height: 1200
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c49e50b470398a7469406e32e0b5dc91
-      internalID: 221831931
+      spriteID: 68ec4ffd5de5fdc45a58b39060a2e7a7
+      internalID: 435899444
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ufohappy_1
+      name: ufoidle_5
       rect:
         serializedVersion: 2
         x: 1200
         y: 1200
         width: 1200
         height: 1200
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e298cc6c15144524ca7a4f79b5935643
-      internalID: -1004694064
+      spriteID: 59c5120ce173c274198dc9108554fdaa
+      internalID: -1390437902
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ufohappy_2
+      name: ufoidle_6
+      rect:
+        serializedVersion: 2
+        x: 2400
+        y: 1200
+        width: 1200
+        height: 1200
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47ba7e29a2d4d784bb46a8b451b7879b
+      internalID: 1692348668
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ufoidle_7
+      rect:
+        serializedVersion: 2
+        x: 3600
+        y: 1200
+        width: 1200
+        height: 1200
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37b4e0160788538428eca1cb822889a3
+      internalID: -2069956851
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ufoidle_8
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 1200
         height: 1200
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5e3ea2126ce051745aca107fdd77383a
-      internalID: 155755739
+      spriteID: 877d2790b335acd4caa570c598c94c77
+      internalID: -182542618
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ufohappy_3
+      name: ufoidle_9
       rect:
         serializedVersion: 2
         x: 1200
         y: 0
         width: 1200
         height: 1200
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4bd3608af9b1f7042a1031cef04dd9f0
-      internalID: -907740874
+      spriteID: e46e1e53081bfb3419b86fef6c04f708
+      internalID: -661041435
       vertices: []
       indices: 
       edges: []
@@ -203,7 +341,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 0c870ceb267bac247b2217f6ae5253bb
+    spriteID: db7ee76b6c98d964e87f9e8260c206f7
     internalID: 0
     vertices: []
     indices: 
@@ -211,10 +349,16 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      ufohappy_1: -1004694064
-      ufohappy_3: -907740874
-      ufohappy_2: 155755739
-      ufohappy_0: 221831931
+      ufoidle_5: -1390437902
+      ufoidle_6: 1692348668
+      ufoidle_7: -2069956851
+      ufoidle_3: -1434489842
+      ufoidle_1: 2045391334
+      ufoidle_4: 435899444
+      ufoidle_2: -933629119
+      ufoidle_9: -661041435
+      ufoidle_8: -182542618
+      ufoidle_0: 1732058806
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -2,6 +2,7 @@ using Fusion;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.U2D.Animation;
 
 public class UfoController : NetworkBehaviour, IRespawnable
 {
@@ -19,6 +20,8 @@ public class UfoController : NetworkBehaviour, IRespawnable
     public Vector2 desiredPosition = Vector2.zero;
     public Vector2 realPosition = Vector2.zero;
     NetworkTransform ntf;
+    NetworkAnimationResponder nar;
+    SpriteResolver Abductee;
 
     private void Awake()
     {
@@ -28,17 +31,21 @@ public class UfoController : NetworkBehaviour, IRespawnable
     {
         if (ntf == null)
             ntf = GetComponent<NetworkTransform>();
+        if (nar == null)
+            nar = GetComponent<NetworkAnimationResponder>();
+        if (Abductee == null)
+            Abductee = GetComponentInChildren<SpriteResolver>();
     }
     public void Respawn()
     {
         if (Object.HasStateAuthority)
         {
             realPosition = Vector2.zero;
-                
-            ntf.TeleportToPosition( new Vector3(realPosition.x, transform.position.y, realPosition.y));
-
             desiredPosition = Vector2.zero;
+            ntf.TeleportToPosition(new Vector3(realPosition.x, transform.position.y, realPosition.y));
         }
+
+        nar.PlaySpecific("ComeIn");
     }
 
     public override void FixedUpdateNetwork()
@@ -89,5 +96,13 @@ public class UfoController : NetworkBehaviour, IRespawnable
     private void OnDrawGizmos()
     {
         Gizmos.DrawSphere(Vector3.zero, MoveCircle);
+    }
+    public void AbductCharacter(CharacterSO charData)
+    {
+        if (Abductee!=null)
+        {
+            Abductee.spriteLibrary.spriteLibraryAsset = charData.spriteLibraryAsset;
+        }
+        nar.PlaySpecific("Victory");
     }
 }

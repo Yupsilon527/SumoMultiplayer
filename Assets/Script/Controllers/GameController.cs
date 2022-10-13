@@ -78,6 +78,7 @@ public class GameController : NetworkBehaviour
         {
             respawnable.Respawn();
         }
+        UfoController.main.Respawn();
         foreach (KeyValuePair<PlayerRef, PlayerController> Player in PlayerSpawners.RegisteredPlayers)
             foreach (IRespawnable respawnable in Player.Value.GetComponents<IRespawnable>())
             {
@@ -177,6 +178,14 @@ public class GameController : NetworkBehaviour
                 break;
             case GameState.postgame:
                 UIController.main.ShowEndOfGameScreen();
+                if (game.WinningPlayer!=null)
+                {
+                    game.WinningPlayer.animations.PlaySpecific("Victory");
+                    if (UfoController.main!=null)
+                    {
+                        UfoController.main.AbductCharacter(game.WinningPlayer.character.GetCurrentCharacter());
+                    }
+                }
                 break;
         }
     }
