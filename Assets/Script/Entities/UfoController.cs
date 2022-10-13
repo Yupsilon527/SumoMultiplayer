@@ -38,13 +38,10 @@ public class UfoController : NetworkBehaviour, IRespawnable
     }
     public void Respawn()
     {
-        if (Object.HasStateAuthority)
-        {
             realPosition = Vector2.zero;
             desiredPosition = Vector2.zero;
             ntf.TeleportToPosition(new Vector3(realPosition.x, transform.position.y, realPosition.y));
-        }
-
+        
         nar.PlaySpecific("ComeIn");
     }
 
@@ -95,7 +92,7 @@ public class UfoController : NetworkBehaviour, IRespawnable
     }
     private void OnDrawGizmos()
     {
-        Gizmos.DrawSphere(Vector3.zero, MoveCircle);
+        Gizmos.DrawWireSphere(Vector3.zero, MoveCircle);
     }
     public void AbductCharacter(CharacterSO charData)
     {
