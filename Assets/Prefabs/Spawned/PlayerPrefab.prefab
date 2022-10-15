@@ -19652,7 +19652,7 @@ MonoBehaviour:
   SlashAttackContactStart: 0.05
   SlashAttackContactEnd: 0.35
   SlashAttackDamage: 0
-  SlashAttackKnockback: 4
+  SlashAttackKnockback: 1.5
   SlashAttackRageInitial: 8
   SlashAttackRageConsecutive: 6
   SlashAttackSelfPush: 0.75
@@ -19662,13 +19662,13 @@ MonoBehaviour:
   SmashAttackContactStart: 0.13333334
   SmashAttackContactEnd: 0.33333334
   SmashAttackDamage: 0
-  SmashAttackKnockback: 1
+  SmashAttackKnockback: 2
   SmashAttackRageGrowth: 1
-  SmashAttackRageMultiplier: 6
+  SmashAttackRageMultiplier: 5
   SmashAttackRageBuildupTime: 2
   ParryContactSound: {fileID: 8300000, guid: 68ee96408a29bd946859fabfb4ad28ea, type: 3}
-  ParryDuration: 0.15
-  ParryStagger: 0.35
+  ParryDuration: 0.2
+  ParryStagger: 0.6
   ParryCooldown: 0.5
   ParryKnockbackStrength: 3
   ParryKnockbackDuration: 0.33
