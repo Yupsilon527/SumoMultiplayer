@@ -32,8 +32,8 @@ public class GameRoomController : MonoBehaviour, INetworkRunnerCallbacks
     {
         if (runner != null && runner.IsServer)
         {
-                runner.SetActiveScene(GameScene);
-            
+            runner.IsVisible = false;
+            runner.SetActiveScene(GameScene);            
         }
     }
 

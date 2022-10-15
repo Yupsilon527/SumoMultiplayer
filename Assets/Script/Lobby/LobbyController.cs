@@ -19,16 +19,20 @@ public class LobbyController : MonoBehaviour, INetworkRunnerCallbacks
     public GameObject MainMenu;
     public GameObject HostMenu;
     public GameObject JoinMenu;
+    public GameObject HelpMenu;
     public GameObject AboutMenu;
     public GameObject LobbyMenu;
+    public GameObject WaitMenu;
 
-    public enum LobbyWindow
+    public enum LobbyWindow : int
     {
         Main,
         Host,
         Join,
         Lobby,
-        About
+        About,
+        Help,
+        Wait
     }
 
     public void ChangeMenu(int Window)
@@ -43,6 +47,8 @@ public class LobbyController : MonoBehaviour, INetworkRunnerCallbacks
         JoinMenu.gameObject.SetActive(Window == LobbyWindow.Join);
         LobbyMenu.gameObject.SetActive(Window == LobbyWindow.Lobby);
         AboutMenu.gameObject.SetActive(Window == LobbyWindow.About);
+        HelpMenu.gameObject.SetActive(Window == LobbyWindow.Help);
+        WaitMenu.gameObject.SetActive(Window == LobbyWindow.Wait);
     }
 
     #region Lobby
@@ -64,6 +70,11 @@ public class LobbyController : MonoBehaviour, INetworkRunnerCallbacks
             field.text = SessionName;
         }
     }
+    public void OnAutoJoin()
+    {
+        OnRoomNameChanged("Public " + Random.Range(1, 100));
+        StartGame(GameMode.AutoHostOrClient);
+    }
     public void OnHostButtonPressed()
     {
         StartGame(GameMode.Host);
@@ -84,9 +95,9 @@ public class LobbyController : MonoBehaviour, INetworkRunnerCallbacks
         {
             runner = Instantiate(_networkRunnerPrefab);
         }
-        //runner.AddCallbacks(this);
+
         runner.ProvideInput = true;
-        Debug.Log("JoinSession " + SessionName);
+        runner.AddCallbacks(this);
 
         await runner.StartGame(new StartGameArgs()
         {
@@ -94,7 +105,8 @@ public class LobbyController : MonoBehaviour, INetworkRunnerCallbacks
             SessionName = SessionName,
             Scene = SceneManager.GetActiveScene().buildIndex,
             SceneManager = runner.GetComponent<NetworkSceneManagerDefault>(),
-            PlayerCount = MaxPlayersCount
+            PlayerCount = MaxPlayersCount,
+            IsVisible = mode == GameMode.AutoHostOrClient,
         });
         Debug.Log("Joined " + SessionName);
         ChangeMenu(LobbyWindow.Lobby);
