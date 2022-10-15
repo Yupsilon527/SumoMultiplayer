@@ -30,6 +30,7 @@ public class SoundSelector : MonoBehaviour
     public float setFloatValue(float newValue)
     {
         _value=newValue;
+        print("New float arrived "+newValue);
         foreach(SelectableSound sound in soundList)
         {
             sound.setVolumeAccordingToFloatValue(_value);

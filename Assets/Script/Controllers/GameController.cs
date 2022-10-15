@@ -106,7 +106,7 @@ public class GameController : NetworkBehaviour
         HandleRestart();
         currentState = GameState.pregame;
 
-        //You can do cleaner coder
+        //You can do cleaner code--------------------------------------------------------
         if(SoundSelector.Instance!=null)
             SoundSelector.Instance.floatValue=0;
     }
