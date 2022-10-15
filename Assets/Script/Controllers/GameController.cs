@@ -142,6 +142,7 @@ public class GameController : NetworkBehaviour
         if (WinningPlayer != null)
         {
             WinningPlayer.animations.PlaySpecific("Victory");
+            WinningPlayer.animations.SetAbducted(false);
             if (UfoController.main != null)
             {
                 UfoController.main.AbductCharacter(WinningPlayer.character.GetCurrentCharacter());
