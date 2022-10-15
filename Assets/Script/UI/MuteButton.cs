@@ -7,12 +7,41 @@ public class MuteButton : MonoBehaviour, iButton
 {
     public AudioMixer controlled;
     public string ParameterName;
-    public float ParameterDefaultValue;
+
+    float ParameterDefaultValue;
 
     bool muted = false;
+
+    private void Awake()
+    {
+        if (controlled.GetFloat(ParameterName, out float value))
+        {
+            ParameterDefaultValue = value;
+        }
+        else
+        {
+            ParameterDefaultValue = 0;
+        }
+        if (PlayerPrefs.HasKey(ParameterName + "_muted"))
+        {
+            SetMuted(PlayerPrefs.GetInt(ParameterName + "_muted") == 1);
+        }
+    }
+
     public void Pressed()
     {
-        muted = !muted;
-        controlled.SetFloat (ParameterName, muted ? 0 : ParameterDefaultValue);
+        SetMuted(!muted);
+    }
+
+    void SetMuted(bool value)
+    {
+        muted = value;
+        PlayerPrefs.SetInt(ParameterName + "_muted", muted ? 1 : 0);
+        controlled.SetFloat(ParameterName, muted ? 0 : ParameterDefaultValue);
+    }
+
+    private void OnDisable()
+    {
+        SetMuted(false);
     }
 }

@@ -12,6 +12,9 @@ public class GameController : NetworkBehaviour
     private void Awake()
     {
         main = this;
+        // You can do cleaner code
+        if(SoundSelector.Instance!=null)
+            SoundSelector.Instance.PlayGameMusicScheduled(AudioSettings.dspTime+2);
     }
     public float PreGameTime = 3;
     public float RoundTime = 180;
@@ -103,6 +106,10 @@ public class GameController : NetworkBehaviour
     {
         HandleRestart();
         currentState = GameState.pregame;
+
+        //You can do cleaner code--------------------------------------------------------
+        if(SoundSelector.Instance!=null)
+            SoundSelector.Instance.floatValue=0;
     }
     #endregion
     #region Winning and Game Over
