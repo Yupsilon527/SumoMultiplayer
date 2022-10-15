@@ -4,12 +4,21 @@ using UnityEngine;
 
 public class SoundSelector : MonoBehaviour
 {
+    public double randomPickingPeriod=5;
+    private double randomPickingTimer=-1;
+    private bool gameMusicPlaying=false;
     // Start is called before the first frame update
     private float _value=0;
     public float floatValue
     {
         get=>_value;
         set=> setFloatValue(value);
+    }
+
+    private float _randomValue=0.1f;
+    public float randomValue
+    {
+        get=>randomValue;
     }
 
     public AudioSource menuMusic=null;
@@ -26,19 +35,25 @@ public class SoundSelector : MonoBehaviour
         get=>instance;
     }
 
+    public void pickRandom()
+    {
+        _randomValue=Random.Range(0f,1f);
+    }
+
 
     public float setFloatValue(float newValue)
     {
         _value=newValue;
         foreach(SelectableSound sound in soundList)
         {
-            sound.setVolumeAccordingToFloatValue(_value);
+            sound.setVolumeAccordingToFloatValue(_value,_randomValue);
         }
         return _value;
     }
     public void StopGameMusic()
     {
         floatValue=0;
+        gameMusicPlaying=false;
         foreach(SelectableSound sound in soundList)
         {
             if(sound.audioSource!=null)
@@ -90,6 +105,9 @@ public class SoundSelector : MonoBehaviour
             menuMusicEnd=time;
             menuMusic.SetScheduledEndTime(time);
         }
+        gameMusicPlaying=true;
+        randomPickingTimer=time;
+
         foreach(SelectableSound sound in soundList)
         {
             if(sound.audioSource!=null)
@@ -100,6 +118,14 @@ public class SoundSelector : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        double gameMusicTimer=AudioSettings.dspTime-randomPickingTimer;
+        if(gameMusicPlaying && gameMusicTimer>=randomPickingPeriod)
+        {
+            pickRandom();
+            randomPickingTimer+=randomPickingPeriod;
+            setFloatValue(_value);
+            print("["+gameObject.name+"] Random solo picked :"+_randomValue);
+        }
         if(menuMusicEnd<0 || menuMusic==null)
             return;
         double time=menuMusicEnd-AudioSettings.dspTime;
