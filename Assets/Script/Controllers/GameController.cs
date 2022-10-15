@@ -82,10 +82,13 @@ public class GameController : NetworkBehaviour
         }
         UfoController.main.Respawn();
         foreach (KeyValuePair<PlayerRef, PlayerController> Player in PlayerSpawners.RegisteredPlayers)
+        {
+            Player.Value.Respawn();
             foreach (IRespawnable respawnable in Player.Value.GetComponents<IRespawnable>())
             {
                 respawnable.Respawn();
             }
+        }
         if (Object.HasStateAuthority)
         {
 

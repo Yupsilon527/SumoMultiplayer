@@ -21,8 +21,4 @@ public class PlayerAnimationController : NetworkAnimationResponder
     }
     public void SetAbducted(bool value)
     { animator.SetBool("abducted", value); }
-    public void PlaySpecific(string animation)
-    {
-        animator.Play(animation);
-    }
 }
