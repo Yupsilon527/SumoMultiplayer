@@ -78,6 +78,7 @@ public class GameController : NetworkBehaviour
         {
             respawnable.Respawn();
         }
+        UfoController.main.Respawn();
         foreach (KeyValuePair<PlayerRef, PlayerController> Player in PlayerSpawners.RegisteredPlayers)
             foreach (IRespawnable respawnable in Player.Value.GetComponents<IRespawnable>())
             {
@@ -129,6 +130,17 @@ public class GameController : NetworkBehaviour
             }
         }
     }
+    void PlayEndOfGameAnimation()
+    {
+        if (WinningPlayer != null)
+        {
+            WinningPlayer.animations.PlaySpecific("Victory");
+            if (UfoController.main != null)
+            {
+                UfoController.main.AbductCharacter(WinningPlayer.character.GetCurrentCharacter());
+            }
+        }
+    }
     #endregion
     #region States
     void HandleTimer()
@@ -153,7 +165,6 @@ public class GameController : NetworkBehaviour
     }
 
     [Networked(OnChanged = nameof(ChangeState))] public GameState currentState { get; set; }
-    public bool IsAbducted { get; private set; }
     public static void ChangeState(Changed<GameController> gameInfo)
     {
         GameController game = gameInfo.Behaviour;
@@ -177,6 +188,7 @@ public class GameController : NetworkBehaviour
                 break;
             case GameState.postgame:
                 UIController.main.ShowEndOfGameScreen();
+                game.PlayEndOfGameAnimation();
                 break;
         }
     }

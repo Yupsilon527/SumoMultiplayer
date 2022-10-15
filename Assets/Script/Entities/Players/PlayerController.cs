@@ -59,11 +59,16 @@ public class PlayerController : NetworkBehaviour, IRespawnable
         {
             netrig.TeleportToPosition(StartPosition);
         }
+        animations.PlaySpecific("idle");
     }
     public override void FixedUpdateNetwork()
     {
         HandleScoreUpdate();
         animations.SetHighlighted(GameController.main.currentState == GameController.GameState.pregame && Object.HasInputAuthority);
+        if (GameController.main.currentState == GameController.GameState.ingame && IsAbducted)
+        {
+            UfoController.main.nar.PlaySpecific("beamyellow");
+        }
     }
     #endregion
 

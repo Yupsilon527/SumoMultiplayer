@@ -3,16 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAnimationController : SimulationBehaviour
+public class PlayerAnimationController : NetworkAnimationResponder
 {
-    PlayerController player;
-    Animator animator;
-
-    private void Awake()
-    {
-        animator = GetComponent<Animator>();
-        player = GetComponent<PlayerController>();
-    }
     public void SetFacing(bool right)
     { animator.SetBool("facesright", right); }
     public void SetWalking(bool walking)

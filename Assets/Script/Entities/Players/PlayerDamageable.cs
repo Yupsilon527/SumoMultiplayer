@@ -7,7 +7,7 @@ using static ToonActionController;
 public class PlayerDamageable : NetworkBehaviour, IRespawnable
 {
     private PlayerController controller = null;
-    private AfterImageEmitter emitter = null;
+    public AfterImageEmitter emitter = null;
 
     public float DamageKnockbackMultiplier = 1 / 20;
     public float RageMax = 100;
@@ -22,6 +22,7 @@ public class PlayerDamageable : NetworkBehaviour, IRespawnable
     public override void Spawned()
     {
         controller = GetComponent<PlayerController>();
+        if (emitter==null)
         emitter = GetComponent<AfterImageEmitter>();
     }
     public void Respawn()

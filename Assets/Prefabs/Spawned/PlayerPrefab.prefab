@@ -10817,12 +10817,12 @@ ParticleSystem:
           outWeight: 0
         - serializedVersion: 3
           time: 1
-          value: 0.44594574
-          inSlope: -2
-          outSlope: -2
+          value: 0.70270157
+          inSlope: -0.8389262
+          outSlope: -0.8389262
           tangentMode: 0
           weightedMode: 0
-          inWeight: 0
+          inWeight: 0.12886614
           outWeight: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
@@ -11130,7 +11130,7 @@ ParticleSystem:
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
-        key1: {r: 1, g: 1, b: 1, a: 0}
+        key1: {r: 1, g: 1, b: 1, a: 0.017647088}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -11147,7 +11147,7 @@ ParticleSystem:
         ctime7: 0
         atime0: 0
         atime1: 65535
-        atime2: 0
+        atime2: 65535
         atime3: 0
         atime4: 0
         atime5: 0
@@ -19780,6 +19780,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
+  emitter: {fileID: 0}
   DamageKnockbackMultiplier: 0
   RageMax: 50
   DamageToRage: 0
@@ -20004,6 +20005,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10f8b738181de2f4bace55e44ff535cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
 --- !u!212 &9219906277055937784
 SpriteRenderer:
   m_ObjectHideFlags: 0
