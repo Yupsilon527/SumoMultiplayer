@@ -148,7 +148,12 @@ public class GameController : NetworkBehaviour
     }
     void PlayEndOfGameAnimation()
     {
-        if (WinningPlayer != null)
+        foreach (KeyValuePair<PlayerRef, PlayerController> Player in PlayerSpawners.RegisteredPlayers)
+        {
+            Player.Value.actionman.BeginAction( ToonActionController.PlayerAction.free);
+        }
+
+            if (WinningPlayer != null)
         {
             WinningPlayer.animations.PlaySpecific("Victory");
             WinningPlayer.animations.SetAbducted(false);
