@@ -23,16 +23,26 @@ public class GameRoomController : MonoBehaviour, INetworkRunnerCallbacks
             NR.AddCallbacks(this);
             runner = NR;
         }
+        StartCoroutine(WaitForServer());
+    }
+
+    IEnumerator WaitForServer()
+    {
+        RoomName.text = "...";
+        PlayerLabel.text = "...";
+        while (runner == null || !runner.SessionInfo.IsValid)
+        {
+            yield return new WaitForEndOfFrame();
+        }
         UpdateRoomInfo();
         UpdatePlayerInfo();
     }
-
 
     public void OnPlayPressed()
     {
         if (runner != null && runner.IsServer)
         {
-            runner.IsVisible = false;
+            runner.SessionInfo.IsVisible = false;
             runner.SetActiveScene(GameScene);            
         }
     }
@@ -40,10 +50,10 @@ public class GameRoomController : MonoBehaviour, INetworkRunnerCallbacks
     void UpdateRoomInfo()
     {
         if (runner == null) return;
-        if (runner.IsVisible)
-            RoomName.text = "Public";
+        if (runner.SessionInfo.IsVisible)
+            RoomName.text = "Public Room";
         else
-        RoomName.text = runner.SessionInfo.Name;
+            RoomName.text = runner.SessionInfo.Name;
         PlayButton.interactable = runner.IsServer;
     }
     void UpdatePlayerInfo()
