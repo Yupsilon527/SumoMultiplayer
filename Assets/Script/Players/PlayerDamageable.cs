@@ -78,6 +78,8 @@ public class PlayerDamageable : NetworkBehaviour, IRespawnable
         BuildUpRage(damage * DamageToRage);
         ScaledKnockBack(kbCenter, knockback);
 
+        controller.animations.PlaySpecific("takeHit");
+
         RefreshRegenTimer();
     }
     void HandleDamageRegen()
