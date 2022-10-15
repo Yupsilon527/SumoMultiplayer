@@ -102,7 +102,7 @@ public class LobbyController : MonoBehaviour, INetworkRunnerCallbacks
         await runner.StartGame(new StartGameArgs()
         {
             GameMode = mode,
-            SessionName = SessionName,
+            SessionName = mode == GameMode.AutoHostOrClient ? "" : SessionName,
             Scene = SceneManager.GetActiveScene().buildIndex,
             SceneManager = runner.GetComponent<NetworkSceneManagerDefault>(),
             PlayerCount = MaxPlayersCount,
