@@ -185,7 +185,7 @@ public class ToonActionController : NetworkBehaviour, IRespawnable
         dodge,
         parry,
     }
-    [Rpc(sources: RpcSources.InputAuthority, targets: RpcTargets.All)]
+    [Rpc(sources: RpcSources.StateAuthority, targets: RpcTargets.All)]
     void RpcPlaySound(SoundType clip)
     {
         switch (clip)
