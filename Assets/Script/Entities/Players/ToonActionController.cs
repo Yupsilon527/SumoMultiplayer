@@ -157,16 +157,19 @@ public class ToonActionController : NetworkBehaviour, IRespawnable
         switch (nState)
         {
             case PlayerAction.attack:
+                if (Object.HasStateAuthority)
                 RpcPlaySound(SoundType.slash);
                 PlayerHits.Clear();
                 break;
             case PlayerAction.strongattack:
-                RpcPlaySound(SoundType.smash);
+                if (Object.HasStateAuthority)
+                    RpcPlaySound(SoundType.smash);
                 PlayerHits.Clear();
                 break;
             case PlayerAction.parry:
             case PlayerAction.dash:
-                RpcPlaySound(SoundType.dodge);
+                if (Object.HasStateAuthority)
+                    RpcPlaySound(SoundType.dodge);
                 dashCooldown = TickTimer.CreateFromSeconds(Runner, (currentAction == PlayerAction.dash) ? DashCooldown : ParryCooldown);
                 if (actionDirection.x == 0 && actionDirection.y == 0)
                     actionDirection = controller.mover.GetVectorForward();
@@ -342,7 +345,8 @@ public class ToonActionController : NetworkBehaviour, IRespawnable
                 if (victim.actionman.IsParrying())
                 {
                     victim.damageable.BuildUpRage(victim.actionman.ParryRage);
-                    victim.actionman.RpcPlaySound( SoundType.parry);
+                    if (Object.HasStateAuthority)
+                        RpcPlaySound( SoundType.parry);
                     controller.damageable.KnockBack((transform.position - victim.transform.position), ParryKnockbackDuration, ParryKnockbackStrength, true);
                     return;
                 }
