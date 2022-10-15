@@ -75,10 +75,6 @@ public class GameController : NetworkBehaviour
     #region Game Start And Restart
      void HandleRestart()
     {
-        if (!Object.HasStateAuthority) return;
-
-        PlayerSpawners.RespawnAllPlayers();
-        gameTimer = TickTimer.CreateFromSeconds(Runner, PreGameTime);
 
         foreach (IRespawnable respawnable in UfoController.main.GetComponents<IRespawnable>())
         {
@@ -90,7 +86,13 @@ public class GameController : NetworkBehaviour
             {
                 respawnable.Respawn();
             }
-        WinningPlayer = null;
+        if (Object.HasStateAuthority)
+        {
+
+            PlayerSpawners.RespawnAllPlayers();
+            gameTimer = TickTimer.CreateFromSeconds(Runner, PreGameTime);
+            WinningPlayer = null;
+        }
     }
     #endregion
     #region Initialization
