@@ -157,27 +157,52 @@ public class ToonActionController : NetworkBehaviour, IRespawnable
         switch (nState)
         {
             case PlayerAction.attack:
-                controller.RpcPlaySound(SlashSound);
+                RpcPlaySound(SoundType.slash);
                 PlayerHits.Clear();
                 break;
             case PlayerAction.strongattack:
-                controller.RpcPlaySound(SmashSound);
+                RpcPlaySound(SoundType.smash);
                 PlayerHits.Clear();
                 break;
             case PlayerAction.parry:
             case PlayerAction.dash:
-                controller.RpcPlaySound(DodgeSound);
+                RpcPlaySound(SoundType.dodge);
                 dashCooldown = TickTimer.CreateFromSeconds(Runner, (currentAction == PlayerAction.dash) ? DashCooldown : ParryCooldown);
                 if (actionDirection.x == 0 && actionDirection.y == 0)
                     actionDirection = controller.mover.GetVectorForward();
                 break;
             case PlayerAction.stagger:
-                controller.RpcPlaySound(SlashSound);
                 PlayerHits.Clear();
                 break;
         }
         currentAction = nState;
         UpdatePhysics();
+    }
+    enum SoundType : int
+    {
+        slash,
+        smash,
+        dodge,
+        parry,
+    }
+    [Rpc(sources: RpcSources.InputAuthority, targets: RpcTargets.All)]
+    void RpcPlaySound(SoundType clip)
+    {
+        switch (clip)
+        {
+            case SoundType.slash:
+                controller.audio.PlayOneShot(SlashSound);
+                break;
+            case SoundType.smash:
+                controller.audio.PlayOneShot(SmashSound);
+                break;
+            case SoundType.dodge:
+                controller.audio.PlayOneShot(DodgeSound);
+                break;
+            case SoundType.parry:
+                controller.audio.PlayOneShot(ParryContactSound);
+                break;
+        }
     }
     void UpdatePhysics()
     {
@@ -317,7 +342,7 @@ public class ToonActionController : NetworkBehaviour, IRespawnable
                 if (victim.actionman.IsParrying())
                 {
                     victim.damageable.BuildUpRage(victim.actionman.ParryRage);
-                    victim.RpcPlaySound(ParryContactSound);
+                    victim.actionman.RpcPlaySound( SoundType.parry);
                     controller.damageable.KnockBack((transform.position - victim.transform.position), ParryKnockbackDuration, ParryKnockbackStrength, true);
                     return;
                 }

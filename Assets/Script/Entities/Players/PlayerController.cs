@@ -31,11 +31,6 @@ public class PlayerController : NetworkBehaviour, IRespawnable
         if (character == null)
             character = GetComponent<CharacterResolver>();
     }
-    [Rpc(sources: RpcSources.All, targets: RpcTargets.All)]
-    public void RpcPlaySound(AudioClip clip)
-    {
-        audio.PlayOneShot(clip);
-    }
 
     public override void Spawned()
     {
