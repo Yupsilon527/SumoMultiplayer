@@ -44,6 +44,7 @@ public class MuteButton : MonoBehaviour, iButton
         PlayerPrefs.SetInt(ParameterName + "_muted", muted ? 1 : 0);
         controlled.SetFloat(ParameterName, muted ? -80 : ParameterDefaultValue);
         DisabledSprite.SetActive(muted);
+        PlayerPrefs.Save();
     }
 
     private void OnDisable()
