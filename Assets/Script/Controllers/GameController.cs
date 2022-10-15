@@ -100,11 +100,13 @@ public class GameController : NetworkBehaviour
     {
         if (Object.HasStateAuthority)
         {
-            if (Object.HasStateAuthority)
-            {
                 PlayerSpawners.InitSpawns();
                 UfoSpawner.SpawnHazards();
-            }
+            
+        }
+        if (currentState == GameState.ingame)
+        {
+            UIController.main.ShowInGameScreen();
         }
     }
     public void StartNewGame()
