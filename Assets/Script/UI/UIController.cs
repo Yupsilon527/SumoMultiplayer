@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIController : MonoBehaviour
+public class UIController : SimulationBehaviour, IPlayerLeft
 {
     public static UIController main;
 
@@ -65,6 +65,11 @@ public class UIController : MonoBehaviour
         interfaceData.Add(playerRef, table);
         table.AssignPlayer(controller);
         UpdatePlayerUI(playerRef);
+    }
+
+    public void PlayerLeft(PlayerRef player)
+    {
+        RemovePlayer(player);
     }
     public void RemovePlayer(PlayerRef playerRef)
     {

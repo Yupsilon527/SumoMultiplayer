@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAnimationController : NetworkAnimationResponder
+public class PlayerAnimationController : NetworkAnimationResponder, IRespawnable
 {
     public void SetFacing(bool right)
     { animator.SetBool("facesright", right); }
@@ -21,4 +21,9 @@ public class PlayerAnimationController : NetworkAnimationResponder
     }
     public void SetAbducted(bool value)
     { animator.SetBool("abducted", value); }
+
+    public void Respawn()
+    {
+        PlaySpecific("idle");
+    }
 }

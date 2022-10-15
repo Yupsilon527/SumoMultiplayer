@@ -104,17 +104,27 @@ public class LobbyController : MonoBehaviour, INetworkRunnerCallbacks
         runner.ProvideInput = true;
         runner.AddCallbacks(this);
 
-        await runner.StartGame(new StartGameArgs()
+        bool Visible = mode == GameMode.AutoHostOrClient;
+
+        var result = await runner.StartGame(new StartGameArgs()
         {
             GameMode = mode,
             SessionName = mode == GameMode.AutoHostOrClient ? "" : SessionName,
             Scene = SceneManager.GetActiveScene().buildIndex,
             SceneManager = runner.GetComponent<NetworkSceneManagerDefault>(),
             PlayerCount = MaxPlayersCount,
-            IsVisible = mode == GameMode.AutoHostOrClient,
+            IsVisible = Visible,
+            
         });
-        Debug.Log("Joined " + SessionName);
-        ChangeMenu(LobbyWindow.Lobby);
+        if (result.Ok)
+        {
+            Debug.Log("Joined " + SessionName);
+            ChangeMenu(LobbyWindow.Lobby);
+        }
+        else
+        {
+            ChangeMenu(LobbyWindow.Main);
+        }
     }
     #endregion
 

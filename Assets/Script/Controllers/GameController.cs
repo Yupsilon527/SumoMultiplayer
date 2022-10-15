@@ -40,6 +40,11 @@ public class GameController : NetworkBehaviour
         InitializeRoom();
         if (TryGetComponent(out GameDisconnectManager gdman))
             Runner.AddCallbacks(gdman);
+        Runner.AddSimulationBehaviour(UIController.main);
+    }
+    public override void Despawned(NetworkRunner runner, bool hasState)
+    {
+        runner.RemoveSimulationBehavior(UIController.main);
     }
 
     public override void FixedUpdateNetwork()
@@ -151,12 +156,14 @@ public class GameController : NetworkBehaviour
         foreach (KeyValuePair<PlayerRef, PlayerController> Player in PlayerSpawners.RegisteredPlayers)
         {
             Player.Value.actionman.BeginAction( ToonActionController.PlayerAction.free);
+            WinningPlayer.animations.PlaySpecific("idle");
+            WinningPlayer.animations.SetAbducted(false);
+            WinningPlayer.animations.SetWalking(false);
         }
 
             if (WinningPlayer != null)
         {
             WinningPlayer.animations.PlaySpecific("Victory");
-            WinningPlayer.animations.SetAbducted(false);
             if (UfoController.main != null)
             {
                 UfoController.main.AbductCharacter(WinningPlayer.character.GetCurrentCharacter());

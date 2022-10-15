@@ -40,7 +40,7 @@ public class GameRoomController : MonoBehaviour, INetworkRunnerCallbacks
     void UpdateRoomInfo()
     {
         if (runner == null) return;
-        if (runner.IsVisible || runner.GameMode == GameMode.Shared || runner.GameMode == GameMode.AutoHostOrClient)
+        if (runner.IsVisible)
             RoomName.text = "Public";
         else
         RoomName.text = runner.SessionInfo.Name;
