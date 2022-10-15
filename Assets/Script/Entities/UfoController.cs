@@ -19,6 +19,7 @@ public class UfoController : NetworkBehaviour, IRespawnable
 
     public Vector2 desiredPosition = Vector2.zero;
     public Vector2 realPosition = Vector2.zero;
+
     public NetworkTransform ntf;
     public NetworkAnimationResponder nar;
     public SpriteResolver Abductee;
@@ -26,6 +27,7 @@ public class UfoController : NetworkBehaviour, IRespawnable
     private void Awake()
     {
         main = this;
+        nar.PlaySpecific("ComeIn");
     }
     public override void Spawned()
     {
@@ -38,10 +40,9 @@ public class UfoController : NetworkBehaviour, IRespawnable
     }
     public void Respawn()
     {
-            realPosition = Vector2.zero;
-            desiredPosition = Vector2.zero;
-            ntf.TeleportToPosition(new Vector3(realPosition.x, transform.position.y, realPosition.y));
-        
+        realPosition = Vector2.zero;
+        desiredPosition = Vector2.zero;
+        ntf.TeleportToPosition(new Vector3(realPosition.x, transform.position.y, realPosition.y));
         nar.PlaySpecific("ComeIn");
     }
 

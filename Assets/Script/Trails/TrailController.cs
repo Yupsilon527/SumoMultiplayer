@@ -53,7 +53,7 @@ public class TrailController : MonoBehaviour
         int i = 0;
         transform.position = entity.transform.position;
         transform.rotation = entity.transform.rotation;
-        transform.localScale = entity.transform.localScale;
+        transform.localScale = entity.transform.lossyScale;
         if (entity.TryGetComponent<SpriteRenderer>(out SpriteRenderer renderer))
         {
             sprites[i].sprite = renderer.sprite;
@@ -67,7 +67,7 @@ public class TrailController : MonoBehaviour
             {
                 sprites[i].transform.position = childsprite.transform.position;
                 sprites[i].transform.rotation = childsprite.transform.rotation;
-                sprites[i].transform.localScale = childsprite.transform.localScale;
+                sprites[i].transform.localScale = childsprite.transform.lossyScale;
                 sprites[i].sprite = childsprite.sprite;
                 sprites[i].flipX = childsprite.flipX;
                 sprites[i].enabled = childsprite.enabled;

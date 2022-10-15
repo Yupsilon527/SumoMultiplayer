@@ -77,6 +77,9 @@ public class GameController : NetworkBehaviour
     {
         if (!Object.HasStateAuthority) return;
 
+        PlayerSpawners.RespawnAllPlayers();
+        gameTimer = TickTimer.CreateFromSeconds(Runner, PreGameTime);
+
         foreach (IRespawnable respawnable in UfoController.main.GetComponents<IRespawnable>())
         {
             respawnable.Respawn();
@@ -104,7 +107,6 @@ public class GameController : NetworkBehaviour
     }
     public void StartNewGame()
     {
-        HandleRestart();
         currentState = GameState.pregame;
 
         //You can do cleaner code--------------------------------------------------------
@@ -181,11 +183,7 @@ public class GameController : NetworkBehaviour
         switch (game.currentState)
         {
             case GameState.pregame:
-                if (game.Object.HasStateAuthority)
-                {
-                    game.PlayerSpawners.RespawnAllPlayers();
-                    game.gameTimer = TickTimer.CreateFromSeconds(game.Runner, game.PreGameTime);
-                }
+                game.HandleRestart();
                 UIController.main.ShowInGameScreen();
                 break;
             case GameState.ingame:

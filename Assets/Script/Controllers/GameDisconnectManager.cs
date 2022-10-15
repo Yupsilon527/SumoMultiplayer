@@ -21,7 +21,7 @@ public class GameDisconnectManager : MonoBehaviour, INetworkRunnerCallbacks
     }
     public void HandlePlayerDisconnect(GameController controller)
     {
-        if (controller.Runner != null)
+        if (controller!=null && controller.Runner != null)
             controller.Runner.Shutdown();
         SceneManager.LoadScene(_menuSceneName);
     }

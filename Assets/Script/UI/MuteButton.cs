@@ -27,6 +27,10 @@ public class MuteButton : MonoBehaviour, iButton
         {
             SetMuted(PlayerPrefs.GetInt(ParameterName + "_muted") == 1);
         }
+        else
+        {
+            SetMuted(false);
+        }
     }
 
     public void Pressed()

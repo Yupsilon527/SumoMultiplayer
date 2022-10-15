@@ -183,6 +183,7 @@ public class LobbyController : MonoBehaviour, INetworkRunnerCallbacks
 
     public void OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason)
     {
+        if (gameObject != null)
         ChangeMenu(LobbyWindow.Main);
     }
 
