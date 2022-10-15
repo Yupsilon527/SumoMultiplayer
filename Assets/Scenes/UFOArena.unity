@@ -2757,11 +2757,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1913136228, guid: 51d475d4d37917b488d838b819aa7969, type: 3}
+    - target: {fileID: 1282120986285617423, guid: 51d475d4d37917b488d838b819aa7969, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 291124343}
-    - target: {fileID: 1913136228, guid: 51d475d4d37917b488d838b819aa7969, type: 3}
+    - target: {fileID: 1282120986285617423, guid: 51d475d4d37917b488d838b819aa7969, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
       value: 
       objectReference: {fileID: 291124341}
