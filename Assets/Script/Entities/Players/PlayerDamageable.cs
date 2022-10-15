@@ -27,6 +27,7 @@ public class PlayerDamageable : NetworkBehaviour, IRespawnable
     }
     public void Respawn()
     {
+        if (!Object.HasStateAuthority) return;
         Rage = 0;
         Damage = 0;
     }

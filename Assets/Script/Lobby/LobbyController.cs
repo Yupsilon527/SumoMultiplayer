@@ -60,6 +60,11 @@ public class LobbyController : MonoBehaviour, INetworkRunnerCallbacks
         if(SoundSelector.Instance!=null)
             SoundSelector.Instance.PlayMenuMusic();
     }
+    private void OnDisable()
+    {
+        if (runner != null)
+            runner.RemoveCallbacks(this);
+    }
 
     string SessionName = "TestRoom";
     public void OnRoomNameChanged(string newName)
@@ -184,7 +189,7 @@ public class LobbyController : MonoBehaviour, INetworkRunnerCallbacks
     public void OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason)
     {
         if (gameObject != null)
-        ChangeMenu(LobbyWindow.Main);
+            ChangeMenu(LobbyWindow.Main);
     }
 
     public void OnUserSimulationMessage(NetworkRunner runner, SimulationMessagePtr message)

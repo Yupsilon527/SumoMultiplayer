@@ -40,9 +40,10 @@ public class UfoController : NetworkBehaviour, IRespawnable
     }
     public void Respawn()
     {
-        realPosition = Vector2.zero;
-        desiredPosition = Vector2.zero;
-        ntf.TeleportToPosition(new Vector3(realPosition.x, transform.position.y, realPosition.y));
+        if (Object.HasStateAuthority) {
+            realPosition = Vector2.zero;
+            desiredPosition = Vector2.zero;
+            ntf.TeleportToPosition(new Vector3(realPosition.x, transform.position.y, realPosition.y)); }
         nar.PlaySpecific("ComeIn");
     }
 

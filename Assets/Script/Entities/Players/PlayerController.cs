@@ -54,10 +54,13 @@ public class PlayerController : NetworkBehaviour, IRespawnable
     public Vector3 StartPosition { get; private set; }
     public void Respawn()
     {
-        Score = 0;
-        if (TryGetComponent(out NetworkRigidbody netrig))
+        if (Object.HasStateAuthority)
         {
-            netrig.TeleportToPosition(StartPosition);
+            Score = 0;
+            if (TryGetComponent(out NetworkRigidbody netrig))
+            {
+                netrig.TeleportToPosition(StartPosition);
+            }
         }
         animations.PlaySpecific("idle");
     }

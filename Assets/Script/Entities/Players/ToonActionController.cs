@@ -69,6 +69,7 @@ public class ToonActionController : NetworkBehaviour, IRespawnable
     }
     public void Respawn()
     {
+        if (!Object.HasStateAuthority) return;
         currentAction = PlayerAction.free;
         actionTime = TickTimer.None;
         actionDirection = Vector3.zero;

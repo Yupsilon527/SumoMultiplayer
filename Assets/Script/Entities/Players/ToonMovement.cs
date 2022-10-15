@@ -17,6 +17,7 @@ public class ToonMovement : NetworkBehaviour, IRespawnable
     }
     public void Respawn()
     {
+        if (!Object.HasStateAuthority) return;
         moveDir *= 0;
         controller.rigidbody.velocity *= 0;
         facesRight = transform.position.x < 0;
