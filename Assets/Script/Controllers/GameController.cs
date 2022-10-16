@@ -101,6 +101,10 @@ public class GameController : NetworkBehaviour
             gameTimer = TickTimer.CreateFromSeconds(Runner, PreGameTime);
             WinningPlayer = null;
         }
+
+        //You can do cleaner code--------------------------------------------------------
+        if(SoundSelector.Instance!=null)
+            SoundSelector.Instance.floatValue=0;
     }
     #endregion
     #region Initialization
@@ -120,10 +124,6 @@ public class GameController : NetworkBehaviour
     public void StartNewGame()
     {
         currentState = GameState.pregame;
-
-        //You can do cleaner code--------------------------------------------------------
-        if(SoundSelector.Instance!=null)
-            SoundSelector.Instance.floatValue=0;
     }
     #endregion
     #region Winning and Game Over
