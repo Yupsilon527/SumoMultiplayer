@@ -67,7 +67,7 @@ public class PlayerController : NetworkBehaviour, IRespawnable
     public override void FixedUpdateNetwork()
     {
         HandleScoreUpdate();
-        animations.SetHighlighted(GameController.main.currentState < GameController.GameState.postgame && Object.HasInputAuthority);
+        animations.SetHighlighted(GameController.main.currentState < GameController.GameState.ingame && Object.HasInputAuthority);
         if (GameController.main.currentState == GameController.GameState.ingame && IsAbducted)
         {
             UfoController.main.nar.PlaySpecific("beamyellow");
