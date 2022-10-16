@@ -23,7 +23,7 @@ public class SelectableSound : MonoBehaviour
     {
         if (randomValue <= minRandomValue || randomValue > maxRandomValue)
         {
-            source.volume = 0;
+            volume = 0;
         }
         else
         {
