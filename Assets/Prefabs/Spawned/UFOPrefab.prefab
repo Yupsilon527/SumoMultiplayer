@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6006362945480287207}
   - component: {fileID: 7661697319503200554}
   - component: {fileID: 7298539004524178715}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Beam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4824,7 +4824,7 @@ GameObject:
   - component: {fileID: 1630596361525581264}
   - component: {fileID: 8093409158373957309}
   - component: {fileID: 3219006311766560063}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Spiral
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9636,7 +9636,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1053443084358146241}
   - component: {fileID: 5194187644368697500}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9998,7 +9998,7 @@ GameObject:
   - component: {fileID: 5497436788254522852}
   - component: {fileID: 7027849127064369671}
   - component: {fileID: 6622820642936198861}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Source Halo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14810,7 +14810,7 @@ GameObject:
   - component: {fileID: 2861794656983617381}
   - component: {fileID: 6334388731897800756}
   - component: {fileID: 337892965107907976}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Halo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19622,7 +19622,7 @@ GameObject:
   - component: {fileID: 8343293179507779686}
   - component: {fileID: 8690795019660038275}
   - component: {fileID: 8306234190327344874}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Outline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
