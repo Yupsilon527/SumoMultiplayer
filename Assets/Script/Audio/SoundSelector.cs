@@ -46,7 +46,8 @@ public class SoundSelector : MonoBehaviour
         _value=newValue;
         foreach(SelectableSound sound in soundList)
         {
-            sound.setVolumeAccordingToFloatValue(_value,_randomValue);
+            if (sound!=null)
+                sound.setVolumeAccordingToFloatValue(_value,_randomValue);
         }
         return _value;
     }
@@ -63,16 +64,19 @@ public class SoundSelector : MonoBehaviour
     private SelectableSound [] soundList=null;
     void Awake()
     {
-        if(instance!=null)
+        if (instance != null)
         {
             Destroy(gameObject);
             return;
         }
 
-        instance=this;
+        instance = this;
         DontDestroyOnLoad(this.gameObject);
-            
-        soundList=GetComponentsInChildren<SelectableSound>();
+        soundList = GetComponentsInChildren<SelectableSound>();
+    }
+    private void Start()
+    {
+
         floatValue=0;
         if(playAtStart)
             PlayGameMusicScheduled(AudioSettings.dspTime+startDelay);

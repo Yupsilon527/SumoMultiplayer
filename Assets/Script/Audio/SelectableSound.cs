@@ -21,28 +21,34 @@ public class SelectableSound : MonoBehaviour
     }
     public void setVolumeAccordingToFloatValue(float floatValue,float randomValue)
     {
-        if(randomValue<=minRandomValue || randomValue>maxRandomValue)
+        if (randomValue <= minRandomValue || randomValue > maxRandomValue)
         {
-            source.volume=0;
-            return;
+            source.volume = 0;
         }
-        if(floatValue<minValue-fading)
+        else
         {
-            volume=0;
-        } else
-        if(floatValue<minValue)
-        {
-            volume=1-(minValue-floatValue)/fading;
-        } else
-        if(floatValue<maxValue)
-        {
-            volume=1;
-        } else if(floatValue<maxValue+fading)
-        {
-            volume=(maxValue+fading-floatValue)/fading;
-        } else
-        {
-            volume=0;
+            if (floatValue < minValue - fading)
+            {
+                volume = 0;
+            }
+            else
+            if (floatValue < minValue)
+            {
+                volume = 1 - (minValue - floatValue) / fading;
+            }
+            else
+            if (floatValue < maxValue)
+            {
+                volume = 1;
+            }
+            else if (floatValue < maxValue + fading)
+            {
+                volume = (maxValue + fading - floatValue) / fading;
+            }
+            else
+            {
+                volume = 0;
+            }
         }
 
         if(source!=null)
