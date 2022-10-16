@@ -24,7 +24,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 5440
+  controlID: 3095
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -141,7 +141,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 5441
+  controlID: 3096
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -166,7 +166,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 5394
+  controlID: 3097
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -271,7 +271,7 @@ MonoBehaviour:
       floating: 0
       collapsed: 0
       displayed: 1
-      snapOffset: {x: 0, y: 0}
+      snapOffset: {x: 0, y: 25}
       snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0
       id: unity-transform-toolbar
@@ -419,9 +419,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 1.5643511, y: -1.9087677, z: 1.8766818}
+    m_Target: {x: 0.1474496, y: -4.5307746, z: 13.377122}
     speed: 2
-    m_Value: {x: 1.5643511, y: -1.9087677, z: 1.8766818}
+    m_Value: {x: 0.1474496, y: -4.5307746, z: 13.377122}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -432,12 +432,12 @@ MonoBehaviour:
   m_ExposureSliderValue: 0
   m_SceneViewState:
     m_AlwaysRefresh: 0
-    showFog: 1
-    showSkybox: 1
-    showFlares: 1
-    showImageEffects: 1
-    showParticleSystems: 1
-    showVisualEffectGraphs: 1
+    showFog: 0
+    showSkybox: 0
+    showFlares: 0
+    showImageEffects: 0
+    showParticleSystems: 0
+    showVisualEffectGraphs: 0
     m_FxEnabled: 1
   m_Grid:
     xGrid:
@@ -468,17 +468,17 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.3263385, y: 0.05528011, z: -0.019057956, w: 0.9435028}
+    m_Target: {x: -0.21260877, y: -0.07117275, z: 0.015517564, w: -0.9744782}
     speed: 2
-    m_Value: {x: 0.32632, y: 0.055276975, z: -0.019056873, w: 0.94344926}
+    m_Value: {x: -0.21259637, y: -0.0711686, z: 0.015516659, w: -0.9744214}
   m_Size:
-    m_Target: 5.4057145
+    m_Target: 13.462316
     speed: 2
-    m_Value: 5.4057145
+    m_Value: 13.462316
   m_Ortho:
-    m_Target: 1
+    m_Target: 0
     speed: 2
-    m_Value: 1
+    m_Value: 0
   m_CameraSettings:
     m_Speed: 1
     m_SpeedNormalized: 0.5
@@ -518,8 +518,8 @@ MonoBehaviour:
     y: 0
     width: 176
     height: 661
-  m_MinSize: {x: 102, y: 121}
-  m_MaxSize: {x: 4002, y: 4021}
+  m_MinSize: {x: 100, y: 100}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 8}
   m_Panes:
   - {fileID: 8}
@@ -640,8 +640,8 @@ MonoBehaviour:
     y: 661
     width: 1466
     height: 286
-  m_MinSize: {x: 231, y: 271}
-  m_MaxSize: {x: 10001, y: 10021}
+  m_MinSize: {x: 230, y: 250}
+  m_MaxSize: {x: 10000, y: 10000}
   m_ActualView: {fileID: 11}
   m_Panes:
   - {fileID: 11}
@@ -677,7 +677,7 @@ MonoBehaviour:
     m_LastAppliedPresetName: Default
     m_SaveData: []
   m_SearchFilter:
-    m_NameFilter: 
+    m_NameFilter: gamedis
     m_ClassNames: []
     m_AssetLabels: []
     m_AssetBundleNames: []
@@ -691,20 +691,20 @@ MonoBehaviour:
     m_Folders:
     - Assets/Scenes
     m_Globs: []
-    m_OriginalText: 
+    m_OriginalText: gamedis
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
   - Assets/Scenes
   m_LastFoldersGridSize: -1
-  m_LastProjectPath: D:\gitHub\test\SumoMultiplayer
+  m_LastProjectPath: D:\Documents\unity\SumoMultiplayer
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: a4750000
-    m_LastClickedID: 30116
-    m_ExpandedIDs: 000000009675000000ca9a3b
+    scrollPos: {x: 0, y: 111}
+    m_SelectedIDs: 8a6f0000
+    m_LastClickedID: 28554
+    m_ExpandedIDs: 00000000646f0000666f0000686f000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -732,7 +732,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000000ca9a3b
+    m_ExpandedIDs: 00000000646f0000666f0000686f000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -757,8 +757,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: ca620000
-    m_LastClickedInstanceID: 25290
+    m_SelectedInstanceIDs: bcd2ffff
+    m_LastClickedInstanceID: -11588
     m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c623000076410000
     m_RenameOverlay:
@@ -808,10 +808,10 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 2249
-    y: 726.5
-    width: 920
-    height: 250
+    x: 0
+    y: 734
+    width: 1465
+    height: 265
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
@@ -840,7 +840,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 5417
+  controlID: 3146
 --- !u!114 &14
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -900,7 +900,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 9e50ffff9668ffff207affff0e8affff8eaaffffb2abffffd6acffff22b3ffff42eaffff74f4ffffdcf8ffff40910000e4910000849c00001a9e00006eb90000eeba000004bb00005eda000072dc000016dd000098e70000180a0100
+      m_ExpandedIDs: 08d3fffffcd4fffffed4ffffe0f1fffff4f2ffffb4f5fffffcfaffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -943,8 +943,8 @@ MonoBehaviour:
     y: 334
     width: 454
     height: 613
-  m_MinSize: {x: 276, y: 71}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 17}
   m_Panes:
   - {fileID: 17}
@@ -984,8 +984,8 @@ MonoBehaviour:
     m_CachedPref: 160
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
-  m_LastInspectedObjectInstanceID: 25290
-  m_LastVerticalScrollValue: 0
+  m_LastInspectedObjectInstanceID: -11588
+  m_LastVerticalScrollValue: 129
   m_GlobalObjectId: 
   m_InspectorMode: 0
   m_LockTracker:
