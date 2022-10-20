@@ -110,7 +110,7 @@ public class LobbyController : MonoBehaviour, INetworkRunnerCallbacks
         var result = await runner.StartGame(new StartGameArgs()
         {
             GameMode = mode,
-            SessionName = mode == GameMode.AutoHostOrClient ? "" : SessionName,
+            SessionName = !Visible ? "" : SessionName,
             CustomLobbyName = SessionName,
             Scene = SceneManager.GetActiveScene().buildIndex,
             SceneManager = runner.GetComponent<NetworkSceneManagerDefault>(),
